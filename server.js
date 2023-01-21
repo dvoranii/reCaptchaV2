@@ -21,8 +21,81 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "/public/", "index.html"));
 });
 
+app.get("/quote-request/", (req, res) => {
+  res.sendFile(
+    path.join(__dirname, "/public/views/quote-request/", "index.html")
+  );
+});
+
+//services middlwares
+// transportation
+app.get("/services/transportation/", (req, res) => {
+  res.sendFile(
+    path.join(__dirname, "/public/views/services/transportation/", "index.html")
+  );
+});
+
+// // ocean
+app.get("/services/transportation/ocean", (req, res) => {
+  res.sendFile(
+    path.join(
+      __dirname,
+      "/public/views/services/transportation/ocean",
+      "index.html"
+    )
+  );
+});
+
+// // air
+app.get("/services/transportation/air", (req, res) => {
+  res.sendFile(
+    path.join(
+      __dirname,
+      "/public/views/services/transportation/air",
+      "index.html"
+    )
+  );
+});
+
+// // truck
+app.get("/services/transportation/truck", (req, res) => {
+  res.sendFile(
+    path.join(
+      __dirname,
+      "/public/views/services/transportation/truck",
+      "index.html"
+    )
+  );
+});
+
+// // truck
+app.get("/services/transportation/warehouse", (req, res) => {
+  res.sendFile(
+    path.join(
+      __dirname,
+      "/public/views/services/transportation/warehouse",
+      "index.html"
+    )
+  );
+});
+
+// contact
+app.get("/contact-on", (req, res) => {
+  res.sendFile(
+    path.join(__dirname, "/public/views/contact/contact-on/", "contact-on.html")
+  );
+});
+app.get("/contact-qc", (req, res) => {
+  res.sendFile(
+    path.join(__dirname, "/public/views/contact/contact-qc/", "contact-qc.html")
+  );
+});
+
 app.get("/success", (req, res) => {
   res.sendFile(path.join(__dirname, "/public/views/", "success.html"));
+});
+app.get("/failure", (req, res) => {
+  res.sendFile(path.join(__dirname, "/public/views/", "failure.html"));
 });
 
 // get req object and if captcha is truthy

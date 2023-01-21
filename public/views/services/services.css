@@ -1,0 +1,74 @@
+.service-freight-wrapper {
+  display: flex;
+  align-items: center;
+}
+.service-freight-wrapper p {
+  padding-left: 20px;
+}
+.service-freight-wrapper img {
+  width: 30vw;
+}
+
+.title-wrapper.sporting-title-wrapper p {
+  padding-left: 1.2rem;
+}
+
+.warehouse-wrapper {
+  display: flex;
+  justify-content: center;
+  background-color: grey;
+}
+.warehouse-wrapper img {
+  max-width: 80%;
+}
+
+.warehouse-list {
+  padding-left: 1.8rem;
+  padding-top: 1.2rem;
+}
+
+.sporting-goods-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-template-rows: repeat(4, 1fr);
+}
+
+.sporting-goods-grid img {
+  max-width: 400px;
+  width: 100%;
+}
+
+.air-service-cell img {
+  grid-column: 1;
+}
+
+.air-service-cell p {
+  grid-column: 2;
+}
+
+.sporting-goods-grid p {
+  padding-top: 3.2rem;
+  padding-left: 1.2rem;
+}
+
+.sporting-goods-grid h2 {
+  padding-bottom: 1.2rem;
+}
+
+.sporting-goods-grid div {
+  max-height: 400px;
+}
+
+.hero-logo {
+  max-width: 80vw;
+}
+
+.grid-cell img {
+  max-width: 30vw;
+}
+
+.transportation-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 40px;
+}

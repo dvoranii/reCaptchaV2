@@ -1,0 +1,60 @@
+.form-wrapper-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 2rem;
+}
+
+.form-wrapper-grid input,
+.pickup-info-textarea,
+.shipping-info-textarea {
+  width: 100%;
+  margin-top: 1.2rem;
+}
+
+.number-pieces,
+.number-skids {
+  width: 49% !important;
+}
+
+.shipment-service-type,
+.hs-codes {
+  width: 49% !important;
+}
+
+.shippment-cont {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+
+.spacer {
+  grid-column: span 2;
+}
+
+.cell1,
+.cell2,
+.cell3 {
+  height: 50%;
+  margin-top: 1.2rem !important;
+  width: 98% !important;
+}
+
+input.checkbox {
+  width: 20%;
+}
+
+.checkbox-label {
+  font-size: 12px;
+}
+
+.skid-dimensions input {
+  width: 32% !important;
+}
+
+.additional-info {
+  grid-column: span 2;
+  margin-top: 1.2rem;
+}
+.additional-info textarea {
+  width: 100%;
+}

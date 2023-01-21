@@ -8,9 +8,9 @@ let captcha;
 
 // need to explicitly load page before captcha
 window.onload = function () {
-  if (captcha) {
-    captcha = document.querySelector("#g-recaptcha-response");
-  }
+  // if (captcha) {
+  captcha = document.querySelector("#g-recaptcha-response");
+  // }
 };
 
 if (myForm) {
@@ -24,6 +24,7 @@ let isValid = false;
 function validateForm() {}
 
 // Should change this to VerifyCaptcha
+// this needs to be on the quote request form also
 function sendFormData() {
   let formValues = JSON.stringify({
     name: fullName.value,
@@ -45,7 +46,7 @@ function sendFormData() {
         console.log("true");
 
         // this is being rendered server side
-        window.location.href += "success";
+        window.location.href = "http://localhost:5000/success";
       }
       if (data.success == false) {
         console.error(data);
@@ -58,12 +59,35 @@ function sendFormData() {
     });
 }
 
+// Might want to do this in a separate module and import it here
+function initBurgerMenu(burger, nav, navLinks) {
+  if (burger) {
+    burger.addEventListener("click", () => {
+      nav.classList.toggle("nav-active");
+      navLinks.forEach((link, index) => {
+        if (link.style.animation) {
+          link.style.animation = "";
+        } else {
+          link.style.animation = `navLinkFade 0.5s ease forwards ${index / 7}s`;
+        }
+      });
+      // Burger animation
+      burger.classList.toggle("toggle");
+    });
+  }
+}
+
 function getNav() {
-  fetch("/views/navigation.html")
+  fetch("/views/global-components/navigation.html")
     .then((res) => res.text())
     .then((navHtml) => {
       navContainer.innerHTML = navHtml;
-      console.log(navHtml);
+
+      const burger = document.querySelector(".burger");
+      const nav = document.querySelector(".nav-links");
+      const navLinks = document.querySelectorAll(".nav__link");
+
+      initBurgerMenu(burger, nav, navLinks);
     });
 }
 

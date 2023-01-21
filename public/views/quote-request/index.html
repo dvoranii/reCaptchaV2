@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css" />
+    <link rel="stylesheet" href="/views/global-components/nav.css" />
+    <link rel="stylesheet" href="/views/quote-request/quoteRequest.css">
+    <title>Document</title>
+</head>
+<body>
+    <div id="navigation"></div>
+    <div class="container">
+        <form class="form-wrapper-grid" id="myForm" method="POST" action="" data-netlify="true">
+            <div class="company-info-a">
+              <label for="">Company Information</label>
+              <input name="name" id="fullName" type="text" placeholder="*Your Name" required/>
+              <input name="companyName" id="companyName" type="text" placeholder="Company Name" required />
+            </div>
+            <div class="company-info-b">
+              <label for="">&nbsp;</label>
+            
+              <input name="email" id="email" type="email" placeholder="email" required/>
+              <input name="phone" id="phone" type="tel" placeholder="*Phone number" required />
+            </div>
+    
+            <div class="pickup-info">
+              <br />
+              <label for="">Pickup Information</label>
+              <textarea
+              id="pickupInfo"
+                class="pickup-info-textarea"
+                name=""
+                id=""
+                cols="30"
+                rows="10"
+                placeholder="* Pick up address or origin Airport port"
+                name="pickupInfo"
+              ></textarea>
+            </div>
+    
+            <div class="shipping-info">
+              <br />
+              <label for="">Shipping Information</label>
+              <textarea
+              id="shippingInfo"
+                class="shipping-info-textarea"
+                name=""
+                id=""
+                cols="30"
+                rows="10"
+                placeholder="* Shipping address, origin or airport port"
+                name="shippingInfo"
+              ></textarea>
+            </div>
+    
+            <!-- ------------------------------ -->
+            <div class="shippment-details">
+              <br />
+              <p>Shipment Details</p>
+              <input
+                type="text"
+                placeholder="* Number of skids"
+                class="number-skids"
+                name="numSkids"
+              />
+              <input
+                type="text"
+                placeholder="* Number of pieces"
+                class="number-pieces"
+                name="numPieces"
+              />
+              <select
+                name=""
+                id=""
+                placeholder="* Service"
+                class="shipment-service-type"
+                name="serviceType"
+              >
+                <option value="" selected disabled hidden>* Service</option>
+                <option value="">Air</option>
+                <option value="">Ocean</option>
+              </select>
+              <input
+                type="text"
+                placeholder="Commodity and HS Codes"
+                class="hs-codes"
+                name="hsCodes"
+              />
+            </div>
+            <!-- ------------------------------ -->
+    
+            <div class="shippment-cont">
+              <p class="spacer">&nbsp;</p>
+              <input type="text" class="cell1 weight" placeholder="* Weight"></input>
+              <select name="" id="" class="cell2 weight-units" name="weight">
+                <option value="" selected disabled hidden>* Units Lbs or Kg</option>
+                <option value="">Lbs</option>
+                <option value="">Kg</option>
+              </select>
+              <select name="" id="" class="cell3 hazardous" name="hazardous">
+    
+                <option value="" selected disabled hidden>* Hazardous Yes or No</option>
+                <option value="">Hazardous - YES</option>
+                <option value="">Hazardous - NO</option>
+              </select>
+              <div class="checkbox-wrapper" class="cell4">
+               
+                <input type="checkbox" class="checkbox" name="personal">
+                <label for="" class="checkbox-label">Non Personal Effects</label>
+              </div>
+            </div>
+    
+            <div class="skid-type-wrapper">
+    
+            </div>
+    
+            <div class="skid-dimensions">
+    
+            </div>
+    
+            <div class="additional-info">
+              <textarea name="" id="" cols="30" rows="10" placeholder="Additional information or Special instructions" name="additionalInfo"></textarea>
+            </div>
+    
+            <div class="submit-btn-container">
+              <button type="submit" class="submit">SUBMIT</button>
+            </div>
+            <div class="clear-btn-container">
+              <button type="reset">CLEAR</button>
+            </div>
+
+            <div
+            class="g-recaptcha"
+            data-sitekey="6LdGhAokAAAAANFdqnRx05SiwfKA8fd6CCc9gmHX"
+          ></div>
+
+          <div class="error-captcha">&nbsp;</div>
+          </form>
+       </div>
+
+       <script src="https://www.google.com/recaptcha/api.js" async></script>
+       <script src="/app.js"></script>
+       <script src="/views/global-components/nav.js"></script>
+       <script src="/views/quote-request/quoteRequest.js"></script>
+</body>
+</html>
