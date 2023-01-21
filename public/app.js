@@ -2,22 +2,25 @@ const fullName = document.querySelector(".name-input");
 const email = document.querySelector(".email-input");
 const submitBtn = document.querySelector(".submit");
 const myForm = document.querySelector(".form");
+let navContainer = document.querySelector("#navigation");
 let errorCap = document.querySelector(".error-captcha");
 let captcha;
 
 // need to explicitly load page before captcha
 window.onload = function () {
-  captcha = document.querySelector("#g-recaptcha-response");
-  // var onloadCallback = function () {
-  //   console.log(captcha.value);
-  // };
+  if (captcha) {
+    captcha = document.querySelector("#g-recaptcha-response");
+  }
 };
 
-myForm.addEventListener("submit", (e) => {
-  e.preventDefault();
-  sendFormData();
-});
+if (myForm) {
+  myForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    sendFormData();
+  });
+}
 
+let isValid = false;
 function validateForm() {}
 
 // Should change this to VerifyCaptcha
@@ -41,8 +44,8 @@ function sendFormData() {
       if (data.success == true) {
         console.log("true");
 
-        // just make sure there is a matching middleware on the node end
-        window.location.href = "http://localhost:5000/success";
+        // this is being rendered server side
+        window.location.href += "success";
       }
       if (data.success == false) {
         console.error(data);
@@ -54,3 +57,14 @@ function sendFormData() {
       console.error(err);
     });
 }
+
+function getNav() {
+  fetch("/views/navigation.html")
+    .then((res) => res.text())
+    .then((navHtml) => {
+      navContainer.innerHTML = navHtml;
+      console.log(navHtml);
+    });
+}
+
+getNav();
