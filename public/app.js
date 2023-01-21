@@ -2,9 +2,11 @@ const fullName = document.querySelector(".name-input");
 const email = document.querySelector(".email-input");
 const submitBtn = document.querySelector(".submit");
 const myForm = document.querySelector(".form");
-let navContainer = document.querySelector("#navigation");
+
 let errorCap = document.querySelector(".error-captcha");
 let captcha;
+
+import getNav from "./views/global-components/nav.js";
 
 // need to explicitly load page before captcha
 window.onload = function () {
@@ -56,38 +58,6 @@ function sendFormData() {
     })
     .catch((err) => {
       console.error(err);
-    });
-}
-
-// Might want to do this in a separate module and import it here
-function initBurgerMenu(burger, nav, navLinks) {
-  if (burger) {
-    burger.addEventListener("click", () => {
-      nav.classList.toggle("nav-active");
-      navLinks.forEach((link, index) => {
-        if (link.style.animation) {
-          link.style.animation = "";
-        } else {
-          link.style.animation = `navLinkFade 0.5s ease forwards ${index / 7}s`;
-        }
-      });
-      // Burger animation
-      burger.classList.toggle("toggle");
-    });
-  }
-}
-
-function getNav() {
-  fetch("/views/global-components/navigation.html")
-    .then((res) => res.text())
-    .then((navHtml) => {
-      navContainer.innerHTML = navHtml;
-
-      const burger = document.querySelector(".burger");
-      const nav = document.querySelector(".nav-links");
-      const navLinks = document.querySelectorAll(".nav__link");
-
-      initBurgerMenu(burger, nav, navLinks);
     });
 }
 

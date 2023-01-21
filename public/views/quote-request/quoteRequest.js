@@ -1,5 +1,3 @@
-console.log("Quote js loaded");
-
 const numPieces = document.querySelector(".number-pieces");
 const shipmentServiceType = document.querySelector(".shipment-service-type");
 const hsCodes = document.querySelector(".hs-codes");
@@ -17,7 +15,7 @@ const numSkids = document.querySelector(".number-skids");
 const skidDimensions = document.querySelector(".skid-dimensions");
 const skidTypeWrapper = document.querySelector(".skid-type-wrapper");
 
-// let submitBtn = document.querySelector(".submit");
+let submitBtn = document.querySelector(".submit");
 
 (function () {
   if (!skidTypeWrapper) {
