@@ -1,18 +1,22 @@
+"use strict";
+
 const fullName = document.querySelector(".name-input");
 const email = document.querySelector(".email-input");
 const submitBtn = document.querySelector(".submit");
 const myForm = document.querySelector(".form");
 
 let errorCap = document.querySelector(".error-captcha");
-let captcha;
+let captcha = document.querySelector(".g-recaptcha");
+let captchaRes;
 
 import getNav from "./views/global-components/nav.js";
 
-// need to explicitly load page before captcha
+// need to explicitly load page before selecting recaptcha
 window.onload = function () {
-  // if (captcha) {
-  captcha = document.querySelector("#g-recaptcha-response");
-  // }
+  if (captcha) {
+    captchaRes = document.querySelector("#g-recaptcha-response");
+    console.log(captchaRes);
+  }
 };
 
 if (myForm) {
@@ -31,7 +35,7 @@ function sendFormData() {
   let formValues = JSON.stringify({
     name: fullName.value,
     email: email.value,
-    captcha: captcha.value,
+    captcha: captchaRes.value,
   });
 
   fetch("/submit", {
@@ -48,6 +52,7 @@ function sendFormData() {
         console.log("true");
 
         // this is being rendered server side
+        // figure out a way to do this so when it's deployed it still works
         window.location.href = "http://localhost:5000/success";
       }
       if (data.success == false) {

@@ -1,9 +1,14 @@
+"use strict";
+
 const express = require("express");
 const router = express.Router();
 const path = require("path");
 
 router.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "/public/", "index.html"));
+});
+router.get("/about", (req, res) => {
+  res.sendFile(path.join(__dirname, "/public/views/about", "index.html"));
 });
 
 router.get("/quote-request/", (req, res) => {
@@ -17,6 +22,11 @@ router.get("/quote-request/", (req, res) => {
 router.get("/services/transportation/", (req, res) => {
   res.sendFile(
     path.join(__dirname, "/public/views/services/transportation/", "index.html")
+  );
+});
+router.get("/services/sporting-goods/", (req, res) => {
+  res.sendFile(
+    path.join(__dirname, "/public/views/services/sporting-goods/", "index.html")
   );
 });
 

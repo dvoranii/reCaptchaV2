@@ -1,3 +1,5 @@
+"use strict";
+
 let navContainer = document.querySelector("#navigation");
 
 function initBurgerMenu(burger, nav, navLinks) {
