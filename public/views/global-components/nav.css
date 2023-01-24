@@ -23,20 +23,6 @@
   padding: 20px 10px;
 }
 
-.hero-logo {
-  max-width: 80vw;
-}
-
-.home-container {
-  display: flex;
-  justify-content: center;
-  background: linear-gradient(rgba(0, 0, 0, 0.651), rgba(0, 0, 0, 0.5)),
-    url("/assets/ocean.webp");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
-}
-
 nav {
   display: flex;
   justify-content: space-around;
@@ -98,6 +84,7 @@ nav {
   opacity: 0;
   background: black;
   padding: 10px 0px 10px 10px;
+  pointer-events: none;
 }
 
 .contact-submenu {
@@ -107,11 +94,13 @@ nav {
 .contact-link:hover + .contact-submenu,
 .contact-submenu:hover {
   animation: fadeInSlideDown 0.5s ease forwards;
+  pointer-events: all;
 }
 
 .transportation-link:hover + .transportation-submenu,
 .transportation-submenu:hover {
   animation: fadeInSlideDown 0.5s ease forwards;
+  pointer-events: all;
 }
 
 .transportation-submenu-wrapper {

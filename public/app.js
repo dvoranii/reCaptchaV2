@@ -6,16 +6,15 @@ const submitBtn = document.querySelector(".submit");
 const myForm = document.querySelector(".form");
 
 let errorCap = document.querySelector(".error-captcha");
-let captcha = document.querySelector(".g-recaptcha");
+// let captcha = document.querySelector(".g-recaptcha");
 let captchaRes;
 
 import getNav from "./views/global-components/nav.js";
 
 // need to explicitly load page before selecting recaptcha
 window.onload = function () {
-  if (captcha) {
+  if (grecaptcha) {
     captchaRes = document.querySelector("#g-recaptcha-response");
-    console.log(captchaRes);
   }
 };
 
@@ -47,7 +46,7 @@ function sendFormData() {
   })
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
+      // console.log(data);
       if (data.success == true) {
         console.log("true");
 

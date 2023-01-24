@@ -6,31 +6,66 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="/views/global-components/nav.css" />
-    <title>Document</title>
+    <title>Contact - ON</title>
   </head>
   <body>
     <div id="navigation"></div>
-    <h1>Contact ON</h1>
     <div class="container">
+      <div class="title-wrapper">
+        <img src="/assets/globe-icon-img.png" />
+        <h1>ONTARIO</h1>
+      </div>
+      <div class="contact-wrapper">
+        <div class="map-container">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2887.2629547488655!2d-79.70124408411675!3d43.642697179121576!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882b3f9cf5df3f69%3A0xa7f9f217d07e3f26!2s65%20Superior%20Blvd%2C%20Mississauga%2C%20ON%20L5T%202X9!5e0!3m2!1sen!2sca!4v1666275704809!5m2!1sen!2sca"
+            style="border: 0"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+        </div>
+        <div class="contact-info">
+          <h3>CARGO DELIVERY YYZ:</h3>
+          <br />
+          <address>
+            65 Superior Blvd, Unit #2<br />
+            Mississauga, Ontario<br />
+            L5T 2X9<br /><br />
+            E-MAIL:
+            <a
+              href="mailto:opsyyz@CanadianGlobalLogistics.ca
+          "
+              >opsyyz@CanadianGlobalLogistics.ca
+            </a>
+          </address>
+
+          <h3>OFFICE MAILING ADDRESS:</h3>
+          <br />
+          <address>
+            46 Tiffany Lane,<br />
+            Georgetown, Ontario<br />
+            L7G 0H1<br /><br />
+            OFFICE: <a href="tel:6472373811">647-237-3811</a><br /><br />
+            E-MAIL:
+            <a
+              href="mailto:Cindy@CanadianGlobalLogistics.ca
+          "
+              > Cindy@CanadianGlobalLogistics.ca
+            </a>
+          </address>
+        </div>
+      </div>
       <div class="form-container">
         <form class="form" id="demo-forn" method="">
           <label for="name" class="form-label">Name:</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            class="name-input"
-          /><br /><br />
+          <input type="text" id="name" name="name" class="name-input" />
           <label for="email" class="form-label">Email:</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            class="email-input"
-          /><br />
+          <input type="email" id="email" name="email" class="email-input" />
           <div
             class="g-recaptcha"
             data-sitekey="6LdGhAokAAAAANFdqnRx05SiwfKA8fd6CCc9gmHX"
+            data-badge="none"
           ></div>
           <br />
           <button class="submit">Submit</button>
@@ -38,7 +73,6 @@
         </form>
       </div>
     </div>
-
     <script src="https://www.google.com/recaptcha/api.js" async></script>
     <script type="module" src="app.js"></script>
   </body>
