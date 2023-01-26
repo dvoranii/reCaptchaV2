@@ -17,6 +17,10 @@ body {
   padding-bottom: 9.6rem;
 }
 
+.container-body {
+  min-height: 70vh;
+}
+
 .home-container {
   display: flex;
   align-items: center;

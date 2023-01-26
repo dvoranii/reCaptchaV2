@@ -5,9 +5,10 @@
 
 .footer-nav {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   margin-bottom: 1em;
+  background: #333333;
 }
 
 .footer-nav ul {
@@ -26,4 +27,12 @@
 
 .legal {
   text-align: center;
+  background: #666666;
+  padding: 20px 0px;
+}
+
+.logo-nav-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 0px 20px;
 }
