@@ -1,0 +1,29 @@
+.footer-logo img {
+  width: 200px;
+  margin-bottom: 1em;
+}
+
+.footer-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1em;
+}
+
+.footer-nav ul {
+  list-style: none;
+  display: flex;
+}
+
+.footer-nav li {
+  margin-right: 1em;
+}
+
+.footer-nav a {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.legal {
+  text-align: center;
+}

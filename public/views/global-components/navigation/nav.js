@@ -13,14 +13,14 @@ function initBurgerMenu(burger, nav, navLinks) {
           link.style.animation = `navLinkFade 0.5s ease forwards ${index / 7}s`;
         }
       });
-      // Burger animation
+
       burger.classList.toggle("toggle");
     });
   }
 }
 
 export default function getNav() {
-  fetch("/views/global-components/navigation.html")
+  fetch("/views/global-components/navigation/navigation.html")
     .then((res) => res.text())
     .then((navHtml) => {
       navContainer.innerHTML = navHtml;
@@ -29,6 +29,8 @@ export default function getNav() {
       const nav = document.querySelector(".nav-links");
       const navLinks = document.querySelectorAll(".nav__link");
 
-      initBurgerMenu(burger, nav, navLinks);
+      if (burger) {
+        initBurgerMenu(burger, nav, navLinks);
+      }
     });
 }

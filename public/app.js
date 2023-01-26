@@ -9,7 +9,10 @@ let errorCap = document.querySelector(".error-captcha");
 // let captcha = document.querySelector(".g-recaptcha");
 let captchaRes;
 
-import getNav from "./views/global-components/nav.js";
+import getNav from "./views/global-components/navigation/nav.js";
+import getFooter from "./views/global-components/footer/footer.js";
+
+getFooter();
 
 // need to explicitly load page before selecting recaptcha
 window.onload = function () {

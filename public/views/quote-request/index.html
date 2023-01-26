@@ -5,7 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/style.css" />
-    <link rel="stylesheet" href="/views/global-components/nav.css" />
+    <link rel="stylesheet" href="/views/global-components/navigation/nav.css" />
+    <link rel="stylesheet" href="/views/global-components/footer/footer.css" />
     <link rel="stylesheet" href="/views/quote-request/quoteRequest.css">
     <title>Document</title>
 </head>
@@ -140,9 +141,14 @@
           </form>
        </div>
 
+       <footer>
+        <div class="footer-container"></div>
+       </footer>
+
        <script src="https://www.google.com/recaptcha/api.js" async></script>
        <script type="module" src="/app.js"></script>
-       <script type="module" src="/views/global-components/nav.js"></script>
+
+       <!-- might be able to avoid this by importing it into app.js and then adding a guard clause -->
        <script src="/views/quote-request/quoteRequest.js"></script>
 </body>
 </html>
