@@ -58,3 +58,30 @@ input.checkbox {
 .additional-info textarea {
   width: 100%;
 }
+
+/* error messages */
+
+.quote-error--name,
+.quote-error--email,
+.quote-error--companyName,
+.quote-error--phone,
+.quote-error--pickupInfo,
+.quote-error--shippingInfo,
+.quote-error--numSkids-max,
+.quote-error--numSkids-invalid {
+  color: red;
+  margin-top: 0.2rem;
+  font-size: 12px;
+  display: none;
+}
+
+.quote-error--name.active,
+.quote-error--email.active,
+.quote-error--companyName.active,
+.quote-error--phone.active,
+.quote-error--pickupInfo.active,
+.quote-error--shippingInfo.active,
+.quote-error--numSkids-max.active,
+.quote-error--numSkids-invalid.active {
+  display: block;
+}

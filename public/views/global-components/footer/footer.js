@@ -11,10 +11,11 @@ export default function renderFooter() {
   <div class="footer-nav-container">
     <nav class="footer-nav">
       <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Request a Quote</a></li>
-        <li><a href="#">Contact</a></li>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about">About</a></li>
+        
+        <li><a href="/quote-request">Request a Quote</a></li>
+        <li><a href="/contact-on">Contact</a></li>
       </ul>
     </nav>
   </div>

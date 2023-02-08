@@ -9,10 +9,10 @@ let errorCap = document.querySelector(".error-captcha");
 // let captcha = document.querySelector(".g-recaptcha");
 let captchaRes;
 
-import initRenderNav from "./views/global-components/navigation/nav.js";
+import renderNavigation from "./views/global-components/navigation/nav.js";
 import renderFooter from "./views/global-components/footer/footer.js";
 
-initRenderNav();
+renderNavigation();
 renderFooter();
 
 // need to explicitly load page before selecting recaptcha

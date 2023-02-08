@@ -11,13 +11,14 @@ router.get("/about", (req, res) => {
   res.sendFile(path.join(__dirname, "/public/views/about", "index.html"));
 });
 
+// quote request
+
 router.get("/quote-request/", (req, res) => {
   res.sendFile(
     path.join(__dirname, "/public/views/quote-request/", "index.html")
   );
 });
 
-//services middlwares
 // transportation
 router.get("/services/transportation/", (req, res) => {
   res.sendFile(
