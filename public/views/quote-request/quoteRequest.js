@@ -6,8 +6,7 @@ const weight = document.querySelector(".weight");
 const weightUnits = document.querySelector(".weight-units");
 const hazardous = document.querySelector(".hazardous");
 const checkbox = document.querySelector(".checkbox");
-// const fullName = document.getElementById("fullName");
-// const email = document.getElementById("email");
+const clearBtn = document.querySelector(".clear-btn");
 const phone = document.getElementById("phone");
 const email = document.getElementById("email");
 const companyName = document.getElementById("companyName");
@@ -29,26 +28,27 @@ let phoneErrorMsg = document.querySelector(".quote-error--phone");
 
 let submitBtn = document.querySelector(".submit");
 
+// need to explain why I'm doing this (state management)
+function setSkidTemplate(position, i) {
+  let templateSkidTypes = `<input type="text" placeholder="Type: (Skid, Carton, Tube etc)" data-count="${i}" class="skid-type" name='skid-type'>`;
+  let templateSkidDimensions = `<div class="dimensions-wrapper">
+                                          <input type="text" placeholder="Length" class="dimensions-input length" data-count="${i}" name='length'>
+                                          <input type="text" placeholder="Width" class="dimensions-input width" data-count="${i}" name='width'>
+                                          <input type="text" placeholder="Height" class="dimensions-input height" data-count="${i}" name='height'>
+                                        </div>`;
+
+  skidTypeWrapper.insertAdjacentHTML(position, templateSkidTypes);
+  skidDimensions.insertAdjacentHTML(position, templateSkidDimensions);
+}
+
 (function () {
   if (!skidTypeWrapper) {
     return;
   }
-  // if (window.location.href.split("/")[3]) {
   window.addEventListener("DOMContentLoaded", () => {
-    let templateSkidTypes = `<input type="text" placeholder="Type: (Skid, Carton, Tube etc)" data-count="0" class="skid-type" name='skid-type'>`;
-
-    let templateSkidDimensions = `<div class="dimensions-wrapper">
-                                          <input type="text" placeholder="Length" class="dimensions-input length" data-count="0" name='length'>
-                                          <input type="text" placeholder="Width" class="dimensions-input width" data-count="0" name='width'>
-                                          <input type="text" placeholder="Height" class="dimensions-input height" data-count="0" name='height'>
-                                        </div>`;
-
-    skidTypeWrapper.insertAdjacentHTML("afterbegin", templateSkidTypes);
-    skidDimensions.insertAdjacentHTML("afterbegin", templateSkidDimensions);
-
+    setSkidTemplate("afterbegin", 0);
     displaySkidInputs();
   });
-  // }
 })();
 
 function validateNumSkids() {
@@ -58,6 +58,7 @@ function validateNumSkids() {
   if (numSkids.value > 20 && isNumber) {
     numSkidsErrorMax.classList.add("active");
     numSkidsErrorInvalid.classList.remove("active");
+    return false;
   }
 
   if (numSkidsErrorMax.classList.contains("active") && numSkids.value < 20) {
@@ -117,20 +118,15 @@ function displaySkidInputs() {
   numSkids.addEventListener("input", () => {
     skidTypeWrapper.innerHTML = "";
     skidDimensions.innerHTML = "";
+
     validateNumSkids();
+    // prevents UI from displaying more than 20 rows
+    if (validateNumSkids() === false) {
+      return;
+    }
+
     for (let i = 0; i < numSkids.value; i++) {
-      let templateSkidTypes = `<input type="text" placeholder="Type: (Skid, Carton, Tube etc)" data-count="${i}" class="skid-type" name='skid-type'>`;
-      // if value exceeds 20 set default number on UI to 1 row
-      if (numSkids.value > 20) {
-        skidTypeWrapper.insertAdjacentHTML("beforeend", templateSkidTypes);
-      }
-      let templateSkidDimensions = `<div class="dimensions-wrapper">
-                                    <input type="text"  placeholder="Length" class="dimensions-input length" data-count="${i}" name='length'>
-                                    <input type="text" placeholder="Width" class="dimensions-input width" data-count="${i}" name='width'>
-                                    <input type="text" placeholder="Height" class="dimensions-input height" data-count="${i}" name='height'>
-                                  </div>`;
-      skidTypeWrapper.insertAdjacentHTML("beforeend", templateSkidTypes);
-      skidDimensions.insertAdjacentHTML("beforeend", templateSkidDimensions);
+      setSkidTemplate("beforeend", i);
     }
   });
 }
@@ -143,6 +139,7 @@ if (submitBtn) {
     let inputs = document.querySelectorAll(".dimensions-input");
     let skidTypes = document.querySelectorAll(".skid-type");
 
+    // need to refactor this to make it more presentable in the DB
     let arrInput = [];
     inputs.forEach((input) => {
       skidTypes.forEach((type, i) => {

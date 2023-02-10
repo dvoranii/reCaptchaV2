@@ -17,6 +17,7 @@ function initBurgerMenu(burger, nav, navLinks) {
   }
 }
 
+// might be better to make this a custom web component
 export default function renderNavigation() {
   let navContainer = document.querySelector("#navigation");
   let navHtml = `

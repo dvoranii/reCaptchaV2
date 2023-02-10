@@ -15,7 +15,7 @@ import renderFooter from "./views/global-components/footer/footer.js";
 renderNavigation();
 renderFooter();
 
-// need to explicitly load page before selecting recaptcha
+// need to explicitly load page before selecting recaptcha to get access to its response object
 window.onload = function () {
   if (grecaptcha) {
     captchaRes = document.querySelector("#g-recaptcha-response");
@@ -32,14 +32,23 @@ if (myForm) {
 let isValid = false;
 function validateForm() {}
 
+function sanitizeInput(input) {
+  return input.replace(/[^\w\s@.]/gi, "");
+}
 // Should change this to VerifyCaptcha
 // this needs to be on the quote request form also
 function sendFormData() {
+  let nameValue = sanitizeInput(fullName.value);
+  let emailValue = sanitizeInput(email.value);
+
+  console.log(nameValue, emailValue);
   let formValues = JSON.stringify({
-    name: fullName.value,
-    email: email.value,
+    name: nameValue,
+    email: emailValue,
     captcha: captchaRes.value,
   });
+
+  console.log(formValues);
 
   fetch("/submit", {
     method: "POST",

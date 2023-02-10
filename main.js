@@ -23,9 +23,21 @@ app.use("/", routes);
 // get req object and if captcha is truthy
 // send back res object and create the new contact
 // save the contact in google firebase as well
+
+// look into modularizing validation and sanitization
+function sanitizeInput(input) {
+  return input.replace(/[^\w\s@.]/gi, "");
+}
+
 app.post("/submit", (req, res) => {
   let reqCap = req.body.captcha;
-  if (reqCap === undefined || reqCap === "" || reqCap === null) {
+  let reqName = sanitizeInput(req.body.name);
+  let reqEmail = sanitizeInput(req.body.email);
+
+  console.log(reqName, reqEmail);
+
+  console.log(req.body);
+  if (reqCap === undefined || reqCap == "" || reqCap === null) {
     return res.json({
       success: false,
       msg: "Please select captcha",
@@ -38,6 +50,7 @@ app.post("/submit", (req, res) => {
 
   request(verifyUrl, (err, response, body) => {
     body = JSON.parse(body);
+    console.log(body);
 
     if (body.success !== undefined && !body.success) {
       return res.json({ success: false, msg: "Failed verification" });
