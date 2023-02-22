@@ -29,6 +29,7 @@ nav {
   align-items: center;
   min-height: 8vh;
   background-color: grey;
+  font-size: clamp(1.2rem, 1.4vw, 1.4rem);
 }
 
 .nav-links {

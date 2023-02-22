@@ -29,12 +29,26 @@ if (myForm) {
   });
 }
 
-let isValid = false;
-function validateForm() {}
+// is being done for quote request form
+// let isValid = false;
+// function validateForm() {}
 
 function sanitizeInput(input) {
   return input.replace(/[^\w\s@.]/gi, "");
 }
+
+function generateCSRFToken() {
+  const csrfToken =
+    Math.random().toString(36).substring(2, 15) +
+    Math.random().toString(36).substring(2, 15);
+  sessionStorage.setItem("csrfToken", csrfToken);
+  return csrfToken;
+}
+
+function getCSRFToken() {
+  return sessionStorage.getItem("csrfToken");
+}
+
 // Should change this to VerifyCaptcha
 // this needs to be on the quote request form also
 function sendFormData() {
@@ -42,6 +56,8 @@ function sendFormData() {
   let emailValue = sanitizeInput(email.value);
 
   console.log(nameValue, emailValue);
+
+  // pass the csrf
   let formValues = JSON.stringify({
     name: nameValue,
     email: emailValue,

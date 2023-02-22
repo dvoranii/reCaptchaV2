@@ -10,7 +10,8 @@
 }
 
 .title-wrapper.sporting-title-wrapper p {
-  padding-left: 1.2rem;
+  font-size: clamp(1.2rem, 2vw, 1.8rem);
+  padding-left: 1rem;
 }
 
 .warehouse-wrapper {
@@ -27,6 +28,11 @@
   padding-top: 1.2rem;
 }
 
+address,
+a,
+.warehouse-list {
+  font-size: clamp(1.2rem, 1.4vw, 1.4rem);
+}
 .sporting-goods-grid {
   display: grid;
   grid-template-columns: 1fr 2fr;

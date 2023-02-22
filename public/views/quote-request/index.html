@@ -16,18 +16,18 @@
         <form class="form-wrapper-grid" id="myForm" method="POST" action="" data-netlify="true">
             <div class="company-info-a">
               <label for="">Company Information</label>
-              <input name="name" id="fullName" type="text" placeholder="*Your Name" required/>
+              <input name="name" id="fullName" type="text" placeholder="*Your Name"/>
               <p class="quote-error--name">Please enter a name</p>
-              <input name="companyName" id="companyName" type="text" placeholder="Company Name" required />
+              <input name="companyName" id="companyName" type="text" placeholder="Company Name" />
               <p class="quote-error--companyName">Please enter a company name</p>
             </div>
             <div class="company-info-b">
               <label for="">&nbsp;</label>
             
-              <input name="email" id="email" type="email" placeholder="email" required/>
+              <input name="email" id="email" type="email" placeholder="email"/>
               <p class="quote-error--email">Please enter an email</p>
    
-              <input name="phone" id="phone" type="tel" placeholder="*Phone number" required />
+              <input name="phone" id="phone" type="tel" placeholder="*Phone number" />
               <p class="quote-error--phone">Please enter a phone number</p>
             </div>
     
@@ -44,6 +44,7 @@
                 placeholder="* Pick up address or origin Airport port"
                 name="pickupInfo"
               ></textarea>
+              <p class="quote-error--pickupInfo">Please enter pickup information</p>
             </div>
     
             <div class="shipping-info">
@@ -59,6 +60,7 @@
                 placeholder="* Shipping address, origin or airport port"
                 name="shippingInfo"
               ></textarea>
+              <p class="quote-error--shippingInfo">Please enter shipping information</p>
               
             </div>
     
@@ -68,12 +70,13 @@
               <p>Shipment Details</p>
               <input
                 type="text"
-                placeholder="* Number of skids"
+                placeholder="* Number of skids (max 20)"
                 class="number-skids"
                 name="numSkids"
               />
               <p class="quote-error--numSkids-max">Value exceeds max number of skids allowed (20)</p>
               <p class="quote-error--numSkids-invalid">Please only enter positive whole numbers</p>
+              <p class="quote-error--numSkids-empty">Please enter number of skids</p>
               <input
                 type="text"
                 placeholder="* Number of pieces"
