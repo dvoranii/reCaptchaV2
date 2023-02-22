@@ -1,3 +1,7 @@
+// TODO: Finish the error messages and form validation
+// TODO: Connect this to firebase
+// TODO: Add sendinblue email campaign
+
 const myForm = document.getElementById("myForm");
 const numPieces = document.querySelector(".number-pieces");
 const shipmentServiceType = document.querySelector(".shipment-service-type");

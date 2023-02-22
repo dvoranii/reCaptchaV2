@@ -8,6 +8,7 @@ const path = require("path");
 const cors = require("cors");
 const routes = require("./routes");
 const app = express();
+const SibApiV3Sdk = require("sib-api-v3-sdk");
 
 dotenv.config();
 
@@ -35,7 +36,6 @@ const firebaseConfig = {
 const fb = initializeApp(firebaseConfig);
 let db = getFirestore(fb);
 let contactRef = collection(db, "contact");
-// let quotesRef = collection(db, "quotes");
 
 async function addDocument_AutoID(ref, email, fullName) {
   const docRef = await addDoc(ref, {
@@ -43,11 +43,15 @@ async function addDocument_AutoID(ref, email, fullName) {
     fullName: fullName,
   });
 }
-// get req object and if captcha is truthy
-// send back res object and create the new contact
-// save the contact in google firebase as well
 
-// look into modularizing validation and sanitization
+// SendInBlue
+const sibAPIKey = process.env.SIB_API_KEY;
+let defaultClient = SibApiV3Sdk.ApiClient.instance;
+let apiKey = defaultClient.authentications["api-key"];
+apiKey.apiKey = sibAPIKey;
+let apiInstance = new SibApiV3Sdk.ContactsApi();
+let createContact = new SibApiV3Sdk.CreateContact();
+
 function sanitizeInput(input) {
   return input.replace(/[^\w\s@.]/gi, "");
 }
@@ -57,8 +61,11 @@ app.post("/submit", (req, res) => {
   let reqName = sanitizeInput(req.body.name);
   let reqEmail = sanitizeInput(req.body.email);
 
-  console.log(reqName, reqEmail);
-  console.log(req.body);
+  createContact.email = reqEmail;
+  createContact.listIds = [2];
+  createContact.attributes = {
+    FIRSTNAME: reqName,
+  };
 
   if (reqCap === undefined || reqCap == "" || reqCap === null) {
     return res.json({
@@ -81,6 +88,14 @@ app.post("/submit", (req, res) => {
 
     // adding to firebase if the captcha is selected!!!
     addDocument_AutoID(contactRef, reqName, reqEmail);
+    apiInstance.createContact(createContact).then(
+      (data) => {
+        console.log(data);
+      },
+      function (error) {
+        console.log(error);
+      }
+    );
     return res.json({ success: true, msg: "Captcha passed!" });
   });
 });

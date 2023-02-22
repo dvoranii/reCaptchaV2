@@ -30,6 +30,7 @@ nav {
   min-height: 8vh;
   background-color: grey;
   font-size: clamp(1.2rem, 1.4vw, 1.4rem);
+  text-transform: uppercase;
 }
 
 .nav-links {
@@ -43,7 +44,7 @@ nav {
   /* padding: 10px; */
   color: rgba(255, 226, 226);
   text-decoration: none;
-  letter-spacing: 1.2px;
+  letter-spacing: 0.5px;
   transition: all 150ms ease;
   padding: 5px;
 }
