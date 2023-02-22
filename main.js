@@ -6,7 +6,6 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const routes = require("./routes");
 const app = express();
-const SibApiV3Sdk = require("sib-api-v3-sdk");
 
 dotenv.config();
 
@@ -17,38 +16,10 @@ app.use(bodyParser.json());
 app.use("/", routes);
 
 // * FIREBASE
-const firebase = require("firebase/app");
-const { initializeApp } = require("firebase/app");
-const { getFirestore, collection, addDoc } = require("firebase/firestore");
-
-const firebaseConfig = {
-  apiKey: `${process.env.FIREBASE_KEY}`,
-  authDomain: "cgl-forms.firebaseapp.com",
-  databaseURL: "https://cgl-forms-default-rtdb.firebaseio.com",
-  projectId: "cgl-forms",
-  storageBucket: "cgl-forms.appspot.com",
-  messagingSenderId: "1008506608692",
-  appId: "1:1008506608692:web:47818afefcc2935608be61",
-};
-
-const fb = initializeApp(firebaseConfig);
-let db = getFirestore(fb);
-let contactRef = collection(db, "contact");
-
-async function addDocument_AutoID(ref, email, fullName) {
-  const docRef = await addDoc(ref, {
-    email: email,
-    fullName: fullName,
-  });
-}
+const firebase = require("./firebase");
 
 // * SendInBlue
-const sibAPIKey = process.env.SIB_API_KEY;
-let defaultClient = SibApiV3Sdk.ApiClient.instance;
-let apiKey = defaultClient.authentications["api-key"];
-apiKey.apiKey = sibAPIKey;
-let apiInstance = new SibApiV3Sdk.ContactsApi();
-let createContact = new SibApiV3Sdk.CreateContact();
+const sendinblue = require("./sendinblue.js");
 
 function sanitizeInput(input) {
   return input.replace(/[^\w\s@.]/gi, "");
@@ -71,12 +42,6 @@ app.post("/submit", sanitizeInputMiddleware, async (req, res) => {
     return res.status(403).json({ success: false, msg: "Invalid CSRF token" });
   }
 
-  createContact.email = reqEmail;
-  createContact.listIds = [2];
-  createContact.attributes = {
-    FIRSTNAME: reqName,
-  };
-
   if (reqCap === undefined || reqCap == "" || reqCap === null) {
     return res.json({
       success: false,
@@ -97,9 +62,8 @@ app.post("/submit", sanitizeInputMiddleware, async (req, res) => {
     }
 
     try {
-      const sibResponse = await apiInstance.createContact(createContact);
-
-      addDocument_AutoID(contactRef, reqName, reqEmail);
+      await sendinblue.addSIBContact(reqName, reqEmail);
+      await firebase.addFirebaseContact(reqEmail, reqName);
 
       return res.json({ success: true, msg: "Captcha passed!" });
     } catch (error) {
