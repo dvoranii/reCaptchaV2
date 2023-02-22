@@ -3,8 +3,6 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const bodyParser = require("body-parser");
-const request = require("request");
-const path = require("path");
 const cors = require("cors");
 const routes = require("./routes");
 const app = express();
@@ -62,54 +60,16 @@ function sanitizeInputMiddleware(req, res, next) {
   next();
 }
 
-// app.post("/submit", sanitizeInputMiddleware, async (req, res) => {
-//   let reqCap = req.body.captcha;
-//   let reqName = req.body.name;
-//   let reqEmail = req.body.email;
-
-//   createContact.email = reqEmail;
-//   createContact.listIds = [2];
-//   createContact.attributes = {
-//     FIRSTNAME: reqName,
-//   };
-
-//   if (reqCap === undefined || reqCap == "" || reqCap === null) {
-//     return res.json({
-//       success: false,
-//       msg: "Please select captcha",
-//       hostname: "localhost",
-//     });
-//   }
-
-//   const secretKey = process.env.SECRET_KEY;
-//   const verifyUrl = `https://google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${reqCap}&remoteip=${req.connection.remoteAddress}`;
-
-//   try {
-//     const response = await fetch(verifyUrl);
-//     const body = await response.json();
-//     console.log(body);
-
-//     if (body.success !== undefined && !body.success) {
-//       return res.json({ success: false, msg: "Failed verification" });
-//     }
-
-//     // await addDocument_AutoID(contactRef, reqName, reqEmail);
-//     // await apiInstance.createContact(createContact);
-
-//     return res.json({ success: true, msg: "Captcha passed!" });
-//   } catch (err) {
-//     console.log(err);
-//     return res.json({
-//       success: false,
-//       msg: "An error occurred while verifying the captcha",
-//     });
-//   }
-// });
-
 app.post("/submit", sanitizeInputMiddleware, async (req, res) => {
   let reqCap = req.body.captcha;
   let reqName = req.body.name;
   let reqEmail = req.body.email;
+  let csrfToken = req.body._csrf;
+
+  // Verify CSRF token
+  if (req.headers["x-csrf-token"] !== csrfToken) {
+    return res.status(403).json({ success: false, msg: "Invalid CSRF token" });
+  }
 
   createContact.email = reqEmail;
   createContact.listIds = [2];
@@ -131,20 +91,14 @@ app.post("/submit", sanitizeInputMiddleware, async (req, res) => {
   try {
     const response = await fetch(verifyUrl);
     const body = await response.json();
-    console.log(body);
 
     if (body.success !== undefined && !body.success) {
       return res.json({ success: false, msg: "Failed verification" });
     }
 
-    // await addDocument_AutoID(contactRef, reqName, reqEmail);
-    // await apiInstance.createContact(createContact);
     try {
       const sibResponse = await apiInstance.createContact(createContact);
 
-      console.log(sibResponse);
-
-      // adding to firebase if the captcha is selected!!!
       addDocument_AutoID(contactRef, reqName, reqEmail);
 
       return res.json({ success: true, msg: "Captcha passed!" });
@@ -153,13 +107,10 @@ app.post("/submit", sanitizeInputMiddleware, async (req, res) => {
       if (error.response && error.response.text) {
         const errorResponse = JSON.parse(error.response.text);
         errorMessage = errorResponse.message;
-        console.log(errorMessage);
-        // handle the error here
       }
       return res.status(500).json({ success: false, msg: `${errorMessage}` });
     }
   } catch (err) {
-    console.log(err);
     return res.json({
       success: false,
       msg: "An error occurred while verifying the captcha",

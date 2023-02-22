@@ -12,6 +12,7 @@ let errorEmailEmpty = document.querySelector(".contact-email--error-1");
 let errorEmailInvalid = document.querySelector(".contact-email--error-2");
 
 let captchaRes;
+let csrfToken;
 
 import renderNavigation from "./views/global-components/navigation/nav.js";
 import renderFooter from "./views/global-components/footer/footer.js";
@@ -23,6 +24,8 @@ renderFooter();
 window.onload = function () {
   if (grecaptcha) {
     captchaRes = document.querySelector("#g-recaptcha-response");
+    csrfToken = generateCSRFToken();
+    document.getElementById("csrf-token").value = csrfToken;
   }
 };
 
@@ -49,29 +52,27 @@ function getCSRFToken() {
   return sessionStorage.getItem("csrfToken");
 }
 
-function validateInput(inputValue, regEx = "", errorMsg) {
-  if (regEx !== "") {
-    let isValid = regEx.test(inputValue);
-
-    if (!isValid) {
-      errorMsg.classList.add("active");
-      return false;
-    }
-
-    if (isValid) {
-      errorMsg.classList.remove("active");
-      return true;
-    }
+function validateContactForm(name, email, emailRegex) {
+  // Check if name is empty
+  if (name.trim() === "") {
+    errorName.classList.add("active");
+  } else {
+    errorName.classList.remove("active");
   }
 
-  if (inputValue == "") {
-    errorMsg.classList.add("active");
-    return false;
-  }
+  // Check if email is empty
+  if (email.trim() === "") {
+    errorEmailEmpty.classList.add("active");
+    errorEmailInvalid.classList.remove("active");
+  } else {
+    errorEmailEmpty.classList.remove("active");
 
-  if (inputValue !== "") {
-    errorMsg.classList.remove("active");
-    return true;
+    // Check if email matches the regex
+    if (emailRegex.test(email.trim())) {
+      errorEmailInvalid.classList.remove("active");
+    } else {
+      errorEmailInvalid.classList.add("active");
+    }
   }
 }
 
@@ -80,45 +81,31 @@ let emailRegEx = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 function sendFormData() {
   let nameValue = sanitizeInput(fullName.value);
   let emailValue = sanitizeInput(email.value);
+  let csrfToken = getCSRFToken();
 
-  console.log(nameValue, emailValue);
-
-  validateInput(nameValue, "", errorName);
-  validateInput(emailValue, "", errorEmailEmpty);
-  validateInput(emailValue, emailRegEx, errorEmailInvalid);
-  if (
-    validateInput(nameValue, "", errorName) == false ||
-    validateInput(emailValue, "", errorEmailEmpty) == false ||
-    validateInput(emailValue, emailRegEx, errorEmailInvalid) == false
-  ) {
-    return;
-  }
+  console.log(getCSRFToken());
+  validateContactForm(nameValue, emailValue, emailRegEx);
 
   // pass the csrf
   let formValues = JSON.stringify({
     name: nameValue,
     email: emailValue,
     captcha: captchaRes.value,
+    _csrf: csrfToken,
   });
-
-  console.log(formValues);
 
   fetch("/submit", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      "X-CSRF-Token": csrfToken,
     },
     body: formValues,
   })
     .then((res) => res.json())
     .then((data) => {
-      // console.log(data);
       if (data.success == true) {
-        console.log("true");
-
-        // this is being rendered server side
-        // figure out a way to do this so when it's deployed it still works
-        window.location.href = "http://localhost:5000/success";
+        window.location.href = "/success";
       }
       if (data.success == false) {
         console.error(data);

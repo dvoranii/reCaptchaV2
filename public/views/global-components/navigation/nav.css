@@ -70,7 +70,7 @@ nav {
   from {
     opacity: 0;
     visibility: hidden;
-    transform: translateX(-10px);
+    transform: translateX(-5px);
   }
   to {
     opacity: 1;
@@ -109,10 +109,15 @@ nav {
   position: relative;
 }
 
+li.transportation-submenu-wrapper,
+.transportation-submenu-a li {
+  padding: 0px 0px 10px 0px;
+}
+
 .transportation-submenu-a {
   list-style: none;
   position: absolute;
-  right: -83%;
+  right: -81%;
   top: -10px;
   background: black;
   padding: 10px;
@@ -122,7 +127,7 @@ nav {
 
 .transportation-link:hover + .transportation-submenu-a,
 .transportation-submenu-a:hover {
-  animation: fadeInSlideDown 0.5s ease forwards;
+  animation: fadeInSlideLeft 0.5s ease forwards;
   pointer-events: all;
 }
 

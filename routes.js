@@ -90,8 +90,5 @@ router.get("/contact-qc", (req, res) => {
 router.get("/success", (req, res) => {
   res.sendFile(path.join(__dirname, "/public/views/", "success.html"));
 });
-router.get("/failure", (req, res) => {
-  res.sendFile(path.join(__dirname, "/public/views/", "failure.html"));
-});
 
 module.exports = router;

@@ -55,7 +55,7 @@ export default function renderNavigation() {
               <li>
                 <a href="/services/sporting-goods" data-link
                   >Hockey &<br />
-                  Sporting Goods</a
+                  &nbsp;Sporting Goods</a
                 >
               </li>
             </ul>
