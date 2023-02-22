@@ -44,7 +44,7 @@ async function addDocument_AutoID(ref, email, fullName) {
   });
 }
 
-// SendInBlue
+// * SendInBlue
 const sibAPIKey = process.env.SIB_API_KEY;
 let defaultClient = SibApiV3Sdk.ApiClient.instance;
 let apiKey = defaultClient.authentications["api-key"];
@@ -56,10 +56,60 @@ function sanitizeInput(input) {
   return input.replace(/[^\w\s@.]/gi, "");
 }
 
-app.post("/submit", (req, res) => {
+function sanitizeInputMiddleware(req, res, next) {
+  req.body.name = sanitizeInput(req.body.name);
+  req.body.email = sanitizeInput(req.body.email);
+  next();
+}
+
+// app.post("/submit", sanitizeInputMiddleware, async (req, res) => {
+//   let reqCap = req.body.captcha;
+//   let reqName = req.body.name;
+//   let reqEmail = req.body.email;
+
+//   createContact.email = reqEmail;
+//   createContact.listIds = [2];
+//   createContact.attributes = {
+//     FIRSTNAME: reqName,
+//   };
+
+//   if (reqCap === undefined || reqCap == "" || reqCap === null) {
+//     return res.json({
+//       success: false,
+//       msg: "Please select captcha",
+//       hostname: "localhost",
+//     });
+//   }
+
+//   const secretKey = process.env.SECRET_KEY;
+//   const verifyUrl = `https://google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${reqCap}&remoteip=${req.connection.remoteAddress}`;
+
+//   try {
+//     const response = await fetch(verifyUrl);
+//     const body = await response.json();
+//     console.log(body);
+
+//     if (body.success !== undefined && !body.success) {
+//       return res.json({ success: false, msg: "Failed verification" });
+//     }
+
+//     // await addDocument_AutoID(contactRef, reqName, reqEmail);
+//     // await apiInstance.createContact(createContact);
+
+//     return res.json({ success: true, msg: "Captcha passed!" });
+//   } catch (err) {
+//     console.log(err);
+//     return res.json({
+//       success: false,
+//       msg: "An error occurred while verifying the captcha",
+//     });
+//   }
+// });
+
+app.post("/submit", sanitizeInputMiddleware, async (req, res) => {
   let reqCap = req.body.captcha;
-  let reqName = sanitizeInput(req.body.name);
-  let reqEmail = sanitizeInput(req.body.email);
+  let reqName = req.body.name;
+  let reqEmail = req.body.email;
 
   createContact.email = reqEmail;
   createContact.listIds = [2];
@@ -78,26 +128,43 @@ app.post("/submit", (req, res) => {
   const secretKey = process.env.SECRET_KEY;
   const verifyUrl = `https://google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${reqCap}&remoteip=${req.connection.remoteAddress}`;
 
-  request(verifyUrl, (err, response, body) => {
-    body = JSON.parse(body);
+  try {
+    const response = await fetch(verifyUrl);
+    const body = await response.json();
     console.log(body);
 
     if (body.success !== undefined && !body.success) {
       return res.json({ success: false, msg: "Failed verification" });
     }
 
-    // adding to firebase if the captcha is selected!!!
-    addDocument_AutoID(contactRef, reqName, reqEmail);
-    apiInstance.createContact(createContact).then(
-      (data) => {
-        console.log(data);
-      },
-      function (error) {
-        console.log(error);
+    // await addDocument_AutoID(contactRef, reqName, reqEmail);
+    // await apiInstance.createContact(createContact);
+    try {
+      const sibResponse = await apiInstance.createContact(createContact);
+
+      console.log(sibResponse);
+
+      // adding to firebase if the captcha is selected!!!
+      addDocument_AutoID(contactRef, reqName, reqEmail);
+
+      return res.json({ success: true, msg: "Captcha passed!" });
+    } catch (error) {
+      let errorMessage;
+      if (error.response && error.response.text) {
+        const errorResponse = JSON.parse(error.response.text);
+        errorMessage = errorResponse.message;
+        console.log(errorMessage);
+        // handle the error here
       }
-    );
-    return res.json({ success: true, msg: "Captcha passed!" });
-  });
+      return res.status(500).json({ success: false, msg: `${errorMessage}` });
+    }
+  } catch (err) {
+    console.log(err);
+    return res.json({
+      success: false,
+      msg: "An error occurred while verifying the captcha",
+    });
+  }
 });
 
 module.exports = app;

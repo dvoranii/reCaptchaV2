@@ -123,6 +123,7 @@ address {
   color: red;
   padding-top: 10px;
   transition: all 150ms ease;
+  font-size: clamp(1.2rem, 1.4vw, 1.4rem);
 }
 
 .error-captcha.active {

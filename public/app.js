@@ -5,8 +5,12 @@ const email = document.querySelector(".email-input");
 const submitBtn = document.querySelector(".submit");
 const myForm = document.querySelector(".form");
 
+// Error messages
 let errorCap = document.querySelector(".error-captcha");
-// let captcha = document.querySelector(".g-recaptcha");
+let errorName = document.querySelector(".contact-name--error");
+let errorEmailEmpty = document.querySelector(".contact-email--error-1");
+let errorEmailInvalid = document.querySelector(".contact-email--error-2");
+
 let captchaRes;
 
 import renderNavigation from "./views/global-components/navigation/nav.js";
@@ -29,10 +33,6 @@ if (myForm) {
   });
 }
 
-// is being done for quote request form
-// let isValid = false;
-// function validateForm() {}
-
 function sanitizeInput(input) {
   return input.replace(/[^\w\s@.]/gi, "");
 }
@@ -49,13 +49,50 @@ function getCSRFToken() {
   return sessionStorage.getItem("csrfToken");
 }
 
-// Should change this to VerifyCaptcha
-// this needs to be on the quote request form also
+function validateInput(inputValue, regEx = "", errorMsg) {
+  if (regEx !== "") {
+    let isValid = regEx.test(inputValue);
+
+    if (!isValid) {
+      errorMsg.classList.add("active");
+      return false;
+    }
+
+    if (isValid) {
+      errorMsg.classList.remove("active");
+      return true;
+    }
+  }
+
+  if (inputValue == "") {
+    errorMsg.classList.add("active");
+    return false;
+  }
+
+  if (inputValue !== "") {
+    errorMsg.classList.remove("active");
+    return true;
+  }
+}
+
+let emailRegEx = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
 function sendFormData() {
   let nameValue = sanitizeInput(fullName.value);
   let emailValue = sanitizeInput(email.value);
 
   console.log(nameValue, emailValue);
+
+  validateInput(nameValue, "", errorName);
+  validateInput(emailValue, "", errorEmailEmpty);
+  validateInput(emailValue, emailRegEx, errorEmailInvalid);
+  if (
+    validateInput(nameValue, "", errorName) == false ||
+    validateInput(emailValue, "", errorEmailEmpty) == false ||
+    validateInput(emailValue, emailRegEx, errorEmailInvalid) == false
+  ) {
+    return;
+  }
 
   // pass the csrf
   let formValues = JSON.stringify({
