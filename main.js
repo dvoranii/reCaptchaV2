@@ -7,7 +7,6 @@ const cors = require("cors");
 const routes = require("./routes");
 const { initializeApp } = require("firebase/app");
 const { getFirestore, collection, addDoc } = require("firebase/firestore");
-// const rateLimit = require("express-rate-limit");
 
 dotenv.config();
 
@@ -68,12 +67,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use("/", routes);
 
-// const limiter = rateLimit({
-//   windowMs: 60 * 1000,
-//   max: 5,
-//   message: "Too many requests from this IP, please try again later",
-// })
-
 function sanitizeInput(input) {
   return input.replace(/[^\w\s@.]/gi, "");
 }
@@ -83,15 +76,6 @@ function sanitizeInputMiddleware(req, res, next) {
   req.body.email = sanitizeInput(req.body.email);
   next();
 }
-
-// app.use('/submit', async (req, res, next) => {
-//   try {
-//     await limiter.consume(req.ip);
-//     next();
-//   } catch (err) {
-//     res.status(429).send('Too many requests')
-//   }
-// })
 
 app.post("/submit", sanitizeInputMiddleware, async (req, res) => {
   let reqCap = req.body.captcha;
