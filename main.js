@@ -1,66 +1,16 @@
 "use strict";
 
 const express = require("express");
-const dotenv = require("dotenv");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const routes = require("./routes");
-const { initializeApp } = require("firebase/app");
-const { getFirestore, collection, addDoc } = require("firebase/firestore");
-
-dotenv.config();
-
+const { addFirebaseContact } = require("./firebase");
+const { addSIBContact } = require("./sendinblue");
 const app = express();
-const SibApiV3Sdk = require("sib-api-v3-sdk");
 
-const sibAPIKey = process.env.SIB_API_KEY;
-let defaultClient = SibApiV3Sdk.ApiClient.instance;
-let apiKey = defaultClient.authentications["api-key"];
-apiKey.apiKey = sibAPIKey;
-let apiInstance = new SibApiV3Sdk.ContactsApi();
-let createContact = new SibApiV3Sdk.CreateContact();
+// const dotenv = require("dotenv");
+// dotenv.config();
 
-async function addSIBContact(reqName, reqEmail) {
-  createContact.email = reqEmail;
-  createContact.listIds = [2];
-  createContact.attributes = {
-    FIRSTNAME: reqName,
-  };
-
-  try {
-    const sibResponse = await apiInstance.createContact(createContact);
-    return sibResponse;
-  } catch (error) {
-    let errorMessage;
-    if (error.response && error.response.text) {
-      const errorResponse = JSON.parse(error.response.text);
-      errorMessage = errorResponse.message;
-    }
-    throw new Error(`Failed to add contact to Sendinblue: ${errorMessage}`);
-  }
-}
-
-const firebaseConfig = {
-  apiKey: `${process.env.FIREBASE_KEY}`,
-  authDomain: "cgl-forms.firebaseapp.com",
-  databaseURL: "https://cgl-forms-default-rtdb.firebaseio.com",
-  projectId: "cgl-forms",
-  storageBucket: "cgl-forms.appspot.com",
-  messagingSenderId: "1008506608692",
-  appId: "1:1008506608692:web:47818afefcc2935608be61",
-};
-
-const fb = initializeApp(firebaseConfig);
-const db = getFirestore(fb);
-const contactRef = collection(db, "contact");
-
-async function addFirebaseContact(email, fullName) {
-  const docRef = await addDoc(contactRef, {
-    email: email,
-    fullName: fullName,
-  });
-  return docRef.id;
-}
 app.use(cors());
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -109,6 +59,7 @@ app.post("/submit", sanitizeInputMiddleware, async (req, res) => {
 
     try {
       addSIBContact(reqName, reqEmail);
+      // addFirebaseContact(reqEmail, reqName);
       addFirebaseContact(reqEmail, reqName);
 
       return res.json({ success: true, msg: "Captcha passed!" });
