@@ -68,14 +68,20 @@
         <form class="form" id="demo-form" method="">
           <label for="name" class="form-label--name">Name:</label>
           <input type="text" id="name" name="name" class="name-input" />
+          <p class="contact-name--error">Please enter name</p>
           <label for="email" class="form-label--email">Email:</label>
           <input type="email" id="email" name="email" class="email-input" />
+          <p class="contact-email--error-1">Please enter email</p>
+          <p class="contact-email--error-2">
+            Please enter a valid email (i.e 123@abc.com)
+          </p>
           <div
             class="g-recaptcha"
             data-sitekey="6LdGhAokAAAAANFdqnRx05SiwfKA8fd6CCc9gmHX"
             data-badge="none"
           ></div>
           <br />
+          <input type="hidden" id="csrf-token" name="_csrf" />
           <button class="submit">Submit</button>
           <div class="error-captcha">&nbsp;</div>
         </form>
