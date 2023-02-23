@@ -2,7 +2,7 @@
 
 const fullName = document.querySelector(".name-input");
 const email = document.querySelector(".email-input");
-const submitBtn = document.querySelector(".submit");
+// const submitBtn = document.querySelector(".submit");
 const myForm = document.querySelector(".form");
 
 // Error messages
@@ -52,6 +52,8 @@ function getCSRFToken() {
   return sessionStorage.getItem("csrfToken");
 }
 
+let emailRegEx = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
 function validateContactForm(name, email, emailRegex) {
   // Check if name is empty
   if (name.trim() === "") {
@@ -66,17 +68,15 @@ function validateContactForm(name, email, emailRegex) {
     errorEmailInvalid.classList.remove("active");
   } else {
     errorEmailEmpty.classList.remove("active");
-
     // Check if email matches the regex
     if (emailRegex.test(email.trim())) {
       errorEmailInvalid.classList.remove("active");
     } else {
       errorEmailInvalid.classList.add("active");
+      return;
     }
   }
 }
-
-let emailRegEx = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 function sendFormData() {
   let nameValue = sanitizeInput(fullName.value);
@@ -86,6 +86,13 @@ function sendFormData() {
   console.log(getCSRFToken());
   validateContactForm(nameValue, emailValue, emailRegEx);
 
+  if (nameValue.trim() === "" || emailValue.trim() === "") {
+    return;
+  }
+
+  if (!emailRegEx.test(emailValue.trim())) {
+    return;
+  }
   // pass the csrf
   let formValues = JSON.stringify({
     name: nameValue,

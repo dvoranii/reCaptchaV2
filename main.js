@@ -4,8 +4,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const routes = require("./routes");
-const { addFirebaseContact } = require("./firebase");
-const { addSIBContact } = require("./sendinblue");
+const { addFirebaseContact } = require("./third_party_modules/firebase");
+const { addSIBContact } = require("./third_party_modules/sendinblue");
 const app = express();
 
 // const dotenv = require("dotenv");
