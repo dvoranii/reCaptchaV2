@@ -144,7 +144,11 @@
 .error-hsCode-msg,
 .error-service-msg-1,
 .error-service-msg-2,
-.error-skid-type {
+.error-skid-type,
+.error-weight-empty,
+.error-weight-invalid,
+.error-unit,
+.error-option {
   color: red;
   margin-top: 0.2rem;
   font-size: 12px;
@@ -165,7 +169,11 @@
 .error-service-msg-1.active,
 .error-service-msg-2.active,
 .error-skid-type.active,
-.error-skid-type.active {
+.error-skid-type.active,
+.error-weight-empty.active,
+.error-weight-invalid.active,
+.error-unit.active,
+.error-option.active {
   display: block;
 }
 

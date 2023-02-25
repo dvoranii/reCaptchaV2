@@ -90,6 +90,7 @@ function sendFormData() {
   console.log(getCSRFToken());
   validateContactForm(nameValue, emailValue, emailRegEx);
 
+  // guard clauses to prevent form submission
   if (nameValue.trim() === "" || emailValue.trim() === "") {
     return;
   }

@@ -138,22 +138,26 @@
                   <div class="shipment-cont-inner">
                     <div class="weight-container">
                       <input type="text" class="cell1 weight" placeholder="* Weight"></input>
+                      <p class="error-weight-empty">Please enter a weight</p>
+                      <p class="error-weight-invalid">Please enter a number only</p>
                     </div>
       
                     <div class="weight-units-container">
                       <select name="" id="" class="cell2 weight-units" name="weight">
                         <option value="" selected disabled hidden>* Units Lbs or Kg</option>
-                        <option value="">Lbs</option>
-                        <option value="">Kg</option>
+                        <option value="Lbs">Lbs</option>
+                        <option value="Kg">Kg</option>
                       </select>
+                      <p class="error-unit">Please select a unit</p>
                     </div>              
       
                     <div class="hazardous-container">
                       <select name="" id="" class="cell3 hazardous" name="hazardous">
                         <option value="" selected disabled hidden>* Hazardous Yes or No</option>
-                        <option value="">Hazardous - YES</option>
-                        <option value="">Hazardous - NO</option>
+                        <option value="YES">Hazardous - YES</option>
+                        <option value="NO">Hazardous - NO</option>
                       </select>
+                      <p class="error-option">Please select an option</p>
                     </div>
       
                     <div class="checkbox-container" class="cell4">

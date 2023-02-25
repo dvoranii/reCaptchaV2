@@ -4,15 +4,9 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const routes = require("./routes");
-const {
-  addFirebaseContact,
-  addFirebaseQuoteRequest,
-} = require("./third_party_modules/firebase");
+const { addFirebaseContact } = require("./third_party_modules/firebase");
 const { addSIBContact } = require("./third_party_modules/sendinblue");
 const app = express();
-
-// const dotenv = require("dotenv");
-// dotenv.config();
 
 app.use(cors());
 app.use(express.static("public"));
@@ -36,7 +30,6 @@ app.post("/submit", sanitizeInputMiddleware, async (req, res) => {
   let reqEmail = req.body.email;
   let csrfToken = req.body._csrf;
 
-  console.log(csrfToken);
   // Verify CSRF token
   if (req.headers["x-csrf-token"] !== csrfToken) {
     return res.status(403).json({ success: false, msg: "Invalid CSRF token" });
@@ -63,12 +56,10 @@ app.post("/submit", sanitizeInputMiddleware, async (req, res) => {
 
     try {
       addSIBContact(reqName, reqEmail);
-      // addFirebaseContact(reqEmail, reqName);
       addFirebaseContact(reqEmail, reqName);
 
       return res.json({ success: true, msg: "Captcha passed!" });
     } catch (error) {
-      console.log(error);
       let errorMessage;
       if (error.response && error.response.text) {
         const errorResponse = JSON.parse(error.response.text);

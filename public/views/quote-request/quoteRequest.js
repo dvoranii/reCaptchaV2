@@ -38,6 +38,10 @@ let errorServiceType = document.querySelector(".error-service-msg");
 let errorHsCode = document.querySelector(".error-hsCode-msg");
 let errorNumPiecesEmpty = document.querySelector(".error-service-msg-1");
 let errorNumPiecesInvalid = document.querySelector(".error-service-msg-2");
+let errorWeightEmpty = document.querySelector(".error-weight-empty");
+let errorWeightInvalid = document.querySelector(".error-weight-invalid");
+let errorUnit = document.querySelector(".error-unit");
+let errorOption = document.querySelector(".error-option");
 let errorSkidType;
 
 let submitBtn = document.querySelector(".submit");
@@ -205,6 +209,15 @@ if (myForm) {
       errorNumPiecesEmpty,
       errorNumPiecesInvalid
     );
+    validateInput(
+      weight.value,
+      positiveIntegerRegEx,
+      errorWeightEmpty,
+      errorWeightInvalid
+    );
+
+    validateInput(weightUnits.value, "", errorUnit);
+    validateInput(hazardous.value, "", errorOption);
 
     let inputs = document.querySelectorAll(".dimensions-input");
     let skidTypes = document.querySelectorAll(".skid-type");
@@ -213,7 +226,6 @@ if (myForm) {
     let arrInput = [];
     inputs.forEach((input) => {
       skidTypes.forEach((type, i) => {
-        console.log(type);
         if (input.dataset.count === type.dataset.count) {
           arrInput.push(
             `${type.value} ${i} - ${input.placeholder}: ${input.value}`
