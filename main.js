@@ -4,7 +4,10 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const routes = require("./routes");
-const { addFirebaseContact } = require("./third_party_modules/firebase");
+const {
+  addFirebaseContact,
+  addFirebaseQuoteRequest,
+} = require("./third_party_modules/firebase");
 const { addSIBContact } = require("./third_party_modules/sendinblue");
 const app = express();
 
@@ -33,6 +36,7 @@ app.post("/submit", sanitizeInputMiddleware, async (req, res) => {
   let reqEmail = req.body.email;
   let csrfToken = req.body._csrf;
 
+  console.log(csrfToken);
   // Verify CSRF token
   if (req.headers["x-csrf-token"] !== csrfToken) {
     return res.status(403).json({ success: false, msg: "Invalid CSRF token" });

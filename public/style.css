@@ -23,6 +23,10 @@ h1 {
   padding-left: 1.2rem;
 }
 
+h2 {
+  font-size: clamp(1.6rem, 2.4vw, 3.2rem);
+}
+
 h3 {
   font-size: clamp(1.4rem, 1.8vw, 2.4rem);
 }
@@ -208,14 +212,4 @@ footer {
 iframe {
   width: clamp(400px, 40vw, 800px);
   height: 400px;
-}
-@media only screen and (max-width: 568px) {
-  .skid-dimensions input {
-    width: 98% !important;
-  }
-  .skid-dimensions {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-  }
 }

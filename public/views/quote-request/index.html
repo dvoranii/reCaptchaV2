@@ -12,122 +12,182 @@
 </head>
 <body>
     <div id="navigation"></div>
-    <div class="container">
-        <form class="form-wrapper-grid" id="myForm" method="POST" action="" data-netlify="true">
-            <div class="company-info-a">
-              <label for="">Company Information</label>
-              <input name="name" id="fullName" type="text" placeholder="*Your Name"/>
-              <p class="quote-error--name">Please enter a name</p>
-              <input name="companyName" id="companyName" type="text" placeholder="Company Name" />
-              <p class="quote-error--companyName">Please enter a company name</p>
-            </div>
-            <div class="company-info-b">
-              <label for="">&nbsp;</label>
+    <div class="container quote-container">
+        <form class="quote-request-form" id="myForm" method="POST" action="" data-netlify="true">
+          <div class="info-wrapper-outer">
             
-              <input name="email" id="email" type="email" placeholder="email"/>
-              <p class="quote-error--email">Please enter an email</p>
-   
-              <input name="phone" id="phone" type="tel" placeholder="*Phone number" />
-              <p class="quote-error--phone">Please enter a phone number</p>
-            </div>
-    
-            <div class="pickup-info">
-              <br />
-              <label for="">Pickup Information</label>
-              <textarea
-              id="pickupInfo"
-                class="pickup-info-textarea"
-                name=""
-                id=""
-                cols="30"
-                rows="10"
-                placeholder="* Pick up address or origin Airport port"
-                name="pickupInfo"
-              ></textarea>
-              <p class="quote-error--pickupInfo">Please enter pickup information</p>
-            </div>
-    
-            <div class="shipping-info">
-              <br />
-              <label for="">Shipping Information</label>
-              <textarea
-              id="shippingInfo"
-                class="shipping-info-textarea"
-                name=""
-                id=""
-                cols="30"
-                rows="10"
-                placeholder="* Shipping address, origin or airport port"
-                name="shippingInfo"
-              ></textarea>
-              <p class="quote-error--shippingInfo">Please enter shipping information</p>
-              
-            </div>
-    
-            <!-- ------------------------------ -->
-            <div class="shippment-details">
-              <br />
-              <p>Shipment Details</p>
-              <input
-                type="text"
-                placeholder="* Number of skids (max 20)"
-                class="number-skids"
-                name="numSkids"
-              />
-              <p class="quote-error--numSkids-max">Value exceeds max number of skids allowed (20)</p>
-              <p class="quote-error--numSkids-invalid">Please only enter positive whole numbers</p>
-              <p class="quote-error--numSkids-empty">Please enter number of skids</p>
-              <input
-                type="text"
-                placeholder="* Number of pieces"
-                class="number-pieces"
-                name="numPieces"
-              />
-              <select
-                name=""
-                id=""
-                placeholder="* Service"
-                class="shipment-service-type"
-                name="serviceType"
-              >
-                <option value="" selected disabled hidden>* Service</option>
-                <option value="">Air</option>
-                <option value="">Ocean</option>
-              </select>
-              <input
-                type="text"
-                placeholder="Commodity and HS Codes"
-                class="hs-codes"
-                name="hsCodes"
-              />
-            </div>
-            <!-- ------------------------------ -->
-    
-            <div class="shippment-cont">
-              <p class="spacer">&nbsp;</p>
-              <input type="text" class="cell1 weight" placeholder="* Weight"></input>
-              <select name="" id="" class="cell2 weight-units" name="weight">
-                <option value="" selected disabled hidden>* Units Lbs or Kg</option>
-                <option value="">Lbs</option>
-                <option value="">Kg</option>
-              </select>
-              <select name="" id="" class="cell3 hazardous" name="hazardous">
-    
-                <option value="" selected disabled hidden>* Hazardous Yes or No</option>
-                <option value="">Hazardous - YES</option>
-                <option value="">Hazardous - NO</option>
-              </select>
-              <div class="checkbox-wrapper" class="cell4">
-               
-                <input type="checkbox" class="checkbox" name="personal">
-                <label for="" class="checkbox-label">Non Personal Effects</label>
+            <div class="company-wrapper">
+              <div class="company-info-a">
+                <label for="">Company Information</label>
+                <input name="name" id="fullName" type="text" placeholder="*Your Name"/>
+                <p class="quote-error--name">Please enter a name</p>
+                <input name="companyName" id="companyName" type="text" placeholder="Company Name" />
+                <p class="quote-error--companyName">Please enter a company name</p>
               </div>
+  
+              <div class="company-info-b">
+                <label for="">&nbsp;</label>
+              
+                <input name="email" id="email" placeholder="*Email"/>
+                <p class="quote-error--email">Please enter an email</p>
+     
+                <input name="phone" id="phone" placeholder="*Phone number" />
+                <p class="quote-error--phone">Please enter a phone number</p>
+              </div>
+      
+            </div>  
+  
+            <div class="info-wrapper">
+              <div class="pickup-info">
+                <br />
+                <label for="">Pickup Information</label>
+                <textarea
+                id="pickupInfo"
+                  class="pickup-info-textarea"
+                  name=""
+                  id=""
+                  cols="30"
+                  rows="10"
+                  placeholder="* Pick up address or origin Airport port"
+                  name="pickupInfo"
+                ></textarea>
+                <p class="quote-error--pickupInfo">Please enter pickup information</p>
+              </div>
+      
+              <div class="shipping-info">
+                <br />
+                <label for="">Shipping Information</label>
+                <textarea
+                id="shippingInfo"
+                  class="shipping-info-textarea"
+                  name=""
+                  id=""
+                  cols="30"
+                  rows="10"
+                  placeholder="* Shipping address, origin or airport port"
+                  name="shippingInfo"
+                ></textarea>
+                <p class="quote-error--shippingInfo">Please enter shipping information</p>
+                
+              </div>
+      
             </div>
+          </div>
+
+
+            <!-- -----------SHIPMENT DETAILS ------------------- -->
+            <div class="shipment-details-outer-wrapper">
+              <label class="shipment-details-label">Shipment Details</label>
+              <div class="shipment-details">
+                
+  
+                <div class="shipment-details-inner">
+                  <div class="num-skids-container">
+                    <input
+                    type="text"
+                    placeholder="* Number of skids (max 20)"
+                    class="number-skids"
+                    name="numSkids"
+                  />
+                  <p class="quote-error--numSkids-max">Value exceeds max number of skids allowed (20)</p>
+                  <p class="quote-error--numSkids-invalid">Please only enter positive whole numbers</p>
+                  <p class="quote-error--numSkids-empty">Please enter number of skids</p>
+                  </div>
+                 
+                 
+                  <div class="number-pieces-container">
+                    <input
+                    type="text"
+                    placeholder="* Number of pieces"
+                    class="number-pieces"
+                    name="numPieces"
+                  />
+                  <p class="error-service-msg-1">Please enter number of pieces</p>
+                  <p class="error-service-msg-2">Please only enter positive whole numbers</p>
+                  </div>
+                 
+                  <div class="service-type-container">
+                    <select
+                    name=""
+                    id=""
+                    placeholder="* Service"
+                    class="shipment-service-type"
+                    name="serviceType"
+                  >
+                    <option value="" selected disabled hidden>* Service</option>
+                    <option value="Air">Air</option>
+                    <option value="Ocean">Ocean</option>
+                  </select>
+                  <p class="error-service-msg">Please select a service type</p>
+                  </div>
+                 
+                  <div class="hs-codes-container">
+                    <input
+                    type="text"
+                    placeholder="Commodity and HS Codes"
+                    class="hs-codes"
+                    name="hsCodes"
+                  />
+                  <p class="error-hsCode-msg">Please enter an HS Code</p>
+                  </div>
     
-            <div class="skid-type-wrapper"></div>
-            <div class="skid-dimensions"></div>
+                </div>
+                
+                <div class="shipment-cont">
+
+                  <div class="shipment-cont-inner">
+                    <div class="weight-container">
+                      <input type="text" class="cell1 weight" placeholder="* Weight"></input>
+                    </div>
+      
+                    <div class="weight-units-container">
+                      <select name="" id="" class="cell2 weight-units" name="weight">
+                        <option value="" selected disabled hidden>* Units Lbs or Kg</option>
+                        <option value="">Lbs</option>
+                        <option value="">Kg</option>
+                      </select>
+                    </div>              
+      
+                    <div class="hazardous-container">
+                      <select name="" id="" class="cell3 hazardous" name="hazardous">
+                        <option value="" selected disabled hidden>* Hazardous Yes or No</option>
+                        <option value="">Hazardous - YES</option>
+                        <option value="">Hazardous - NO</option>
+                      </select>
+                    </div>
+      
+                    <div class="checkbox-container" class="cell4">
+                      <input type="checkbox" class="checkbox" name="personal">
+                      <label for="" class="checkbox-label">Non Personal Effects</label>
+                    </div>
+                  </div>
+                  
     
-            <div class="additional-info">
+                </div>
+
+                
+              <div class="skid-type">
+                <div class="skid-type-wrapper"></div>
+              </div>
+
+              <div class="skid-dims-container">
+                <div class="skid-dimensions"></div>
+              </div>
+                
+              </div>
+              <!-- ------------SHIPMENT DETAILS PART 2------------------ -->
+      
+
+
+            </div>
+
+
+            
+    <!-- -----------SHIPMENT DETAILS END--------------------------------------------------------------- -->
+            
+    
+    
+        <div class="additional-info">
               <textarea name="" id="" cols="30" rows="10" placeholder="Additional information or Special instructions" name="additionalInfo"></textarea>
             </div>
     
@@ -155,6 +215,6 @@
        <script type="module" src="/app.js"></script>
 
        <!-- might be able to avoid this by importing it into app.js and then adding a guard clause -->
-       <script src="/views/quote-request/quoteRequest.js"></script>
+       <script type="module" src="/views/quote-request/quoteRequest.js"></script>
 </body>
 </html>

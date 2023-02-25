@@ -21,11 +21,15 @@ renderNavigation();
 renderFooter();
 
 // need to explicitly load page before selecting recaptcha to get access to its response object
+// CSRF token only generated on pages with forms meaning pages w/ a captcha
 window.onload = function () {
   if (grecaptcha) {
     captchaRes = document.querySelector("#g-recaptcha-response");
     csrfToken = generateCSRFToken();
-    document.getElementById("csrf-token").value = csrfToken;
+    let csrfTokenEl = document.getElementById("csrf-token");
+    if (csrfTokenEl) {
+      csrfTokenEl.value = csrfToken;
+    }
   }
 };
 

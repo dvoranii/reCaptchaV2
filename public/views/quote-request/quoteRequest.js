@@ -2,7 +2,8 @@
 // TODO: Connect this to firebase
 // TODO: Add sendinblue email campaign
 
-const myForm = document.getElementById("myForm");
+// here's the form
+const myForm = document.querySelector(".quote-request-form");
 const numPieces = document.querySelector(".number-pieces");
 const shipmentServiceType = document.querySelector(".shipment-service-type");
 const hsCodes = document.querySelector(".hs-codes");
@@ -33,16 +34,34 @@ let emailErrorMsg = document.querySelector(".quote-error--email");
 let phoneErrorMsg = document.querySelector(".quote-error--phone");
 let pickupInfoErrorMsg = document.querySelector(".quote-error--pickupInfo");
 let shippingInfoErrorMsg = document.querySelector(".quote-error--shippingInfo");
+let errorServiceType = document.querySelector(".error-service-msg");
+let errorHsCode = document.querySelector(".error-hsCode-msg");
+let errorNumPiecesEmpty = document.querySelector(".error-service-msg-1");
+let errorNumPiecesInvalid = document.querySelector(".error-service-msg-2");
+let errorSkidType;
 
 let submitBtn = document.querySelector(".submit");
 
 // need to explain why I'm doing this (state management)
 function setSkidTemplate(position, i) {
-  let templateSkidTypes = `<input type="text" placeholder="Type: (Skid, Carton, Tube etc)" data-count="${i}" class="skid-type" name='skid-type'>`;
-  let templateSkidDimensions = `<div class="dimensions-wrapper">
+  let templateSkidTypes = `<input type="text" placeholder="Type: (Skid, Carton, Tube etc)" data-count="${i}" id="skid-type-${i}" class="skid-type" name='skid-type'>
+                            <p class='error-skid-type'>Please enter a skid type</p>
+  `;
+  errorSkidType = document.querySelectorAll(".error-skid-type");
+
+  let templateSkidDimensions = `<div class="dimensions-container">
+
+                                          <div class="dimension-wrapper">
                                           <input type="text" placeholder="Length" class="dimensions-input length" data-count="${i}" name='length'>
+                                          </div>
+                                         
+                                          <div class="dimension-wrapper">
                                           <input type="text" placeholder="Width" class="dimensions-input width" data-count="${i}" name='width'>
+                                          </div>
+
+                                          <div class="dimension-wrapper">
                                           <input type="text" placeholder="Height" class="dimensions-input height" data-count="${i}" name='height'>
+                                          </div>                                     
                                         </div>`;
 
   skidTypeWrapper.insertAdjacentHTML(position, templateSkidTypes);
@@ -99,9 +118,16 @@ function validateNumSkidsOnInput() {
   }
 }
 
-function validateInput(inputValue, regEx = "", errorMsg) {
+function validateInput(
+  inputValue,
+  regEx = "",
+  errorMsg,
+  errorMsg2 = "",
+  errorSkidType
+) {
+  let isValid;
   if (regEx !== "") {
-    let isValid = regEx.test(inputValue);
+    isValid = regEx.test(inputValue);
 
     if (!isValid) {
       errorMsg.classList.add("active");
@@ -109,6 +135,23 @@ function validateInput(inputValue, regEx = "", errorMsg) {
 
     if (isValid) {
       errorMsg.classList.remove("active");
+    }
+  }
+
+  // need to make sure regEx exists first
+  if (errorMsg2) {
+    if (!inputValue == "" && !isValid) {
+      errorMsg.classList.remove("active");
+      errorMsg2.classList.add("active");
+    }
+
+    if (errorMsg2.classList.contains("active") && inputValue == "") {
+      errorMsg.classList.add("active");
+      errorMsg2.classList.remove("active");
+    }
+
+    if (isValid && errorMsg2.classList.contains("active")) {
+      errorMsg2.classList.remove("active");
     }
   }
 
@@ -145,6 +188,7 @@ if (myForm) {
 
     let emailRegEx = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     let phoneRegEx = /^\(?\d{3}\)?[-\s]?\d{3}[-\s]?\d{4}$/;
+    let positiveIntegerRegEx = /^\d+$/;
 
     validateInput(phone.value, phoneRegEx, phoneErrorMsg);
     validateInput(email.value, emailRegEx, emailErrorMsg);
@@ -153,6 +197,14 @@ if (myForm) {
     validateInput(numSkids.value, "", numSkidsErrorEmpty);
     validateInput(pickupInfo.value, "", pickupInfoErrorMsg);
     validateInput(shippingInfo.value, "", shippingInfoErrorMsg);
+    validateInput(hsCodes.value, "", errorHsCode);
+    validateInput(shipmentServiceType.value, "", errorServiceType);
+    validateInput(
+      numPieces.value,
+      positiveIntegerRegEx,
+      errorNumPiecesEmpty,
+      errorNumPiecesInvalid
+    );
 
     let inputs = document.querySelectorAll(".dimensions-input");
     let skidTypes = document.querySelectorAll(".skid-type");
@@ -161,6 +213,7 @@ if (myForm) {
     let arrInput = [];
     inputs.forEach((input) => {
       skidTypes.forEach((type, i) => {
+        console.log(type);
         if (input.dataset.count === type.dataset.count) {
           arrInput.push(
             `${type.value} ${i} - ${input.placeholder}: ${input.value}`
@@ -169,6 +222,5 @@ if (myForm) {
       });
     });
     console.log(arrInput);
-    // addDocument_AutoID(arrInput);
   });
 }

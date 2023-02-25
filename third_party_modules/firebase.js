@@ -16,6 +16,7 @@ const firebaseConfig = {
 const fb = initializeApp(firebaseConfig);
 const db = getFirestore(fb);
 const contactRef = collection(db, "contact");
+const quoteRef = collection(db, "quotes");
 
 async function addFirebaseContact(email, fullName) {
   const docRef = await addDoc(contactRef, {
