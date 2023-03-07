@@ -5,7 +5,7 @@ dotenv.config();
 
 const firebaseConfig = {
   apiKey: `${process.env.FIREBASE_KEY}`,
-  authDomain: "cgl-forms.firebaseapp.com",
+  authDomain: "cgl-forms.firebaseapp.co m",
   databaseURL: "https://cgl-forms-default-rtdb.firebaseio.com",
   projectId: "cgl-forms",
   storageBucket: "cgl-forms.appspot.com",

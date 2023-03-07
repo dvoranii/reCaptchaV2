@@ -4,6 +4,7 @@ const fullName = document.querySelector(".name-input");
 const email = document.querySelector(".email-input");
 // const submitBtn = document.querySelector(".submit");
 const myForm = document.querySelector(".form");
+const captcha = document.querySelector(".g-recaptcha");
 
 // Error messages
 let errorCap = document.querySelector(".error-captcha");
@@ -23,7 +24,7 @@ renderFooter();
 // need to explicitly load page before selecting recaptcha to get access to its response object
 // CSRF token only generated on pages with forms meaning pages w/ a captcha
 window.onload = function () {
-  if (grecaptcha) {
+  if (captcha) {
     captchaRes = document.querySelector("#g-recaptcha-response");
     csrfToken = generateCSRFToken();
     let csrfTokenEl = document.getElementById("csrf-token");
@@ -36,7 +37,7 @@ window.onload = function () {
 if (myForm) {
   myForm.addEventListener("submit", (e) => {
     e.preventDefault();
-    sendFormData();
+    sendContactFormData();
   });
 }
 
@@ -82,12 +83,11 @@ function validateContactForm(name, email, emailRegex) {
   }
 }
 
-function sendFormData() {
+function sendContactFormData() {
   let nameValue = sanitizeInput(fullName.value);
   let emailValue = sanitizeInput(email.value);
   let csrfToken = getCSRFToken();
 
-  console.log(getCSRFToken());
   validateContactForm(nameValue, emailValue, emailRegEx);
 
   // guard clauses to prevent form submission
@@ -106,7 +106,7 @@ function sendFormData() {
     _csrf: csrfToken,
   });
 
-  fetch("/submit", {
+  fetch("/submit-contact", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -116,11 +116,11 @@ function sendFormData() {
   })
     .then((res) => res.json())
     .then((data) => {
+      console.log(data);
       if (data.success == true) {
         window.location.href = "/success";
       }
       if (data.success == false) {
-        console.error(data);
         errorCap.innerHTML = `${data.msg}`;
         errorCap.classList.add("active");
       }

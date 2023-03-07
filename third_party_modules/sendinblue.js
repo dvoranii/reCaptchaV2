@@ -6,7 +6,8 @@ const sibAPIKey = process.env.SIB_API_KEY;
 let defaultClient = SibApiV3Sdk.ApiClient.instance;
 let apiKey = defaultClient.authentications["api-key"];
 apiKey.apiKey = sibAPIKey;
-let apiInstance = new SibApiV3Sdk.ContactsApi();
+
+let contactInstance = new SibApiV3Sdk.ContactsApi();
 let createContact = new SibApiV3Sdk.CreateContact();
 
 async function addSIBContact(reqName, reqEmail) {
@@ -17,7 +18,26 @@ async function addSIBContact(reqName, reqEmail) {
   };
 
   try {
-    const sibResponse = await apiInstance.createContact(createContact);
+    const sibResponse = await contactInstance.createContact(createContact);
+    console.log("Contact added to Sendinblue:", sibResponse);
+
+    const sender = { email: "ildidvorani@gmail.com", name: "Ildi Dvorani" };
+    const to = [{ email: "ildidvorani@gmail.com", name: "Myself" }];
+    const subject = "New Form Submission";
+    const htmlContent = ` 
+    <p>A new form has been submitted by ${reqName} (${reqEmail}).</p>`;
+
+    const sendSmtpEmail = new SibApiV3Sdk.SendSmtpEmail();
+    sendSmtpEmail.sender = sender;
+    sendSmtpEmail.to = to;
+    sendSmtpEmail.subject = subject;
+    sendSmtpEmail.htmlContent = htmlContent;
+
+    const sendSmtpInstance = new SibApiV3Sdk.TransactionalEmailsApi();
+    await sendSmtpInstance.sendTransacEmail(sendSmtpEmail);
+
+    console.log("Email sent to owner!");
+
     return sibResponse;
   } catch (error) {
     let errorMessage;

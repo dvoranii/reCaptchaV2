@@ -24,7 +24,7 @@ function sanitizeInputMiddleware(req, res, next) {
   next();
 }
 
-app.post("/submit", sanitizeInputMiddleware, async (req, res) => {
+app.post("/submit-contact", sanitizeInputMiddleware, async (req, res) => {
   let reqCap = req.body.captcha;
   let reqName = req.body.name;
   let reqEmail = req.body.email;
