@@ -213,3 +213,7 @@ iframe {
   width: clamp(400px, 40vw, 800px);
   height: 400px;
 }
+
+.success-container {
+  height: 100vh;
+}

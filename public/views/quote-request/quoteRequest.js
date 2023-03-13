@@ -82,6 +82,35 @@ function setSkidTemplate(position, i) {
   });
 })();
 
+function generateCSRFToken() {
+  const csrfToken =
+    Math.random().toString(36).substring(2, 15) +
+    Math.random().toString(36).substring(2, 15);
+  sessionStorage.setItem("csrfToken", csrfToken);
+  return csrfToken;
+}
+
+function getCSRFToken() {
+  return sessionStorage.getItem("csrfToken");
+}
+
+const captcha = document.querySelector(".g-recaptcha");
+let captchaRes;
+let csrfToken;
+
+// need to explicitly load page before selecting recaptcha to get access to its response object
+// CSRF token only generated on pages with forms meaning pages w/ a captcha
+window.onload = function () {
+  if (captcha) {
+    captchaRes = document.querySelector("#g-recaptcha-response");
+    csrfToken = generateCSRFToken();
+    let csrfTokenEl = document.getElementById("csrf-token");
+    if (csrfTokenEl) {
+      csrfTokenEl.value = csrfToken;
+    }
+  }
+};
+
 function validateNumSkidsOnInput() {
   let skidsRegex = /^\d+$/;
   let isNumber = skidsRegex.test(numSkids.value);
@@ -185,7 +214,8 @@ function displaySkidInputs() {
   });
 }
 
-// need to merge the submit functionality from the contact form
+// ----------------------------------------------------------
+
 if (myForm) {
   myForm.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -193,6 +223,7 @@ if (myForm) {
     let emailRegEx = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     let phoneRegEx = /^\(?\d{3}\)?[-\s]?\d{3}[-\s]?\d{4}$/;
     let positiveIntegerRegEx = /^\d+$/;
+    let csrfToken = getCSRFToken();
 
     validateInput(phone.value, phoneRegEx, phoneErrorMsg);
     validateInput(email.value, emailRegEx, emailErrorMsg);
@@ -215,24 +246,65 @@ if (myForm) {
       errorWeightEmpty,
       errorWeightInvalid
     );
-
     validateInput(weightUnits.value, "", errorUnit);
     validateInput(hazardous.value, "", errorOption);
 
+    // Add guard clause for captcha and csrfToken
+    if (!captcha || !captchaRes || !csrfToken) {
+      console.error("Captcha or CSRF token is missing");
+      return;
+    }
+
+    // Create an object to hold the form data
+    let formData = {};
+
+    // Add the basic form fields to the object
+    formData.fullName = fullName.value;
+    formData.companyName = companyName.value;
+    formData.email = email.value;
+    formData.phone = phone.value;
+    formData.pickupInfo = pickupInfo.value;
+    formData.shippingInfo = shippingInfo.value;
+    formData.hsCodes = hsCodes.value;
+    formData.shipmentServiceType = shipmentServiceType.value;
+    formData.numSkids = numSkids.value;
+    formData.numPieces = numPieces.value;
+    formData.weight = weight.value;
+    formData.weightUnits = weightUnits.value;
+    formData.hazardous = hazardous.value;
+
     let inputs = document.querySelectorAll(".dimensions-input");
     let skidTypes = document.querySelectorAll(".skid-type");
-
-    // need to refactor this to make it more presentable in the DB
-    let arrInput = [];
+    // Add the skid dimensions to the object as a map
+    let skidsMap = new Map();
     inputs.forEach((input) => {
       skidTypes.forEach((type, i) => {
         if (input.dataset.count === type.dataset.count) {
-          arrInput.push(
-            `${type.value} ${i} - ${input.placeholder}: ${input.value}`
-          );
+          let key = `${type.value} ${i}`;
+          if (!skidsMap.has(key)) {
+            skidsMap.set(key, {});
+          }
+          skidsMap.get(key)[input.placeholder] = input.value;
         }
       });
     });
-    console.log(arrInput);
+    formData.skids = Object.fromEntries(skidsMap);
+    console.log(formData);
+
+    // Send the form data to the backend
+    fetch("/submit-quote", {
+      method: "POST",
+      body: JSON.stringify({
+        formData,
+        captchaRes: captchaRes.value,
+        csrfToken: csrfToken.value,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data))
+      .catch((err) => console.log(err));
   });
 }

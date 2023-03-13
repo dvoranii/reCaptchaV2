@@ -14,17 +14,18 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use("/", routes);
 
-function sanitizeInput(input) {
-  return input.replace(/[^\w\s@.]/gi, "");
-}
+// function sanitizeInput(input) {
+//   return input.replace(/[^\w\s@.]/gi, "");
+// }
 
-function sanitizeInputMiddleware(req, res, next) {
-  req.body.name = sanitizeInput(req.body.name);
-  req.body.email = sanitizeInput(req.body.email);
-  next();
-}
+// function sanitizeInputMiddleware(req, res, next) {
+//   // update to accommodate for quoteRequest
+//   req.body.name = sanitizeInput(req.body.name);
+//   req.body.email = sanitizeInput(req.body.email);
+//   next();
+// }
 
-app.post("/submit-contact", sanitizeInputMiddleware, async (req, res) => {
+app.post("/submit-contact", async (req, res) => {
   let reqCap = req.body.captcha;
   let reqName = req.body.name;
   let reqEmail = req.body.email;
@@ -58,6 +59,11 @@ app.post("/submit-contact", sanitizeInputMiddleware, async (req, res) => {
       addSIBContact(reqName, reqEmail);
       addFirebaseContact(reqEmail, reqName);
 
+      // need the quoteRequest.js to send to this route
+      // and get the request object
+      // might be messy to do this on the same route
+      // make new route and send the quoteRequest there
+
       return res.json({ success: true, msg: "Captcha passed!" });
     } catch (error) {
       let errorMessage;
@@ -73,6 +79,12 @@ app.post("/submit-contact", sanitizeInputMiddleware, async (req, res) => {
       msg: "An error occurred while verifying the captcha",
     });
   }
+});
+
+app.post("/submit-quote", async (req, res) => {
+  console.log(req.body); // log submitted form data to console
+  console.log(req.body.formData.numSkids);
+  // addQuoteRequestFormData(req.body.formData.fullName, req.body.formData.email, req.body.formData.companyName, req.body.formData.phone, req.body.formData.pickupInfo, req.body.formData.shippingInfo, req.body.formData.numSkids,);
 });
 
 module.exports = app;

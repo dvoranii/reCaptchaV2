@@ -91,13 +91,17 @@ function sendContactFormData() {
   validateContactForm(nameValue, emailValue, emailRegEx);
 
   // guard clauses to prevent form submission
-  if (nameValue.trim() === "" || emailValue.trim() === "") {
+  // guard clauses to prevent form submission
+  if (
+    nameValue.trim() === "" ||
+    emailValue.trim() === "" ||
+    !captchaRes ||
+    !csrfToken
+  ) {
+    console.error("Invalid form data");
     return;
   }
 
-  if (!emailRegEx.test(emailValue.trim())) {
-    return;
-  }
   // pass the csrf
   let formValues = JSON.stringify({
     name: nameValue,
