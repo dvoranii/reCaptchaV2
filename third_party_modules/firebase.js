@@ -25,8 +25,14 @@ async function addQuoteRequestFormData(
   phone,
   pickupInfo,
   shippingInfo,
-  numberOfSkids,
-  skids,
+  numSkids,
+  skidDetails,
+  serviceType,
+  numPieces,
+  weight,
+  weightUnits,
+  hazardous,
+  hsCodes,
   additionalInfo
 ) {
   const docRef = await addDoc(quoteRef, {
@@ -36,19 +42,17 @@ async function addQuoteRequestFormData(
     phone: phone,
     pickupInfo: pickupInfo,
     shippingInfo: shippingInfo,
-    numberOfSkids: {
-      skidType: skids.skidType,
-      Dimensions: {
-        Length: skids.Dimensions.Length,
-        Width: skids.Dimensions.Width,
-        Height: skids.Dimensions.Height,
-      },
+    additionalInfo: additionalInfo,
+    shippingDetails: {
+      numSkids: numSkids,
+      numPieces: numPieces,
+      weight: weight,
+      weightUnits: weightUnits,
+      hazardous: hazardous,
+      hsCodes: hsCodes,
+      serviceType: serviceType,
+      skidDetails: skidDetails,
     },
-    checkBox: checkBox,
-    hsCode: hsCode,
-    serviceType: serviceType,
-    weight: weight,
-    units: units,
   });
   return docRef.id;
 }

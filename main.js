@@ -4,7 +4,10 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const routes = require("./routes");
-const { addFirebaseContact } = require("./third_party_modules/firebase");
+const {
+  addFirebaseContact,
+  addQuoteRequestFormData,
+} = require("./third_party_modules/firebase");
 const { addSIBContact } = require("./third_party_modules/sendinblue");
 const app = express();
 
@@ -82,9 +85,51 @@ app.post("/submit-contact", async (req, res) => {
 });
 
 app.post("/submit-quote", async (req, res) => {
-  console.log(req.body); // log submitted form data to console
-  console.log(req.body.formData.numSkids);
-  // addQuoteRequestFormData(req.body.formData.fullName, req.body.formData.email, req.body.formData.companyName, req.body.formData.phone, req.body.formData.pickupInfo, req.body.formData.shippingInfo, req.body.formData.numSkids,);
+  // app.post("/submit-quote", async (req, res) => {
+  const formData = req.body.formData;
+
+  const {
+    fullName,
+    companyName,
+    email,
+    phone,
+    pickupInfo,
+    shippingInfo,
+    shipmentServiceType,
+    additionalInfo,
+  } = formData;
+
+  const { numSkids, numPieces, weight, weightUnits, hazardous, hsCodes } =
+    formData.skids.skidsMetaInfo;
+
+  const skidDetails = formData.skids.skidDetails;
+
+  try {
+    const docId = await addQuoteRequestFormData(
+      fullName,
+      email,
+      companyName,
+      phone,
+      pickupInfo,
+      shippingInfo,
+      numSkids,
+      skidDetails,
+      shipmentServiceType,
+      numPieces,
+      weight,
+      weightUnits,
+      hazardous,
+      hsCodes,
+      additionalInfo
+    );
+    res
+      .status(200)
+      .json({ message: "Quote request saved successfully", docId });
+  } catch (error) {
+    console.error("Error adding quote request data:", error);
+    res.status(500).json({ message: "Error adding quote request data", error });
+  }
+  // });
 });
 
 module.exports = app;

@@ -21,6 +21,7 @@ const shippingInfo = document.getElementById("shippingInfo");
 const numSkids = document.querySelector(".number-skids");
 const skidDimensions = document.querySelector(".skid-dimensions");
 const skidTypeWrapper = document.querySelector(".skid-type-wrapper");
+let additionalInfo = document.querySelector(".additional-info textarea");
 
 // Error messages
 let numSkidsErrorMax = document.querySelector(".quote-error--numSkids-max");
@@ -265,30 +266,39 @@ if (myForm) {
     formData.phone = phone.value;
     formData.pickupInfo = pickupInfo.value;
     formData.shippingInfo = shippingInfo.value;
-    formData.hsCodes = hsCodes.value;
     formData.shipmentServiceType = shipmentServiceType.value;
-    formData.numSkids = numSkids.value;
-    formData.numPieces = numPieces.value;
-    formData.weight = weight.value;
-    formData.weightUnits = weightUnits.value;
-    formData.hazardous = hazardous.value;
+    formData.additionalInfo = additionalInfo.value;
+
+    let skidsMetaInfo = {
+      numSkids: numSkids.value,
+      numPieces: numPieces.value,
+      weight: weight.value,
+      weightUnits: weightUnits.value,
+      hazardous: hazardous.value,
+      hsCodes: hsCodes.value,
+    };
+    let skidDetails = {};
 
     let inputs = document.querySelectorAll(".dimensions-input");
     let skidTypes = document.querySelectorAll(".skid-type");
+
     // Add the skid dimensions to the object as a map
-    let skidsMap = new Map();
     inputs.forEach((input) => {
       skidTypes.forEach((type, i) => {
         if (input.dataset.count === type.dataset.count) {
           let key = `${type.value} ${i}`;
-          if (!skidsMap.has(key)) {
-            skidsMap.set(key, {});
+          if (!skidDetails[key]) {
+            skidDetails[key] = {};
           }
-          skidsMap.get(key)[input.placeholder] = input.value;
+          skidDetails[key][input.placeholder] = input.value;
         }
       });
     });
-    formData.skids = Object.fromEntries(skidsMap);
+
+    formData.skids = {
+      skidsMetaInfo,
+      skidDetails,
+    };
     console.log(formData);
 
     // Send the form data to the backend
@@ -304,7 +314,9 @@ if (myForm) {
       },
     })
       .then((res) => res.json())
-      .then((data) => console.log(data))
+      .then((data) => {
+        console.log(data);
+      })
       .catch((err) => console.log(err));
   });
 }
