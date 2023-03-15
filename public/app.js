@@ -1,38 +1,26 @@
 "use strict";
-
-const fullName = document.querySelector(".name-input");
-const email = document.querySelector(".email-input");
-// const submitBtn = document.querySelector(".submit");
-const myForm = document.querySelector(".form");
-const captcha = document.querySelector(".g-recaptcha");
-
-// Error messages
-let errorCap = document.querySelector(".error-captcha");
-let errorName = document.querySelector(".contact-name--error");
-let errorEmailEmpty = document.querySelector(".contact-email--error-1");
-let errorEmailInvalid = document.querySelector(".contact-email--error-2");
-
-let captchaRes;
-let csrfToken;
-
 import renderNavigation from "./views/global-components/navigation/nav.js";
 import renderFooter from "./views/global-components/footer/footer.js";
 
 renderNavigation();
 renderFooter();
 
-// need to explicitly load page before selecting recaptcha to get access to its response object
-// CSRF token only generated on pages with forms meaning pages w/ a captcha
-window.onload = function () {
-  if (captcha) {
-    captchaRes = document.querySelector("#g-recaptcha-response");
-    csrfToken = generateCSRFToken();
-    let csrfTokenEl = document.getElementById("csrf-token");
-    if (csrfTokenEl) {
-      csrfTokenEl.value = csrfToken;
-    }
-  }
-};
+import {
+  generateCSRFToken,
+  getCSRFToken,
+  handleCaptchaAndCSRFToken,
+  sanitizeInput,
+} from "./formUtils.js";
+
+const fullName = document.querySelector(".name-input");
+const email = document.querySelector(".email-input");
+const myForm = document.querySelector(".form");
+
+// Error messages
+let errorCap = document.querySelector(".error-captcha");
+let errorName = document.querySelector(".contact-name--error");
+let errorEmailEmpty = document.querySelector(".contact-email--error-1");
+let errorEmailInvalid = document.querySelector(".contact-email--error-2");
 
 if (myForm) {
   myForm.addEventListener("submit", (e) => {
@@ -41,28 +29,17 @@ if (myForm) {
   });
 }
 
-function sanitizeInput(input) {
-  return input.replace(/[^\w\s@.]/gi, "");
-}
-
-function generateCSRFToken() {
-  const csrfToken =
-    Math.random().toString(36).substring(2, 15) +
-    Math.random().toString(36).substring(2, 15);
-  sessionStorage.setItem("csrfToken", csrfToken);
-  return csrfToken;
-}
-
-function getCSRFToken() {
-  return sessionStorage.getItem("csrfToken");
-}
+generateCSRFToken();
+getCSRFToken();
 
 let emailRegEx = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 function validateContactForm(name, email, emailRegex) {
+  let isValid = true;
   // Check if name is empty
   if (name.trim() === "") {
     errorName.classList.add("active");
+    isValid = false;
   } else {
     errorName.classList.remove("active");
   }
@@ -71,6 +48,7 @@ function validateContactForm(name, email, emailRegex) {
   if (email.trim() === "") {
     errorEmailEmpty.classList.add("active");
     errorEmailInvalid.classList.remove("active");
+    isValid = false;
   } else {
     errorEmailEmpty.classList.remove("active");
     // Check if email matches the regex
@@ -78,26 +56,26 @@ function validateContactForm(name, email, emailRegex) {
       errorEmailInvalid.classList.remove("active");
     } else {
       errorEmailInvalid.classList.add("active");
-      return;
+      isValid = false;
     }
   }
+  return isValid;
 }
+
+const { getCaptchaRes, getCsrfToken } = handleCaptchaAndCSRFToken();
 
 function sendContactFormData() {
   let nameValue = sanitizeInput(fullName.value);
   let emailValue = sanitizeInput(email.value);
-  let csrfToken = getCSRFToken();
 
-  validateContactForm(nameValue, emailValue, emailRegEx);
+  const captchaRes = getCaptchaRes();
+  const csrfToken = getCsrfToken();
+
+  let isFormValid = validateContactForm(nameValue, emailValue, emailRegEx);
 
   // guard clauses to prevent form submission
   // guard clauses to prevent form submission
-  if (
-    nameValue.trim() === "" ||
-    emailValue.trim() === "" ||
-    !captchaRes ||
-    !csrfToken
-  ) {
+  if (!isFormValid || !captchaRes || !csrfToken) {
     console.error("Invalid form data");
     return;
   }
@@ -122,7 +100,8 @@ function sendContactFormData() {
     .then((data) => {
       console.log(data);
       if (data.success == true) {
-        window.location.href = "/success";
+        // window.location.href = "/success";
+        console.log("success");
       }
       if (data.success == false) {
         errorCap.innerHTML = `${data.msg}`;

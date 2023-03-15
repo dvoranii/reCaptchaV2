@@ -2,7 +2,13 @@
 // TODO: Connect this to firebase
 // TODO: Add sendinblue email campaign
 
-// here's the form
+import {
+  generateCSRFToken,
+  getCSRFToken,
+  handleCaptchaAndCSRFToken,
+  // sanitizeInput,
+} from "./formUtils.js";
+
 const myForm = document.querySelector(".quote-request-form");
 const numPieces = document.querySelector(".number-pieces");
 const shipmentServiceType = document.querySelector(".shipment-service-type");
@@ -21,7 +27,7 @@ const shippingInfo = document.getElementById("shippingInfo");
 const numSkids = document.querySelector(".number-skids");
 const skidDimensions = document.querySelector(".skid-dimensions");
 const skidTypeWrapper = document.querySelector(".skid-type-wrapper");
-let additionalInfo = document.querySelector(".additional-info textarea");
+const additionalInfo = document.querySelector(".additional-info textarea");
 
 // Error messages
 let numSkidsErrorMax = document.querySelector(".quote-error--numSkids-max");
@@ -83,34 +89,21 @@ function setSkidTemplate(position, i) {
   });
 })();
 
-function generateCSRFToken() {
-  const csrfToken =
-    Math.random().toString(36).substring(2, 15) +
-    Math.random().toString(36).substring(2, 15);
-  sessionStorage.setItem("csrfToken", csrfToken);
-  return csrfToken;
-}
-
-function getCSRFToken() {
-  return sessionStorage.getItem("csrfToken");
-}
-
-const captcha = document.querySelector(".g-recaptcha");
-let captchaRes;
-let csrfToken;
+generateCSRFToken();
+getCSRFToken();
 
 // need to explicitly load page before selecting recaptcha to get access to its response object
 // CSRF token only generated on pages with forms meaning pages w/ a captcha
-window.onload = function () {
-  if (captcha) {
-    captchaRes = document.querySelector("#g-recaptcha-response");
-    csrfToken = generateCSRFToken();
-    let csrfTokenEl = document.getElementById("csrf-token");
-    if (csrfTokenEl) {
-      csrfTokenEl.value = csrfToken;
-    }
-  }
-};
+// window.onload = function () {
+//   if (captcha) {
+//     captchaRes = document.querySelector("#g-recaptcha-response");
+//     csrfToken = generateCSRFToken();
+//     let csrfTokenEl = document.getElementById("csrf-token");
+//     if (csrfTokenEl) {
+//       csrfTokenEl.value = csrfToken;
+//     }
+//   }
+// };
 
 function validateNumSkidsOnInput() {
   let skidsRegex = /^\d+$/;
@@ -152,14 +145,8 @@ function validateNumSkidsOnInput() {
   }
 }
 
-function validateInput(
-  inputValue,
-  regEx = "",
-  errorMsg,
-  errorMsg2 = "",
-  errorSkidType
-) {
-  let isValid;
+function validateInput(inputValue, regEx = "", errorMsg, errorMsg2 = "") {
+  let isValid = true;
   if (regEx !== "") {
     isValid = regEx.test(inputValue);
 
@@ -170,6 +157,14 @@ function validateInput(
     if (isValid) {
       errorMsg.classList.remove("active");
     }
+  }
+
+  // guard clause to
+  if (inputValue.trim() === "") {
+    errorMsg.classList.add("active");
+    isValid = false;
+  } else {
+    errorMsg.classList.remove("active");
   }
 
   // need to make sure regEx exists first
@@ -215,8 +210,36 @@ function displaySkidInputs() {
   });
 }
 
-// ----------------------------------------------------------
+function sendQuoteFormData(formData, captchaRes, csrfToken) {
+  fetch("/submit-quote", {
+    method: "POST",
+    body: JSON.stringify({
+      formData,
+      captchaRes: captchaRes.value,
+      csrfToken: csrfToken.value,
+    }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
 
+      if (data.message === "Quote request saved successfully") {
+        // window.location.href = "/success";
+        console.log("success");
+      } else {
+        console.error(
+          "Error while submitting the quote request:",
+          data.message
+        );
+      }
+    })
+    .catch((err) => console.log(err));
+}
+
+const { getCaptchaRes, getCsrfToken } = handleCaptchaAndCSRFToken();
 if (myForm) {
   myForm.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -224,7 +247,9 @@ if (myForm) {
     let emailRegEx = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     let phoneRegEx = /^\(?\d{3}\)?[-\s]?\d{3}[-\s]?\d{4}$/;
     let positiveIntegerRegEx = /^\d+$/;
-    let csrfToken = getCSRFToken();
+
+    const captchaRes = getCaptchaRes();
+    const csrfToken = getCsrfToken();
 
     validateInput(phone.value, phoneRegEx, phoneErrorMsg);
     validateInput(email.value, emailRegEx, emailErrorMsg);
@@ -249,6 +274,14 @@ if (myForm) {
     );
     validateInput(weightUnits.value, "", errorUnit);
     validateInput(hazardous.value, "", errorOption);
+
+    // Check for any active error messages before submitting the form
+    let errorMessages = document.querySelectorAll(".active");
+
+    if (errorMessages.length > 0) {
+      console.error("Form contains errors. Please fix them before submitting.");
+      return;
+    }
 
     // Add guard clause for captcha and csrfToken
     if (!captcha || !captchaRes || !csrfToken) {
@@ -301,22 +334,6 @@ if (myForm) {
     };
     console.log(formData);
 
-    // Send the form data to the backend
-    fetch("/submit-quote", {
-      method: "POST",
-      body: JSON.stringify({
-        formData,
-        captchaRes: captchaRes.value,
-        csrfToken: csrfToken.value,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((err) => console.log(err));
+    sendQuoteFormData(formData, captchaRes, csrfToken);
   });
 }

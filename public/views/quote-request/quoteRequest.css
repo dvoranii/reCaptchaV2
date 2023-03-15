@@ -148,7 +148,8 @@
 .error-weight-empty,
 .error-weight-invalid,
 .error-unit,
-.error-option {
+.error-option,
+.error-dimension {
   color: red;
   margin-top: 0.2rem;
   font-size: 12px;
@@ -173,7 +174,8 @@
 .error-weight-empty.active,
 .error-weight-invalid.active,
 .error-unit.active,
-.error-option.active {
+.error-option.active,
+.error-dimension.active {
   display: block;
 }
 

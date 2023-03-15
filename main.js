@@ -85,7 +85,6 @@ app.post("/submit-contact", async (req, res) => {
 });
 
 app.post("/submit-quote", async (req, res) => {
-  // app.post("/submit-quote", async (req, res) => {
   const formData = req.body.formData;
 
   const {
@@ -129,7 +128,6 @@ app.post("/submit-quote", async (req, res) => {
     console.error("Error adding quote request data:", error);
     res.status(500).json({ message: "Error adding quote request data", error });
   }
-  // });
 });
 
 module.exports = app;
