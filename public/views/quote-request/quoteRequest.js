@@ -2,7 +2,7 @@
 // TODO: Connect this to firebase
 // TODO: Add sendinblue email campaign
 
-import { handleCaptchaAndCSRFToken } from "../../formUtils.js";
+import { handleCaptchaAndCSRFToken, sanitizeInput } from "../../formUtils.js";
 
 const myForm = document.querySelector(".quote-request-form");
 const numPieces = document.querySelector(".number-pieces");
@@ -74,15 +74,11 @@ function setSkidTemplate(position, i) {
   skidDimensions.insertAdjacentHTML(position, templateSkidDimensions);
 }
 
-(function () {
-  if (!skidTypeWrapper) {
-    return;
-  }
-  window.addEventListener("DOMContentLoaded", () => {
-    setSkidTemplate("afterbegin", 0);
-    displaySkidInputs();
-  });
-})();
+// old code wan't necessary because we modularized
+window.addEventListener("DOMContentLoaded", () => {
+  setSkidTemplate("afterbegin", 0);
+  displaySkidInputs();
+});
 
 const { captcha, getCaptchaRes, getCsrfToken } = handleCaptchaAndCSRFToken();
 
@@ -280,7 +276,6 @@ function validateQuoteForm() {
 }
 
 function submitQuoteForm() {
-  // let csrfToken = getCSRFToken();
   const captchaRes = getCaptchaRes();
   const csrfToken = getCsrfToken();
   const isValid = validateQuoteForm();
@@ -302,22 +297,22 @@ function submitQuoteForm() {
   let formData = {};
 
   // Add the basic form fields to the object
-  formData.fullName = fullName.value;
-  formData.companyName = companyName.value;
-  formData.email = email.value;
-  formData.phone = phone.value;
-  formData.pickupInfo = pickupInfo.value;
-  formData.shippingInfo = shippingInfo.value;
-  formData.shipmentServiceType = shipmentServiceType.value;
-  formData.additionalInfo = additionalInfo.value;
+  formData.fullName = sanitizeInput(fullName.value);
+  formData.companyName = sanitizeInput(companyName.value);
+  formData.email = sanitizeInput(email.value);
+  formData.phone = sanitizeInput(phone.value);
+  formData.pickupInfo = sanitizeInput(pickupInfo.value);
+  formData.shippingInfo = sanitizeInput(shippingInfo.value);
+  formData.shipmentServiceType = sanitizeInput(shipmentServiceType.value);
+  formData.additionalInfo = sanitizeInput(additionalInfo.value);
 
   let skidsMetaInfo = {
-    numSkids: numSkids.value,
-    numPieces: numPieces.value,
-    weight: weight.value,
-    weightUnits: weightUnits.value,
-    hazardous: hazardous.value,
-    hsCodes: hsCodes.value,
+    numSkids: sanitizeInput(numSkids.value),
+    numPieces: sanitizeInput(numPieces.value),
+    weight: sanitizeInput(weight.value),
+    weightUnits: sanitizeInput(weightUnits.value),
+    hazardous: sanitizeInput(hazardous.value),
+    hsCodes: sanitizeInput(hsCodes.value),
   };
   let skidDetails = {};
 
