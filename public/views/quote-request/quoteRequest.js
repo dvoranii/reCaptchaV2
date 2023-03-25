@@ -2,12 +2,7 @@
 // TODO: Connect this to firebase
 // TODO: Add sendinblue email campaign
 
-import {
-  generateCSRFToken,
-  getCSRFToken,
-  handleCaptchaAndCSRFToken,
-  // sanitizeInput,
-} from "./formUtils.js";
+import { handleCaptchaAndCSRFToken } from "../../formUtils.js";
 
 const myForm = document.querySelector(".quote-request-form");
 const numPieces = document.querySelector(".number-pieces");
@@ -89,21 +84,14 @@ function setSkidTemplate(position, i) {
   });
 })();
 
-generateCSRFToken();
-getCSRFToken();
+const { captcha, getCaptchaRes, getCsrfToken } = handleCaptchaAndCSRFToken();
 
-// need to explicitly load page before selecting recaptcha to get access to its response object
-// CSRF token only generated on pages with forms meaning pages w/ a captcha
-// window.onload = function () {
-//   if (captcha) {
-//     captchaRes = document.querySelector("#g-recaptcha-response");
-//     csrfToken = generateCSRFToken();
-//     let csrfTokenEl = document.getElementById("csrf-token");
-//     if (csrfTokenEl) {
-//       csrfTokenEl.value = csrfToken;
-//     }
-//   }
-// };
+if (myForm) {
+  myForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    submitQuoteForm();
+  });
+}
 
 function validateNumSkidsOnInput() {
   let skidsRegex = /^\d+$/;
@@ -239,101 +227,120 @@ function sendQuoteFormData(formData, captchaRes, csrfToken) {
     .catch((err) => console.log(err));
 }
 
-const { getCaptchaRes, getCsrfToken } = handleCaptchaAndCSRFToken();
-if (myForm) {
-  myForm.addEventListener("submit", (e) => {
-    e.preventDefault();
+function validateQuoteForm() {
+  const fields = [
+    {
+      input: phone,
+      regex: /^\(?\d{3}\)?[-\s]?\d{3}[-\s]?\d{4}$/,
+      errorMsg: phoneErrorMsg,
+    },
+    {
+      input: email,
+      regex: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+      errorMsg: emailErrorMsg,
+    },
+    { input: fullName, regex: "", errorMsg: nameErrorMsg },
+    { input: companyName, regex: "", errorMsg: companyNameErrorMsg },
+    { input: numSkids, regex: "", errorMsg: numSkidsErrorEmpty },
+    { input: pickupInfo, regex: "", errorMsg: pickupInfoErrorMsg },
+    { input: shippingInfo, regex: "", errorMsg: shippingInfoErrorMsg },
+    { input: hsCodes, regex: "", errorMsg: errorHsCode },
+    { input: shipmentServiceType, regex: "", errorMsg: errorServiceType },
+    {
+      input: numPieces,
+      regex: /^\d+$/,
+      errorMsg: errorNumPiecesEmpty,
+      errorMsg2: errorNumPiecesInvalid,
+    },
+    {
+      input: weight,
+      regex: /^\d+$/,
+      errorMsg: errorWeightEmpty,
+      errorMsg2: errorWeightInvalid,
+    },
+    { input: weightUnits, regex: "", errorMsg: errorUnit },
+    { input: hazardous, regex: "", errorMsg: errorOption },
+  ];
 
-    let emailRegEx = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    let phoneRegEx = /^\(?\d{3}\)?[-\s]?\d{3}[-\s]?\d{4}$/;
-    let positiveIntegerRegEx = /^\d+$/;
+  let isValid = true;
 
-    const captchaRes = getCaptchaRes();
-    const csrfToken = getCsrfToken();
-
-    validateInput(phone.value, phoneRegEx, phoneErrorMsg);
-    validateInput(email.value, emailRegEx, emailErrorMsg);
-    validateInput(fullName.value, "", nameErrorMsg);
-    validateInput(companyName.value, "", companyNameErrorMsg);
-    validateInput(numSkids.value, "", numSkidsErrorEmpty);
-    validateInput(pickupInfo.value, "", pickupInfoErrorMsg);
-    validateInput(shippingInfo.value, "", shippingInfoErrorMsg);
-    validateInput(hsCodes.value, "", errorHsCode);
-    validateInput(shipmentServiceType.value, "", errorServiceType);
+  fields.forEach((field) => {
     validateInput(
-      numPieces.value,
-      positiveIntegerRegEx,
-      errorNumPiecesEmpty,
-      errorNumPiecesInvalid
+      field.input.value,
+      field.regex,
+      field.errorMsg,
+      field.errorMsg2
     );
-    validateInput(
-      weight.value,
-      positiveIntegerRegEx,
-      errorWeightEmpty,
-      errorWeightInvalid
-    );
-    validateInput(weightUnits.value, "", errorUnit);
-    validateInput(hazardous.value, "", errorOption);
-
-    // Check for any active error messages before submitting the form
-    let errorMessages = document.querySelectorAll(".active");
-
-    if (errorMessages.length > 0) {
-      console.error("Form contains errors. Please fix them before submitting.");
-      return;
+    if (field.errorMsg2 && !field.regex.test(field.input.value.trim())) {
+      isValid = false;
     }
-
-    // Add guard clause for captcha and csrfToken
-    if (!captcha || !captchaRes || !csrfToken) {
-      console.error("Captcha or CSRF token is missing");
-      return;
-    }
-
-    // Create an object to hold the form data
-    let formData = {};
-
-    // Add the basic form fields to the object
-    formData.fullName = fullName.value;
-    formData.companyName = companyName.value;
-    formData.email = email.value;
-    formData.phone = phone.value;
-    formData.pickupInfo = pickupInfo.value;
-    formData.shippingInfo = shippingInfo.value;
-    formData.shipmentServiceType = shipmentServiceType.value;
-    formData.additionalInfo = additionalInfo.value;
-
-    let skidsMetaInfo = {
-      numSkids: numSkids.value,
-      numPieces: numPieces.value,
-      weight: weight.value,
-      weightUnits: weightUnits.value,
-      hazardous: hazardous.value,
-      hsCodes: hsCodes.value,
-    };
-    let skidDetails = {};
-
-    let inputs = document.querySelectorAll(".dimensions-input");
-    let skidTypes = document.querySelectorAll(".skid-type");
-
-    // Add the skid dimensions to the object as a map
-    inputs.forEach((input) => {
-      skidTypes.forEach((type, i) => {
-        if (input.dataset.count === type.dataset.count) {
-          let key = `${type.value} ${i}`;
-          if (!skidDetails[key]) {
-            skidDetails[key] = {};
-          }
-          skidDetails[key][input.placeholder] = input.value;
-        }
-      });
-    });
-
-    formData.skids = {
-      skidsMetaInfo,
-      skidDetails,
-    };
-    console.log(formData);
-
-    sendQuoteFormData(formData, captchaRes, csrfToken);
   });
+
+  return isValid;
+}
+
+function submitQuoteForm() {
+  // let csrfToken = getCSRFToken();
+  const captchaRes = getCaptchaRes();
+  const csrfToken = getCsrfToken();
+  const isValid = validateQuoteForm();
+
+  let errorMessages = document.querySelectorAll(".active");
+
+  if (errorMessages.length > 0) {
+    console.error("Form contains errors. Please fix them before submitting.");
+    return;
+  }
+
+  // Add guard clause for captcha and csrfToken
+  if (!captcha || !captchaRes || !csrfToken || !isValid) {
+    console.error("Captcha or CSRF token is missing");
+    return;
+  }
+
+  // Create an object to hold the form data
+  let formData = {};
+
+  // Add the basic form fields to the object
+  formData.fullName = fullName.value;
+  formData.companyName = companyName.value;
+  formData.email = email.value;
+  formData.phone = phone.value;
+  formData.pickupInfo = pickupInfo.value;
+  formData.shippingInfo = shippingInfo.value;
+  formData.shipmentServiceType = shipmentServiceType.value;
+  formData.additionalInfo = additionalInfo.value;
+
+  let skidsMetaInfo = {
+    numSkids: numSkids.value,
+    numPieces: numPieces.value,
+    weight: weight.value,
+    weightUnits: weightUnits.value,
+    hazardous: hazardous.value,
+    hsCodes: hsCodes.value,
+  };
+  let skidDetails = {};
+
+  let inputs = document.querySelectorAll(".dimensions-input");
+  let skidTypes = document.querySelectorAll(".skid-type");
+
+  // Add the skid dimensions to the object as a map
+  inputs.forEach((input) => {
+    skidTypes.forEach((type, i) => {
+      if (input.dataset.count === type.dataset.count) {
+        let key = `${type.value} ${i}`;
+        if (!skidDetails[key]) {
+          skidDetails[key] = {};
+        }
+        skidDetails[key][input.placeholder] = input.value;
+      }
+    });
+  });
+
+  formData.skids = {
+    skidsMetaInfo,
+    skidDetails,
+  };
+
+  sendQuoteFormData(formData, captchaRes, csrfToken);
 }

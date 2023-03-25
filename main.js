@@ -62,11 +62,6 @@ app.post("/submit-contact", async (req, res) => {
       addSIBContact(reqName, reqEmail);
       addFirebaseContact(reqEmail, reqName);
 
-      // need the quoteRequest.js to send to this route
-      // and get the request object
-      // might be messy to do this on the same route
-      // make new route and send the quoteRequest there
-
       return res.json({ success: true, msg: "Captcha passed!" });
     } catch (error) {
       let errorMessage;

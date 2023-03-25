@@ -27,12 +27,14 @@ export function handleCaptchaAndCSRFToken() {
   };
 
   return {
+    captcha,
     getCaptchaRes: () => captchaRes,
     getCsrfToken: () => csrfToken,
   };
 }
 
 export function sanitizeInput(input) {
-  console.log("working");
   return input.replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
+
+console.log("Exporting Module");
