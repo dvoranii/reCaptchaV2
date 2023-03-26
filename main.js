@@ -17,18 +17,17 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use("/", routes);
 
-// function sanitizeInput(input) {
-//   return input.replace(/[^\w\s@.]/gi, "");
-// }
+function sanitizeInput(input) {
+  return input.replace(/[^\w\s@.]/gi, "");
+}
 
-// function sanitizeInputMiddleware(req, res, next) {
-//   // update to accommodate for quoteRequest
-//   req.body.name = sanitizeInput(req.body.name);
-//   req.body.email = sanitizeInput(req.body.email);
-//   next();
-// }
+function sanitizeInputMiddleware(req, res, next) {
+  req.body.name = sanitizeInput(req.body.name);
+  req.body.email = sanitizeInput(req.body.email);
+  next();
+}
 
-app.post("/submit-contact", async (req, res) => {
+app.post("/submit-contact", sanitizeInputMiddleware, async (req, res) => {
   let reqCap = req.body.captcha;
   let reqName = req.body.name;
   let reqEmail = req.body.email;
