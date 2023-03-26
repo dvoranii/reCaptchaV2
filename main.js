@@ -21,9 +21,27 @@ function sanitizeInput(input) {
   return input.replace(/[^\w\s@.]/gi, "");
 }
 
+function sanitizeNestedObject(obj, parentKey = "") {
+  for (const key in obj) {
+    const fullKey = parentKey ? `${parentKey}.${key}` : key;
+    if (typeof obj[key] === "object" && obj[key] !== null) {
+      sanitizeNestedObject(obj[key], fullKey);
+    } else if (typeof obj[key] === "string") {
+      obj[key] = sanitizeInput(obj[key]);
+    } else if (typeof obj[key] === "number") {
+      obj[key] = parseFloat(sanitizeInput(obj[key].toString()));
+    }
+  }
+}
+
+// update to work with quote request
 function sanitizeInputMiddleware(req, res, next) {
-  req.body.name = sanitizeInput(req.body.name);
-  req.body.email = sanitizeInput(req.body.email);
+  if (req.path === "/submit-contact") {
+    req.body.name = sanitizeInput(req.body.name);
+    req.body.email = sanitizeInput(req.body.email);
+  } else if (req.path === "/submit-quote") {
+    sanitizeNestedObject(req.body.formData);
+  }
   next();
 }
 
@@ -78,7 +96,7 @@ app.post("/submit-contact", sanitizeInputMiddleware, async (req, res) => {
   }
 });
 
-app.post("/submit-quote", async (req, res) => {
+app.post("/submit-quote", sanitizeInputMiddleware, async (req, res) => {
   const formData = req.body.formData;
 
   const {
