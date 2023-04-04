@@ -11,8 +11,8 @@ const hsCodes = document.querySelector(".hs-codes");
 const weight = document.querySelector(".weight");
 const weightUnits = document.querySelector(".weight-units");
 const hazardous = document.querySelector(".hazardous");
-const checkbox = document.querySelector(".checkbox");
-const clearBtn = document.querySelector(".clear-btn");
+// const checkbox = document.querySelector(".checkbox");
+// const clearBtn = document.querySelector(".clear-btn");
 const phone = document.getElementById("phone");
 const email = document.getElementById("email");
 const companyName = document.getElementById("companyName");
@@ -46,13 +46,12 @@ let errorUnit = document.querySelector(".error-unit");
 let errorOption = document.querySelector(".error-option");
 let errorSkidType;
 
-let submitBtn = document.querySelector(".submit");
+// let submitBtn = document.querySelector(".submit");
 
 // need to explain why I'm doing this (state management)
 function setSkidTemplate(position, i) {
   let templateSkidTypes = `<input type="text" placeholder="Type: (Skid, Carton, Tube etc)" data-count="${i}" id="skid-type-${i}" class="skid-type" name='skid-type'>
-                            <p class='error-skid-type'>Please enter a skid type</p>
-  `;
+                            <p class='error-skid-type'>Please enter a skid type</p>`;
   errorSkidType = document.querySelectorAll(".error-skid-type");
 
   let templateSkidDimensions = `<div class="dimensions-container">
@@ -74,13 +73,10 @@ function setSkidTemplate(position, i) {
   skidDimensions.insertAdjacentHTML(position, templateSkidDimensions);
 }
 
-// old code wan't necessary because we modularized
 window.addEventListener("DOMContentLoaded", () => {
   setSkidTemplate("afterbegin", 0);
   displaySkidInputs();
 });
-
-const { captcha, getCaptchaRes, getCsrfToken } = handleCaptchaAndCSRFToken();
 
 if (myForm) {
   myForm.addEventListener("submit", (e) => {
@@ -89,92 +85,43 @@ if (myForm) {
   });
 }
 
-function validateNumSkidsOnInput() {
-  let skidsRegex = /^\d+$/;
-  let isNumber = skidsRegex.test(numSkids.value);
-
-  if (numSkids.value > 20 && isNumber) {
-    numSkidsErrorMax.classList.add("active");
-    numSkidsErrorInvalid.classList.remove("active");
-    return false;
-  }
-
-  if (numSkidsErrorMax.classList.contains("active") && numSkids.value < 20) {
-    numSkidsErrorMax.classList.remove("active");
-  }
-
-  if (
-    numSkidsErrorEmpty.classList.contains("active") &&
-    !numSkids.value == ""
-  ) {
-    numSkidsErrorEmpty.classList.remove("active");
-  }
-
-  if (!isNumber) {
-    numSkidsErrorInvalid.classList.add("active");
-  }
-
-  if (
-    (numSkidsErrorInvalid.classList.contains("active") && isNumber) ||
-    (numSkidsErrorInvalid.classList.contains("active") && numSkids.value == "")
-  ) {
-    numSkidsErrorInvalid.classList.remove("active");
-  }
-
-  if (
-    numSkidsErrorInvalid.classList.contains("active") &&
-    numSkidsErrorMax.classList.contains("active")
-  ) {
-    numSkidsErrorMax.classList.remove("active");
+function toggleErrorMessage(element, condition) {
+  if (condition) {
+    element.classList.add("active");
+  } else {
+    element.classList.remove("active");
   }
 }
 
+function validateNumSkidsOnInput() {
+  let skidsRegex = /^\d+$/;
+  let isNumber = skidsRegex.test(numSkids.value);
+  let isMoreThan20 = numSkids.value > 20 && isNumber;
+  let isEmpty = numSkids.value === "";
+
+  toggleErrorMessage(numSkidsErrorMax, isMoreThan20);
+  toggleErrorMessage(numSkidsErrorInvalid, !isNumber && !isEmpty);
+  toggleErrorMessage(numSkidsErrorEmpty, isEmpty);
+
+  return !isMoreThan20;
+}
+
 function validateInput(inputValue, regEx = "", errorMsg, errorMsg2 = "") {
+  let isEmpty = inputValue.trim() === "";
   let isValid = true;
+
   if (regEx !== "") {
     isValid = regEx.test(inputValue);
-
-    if (!isValid) {
-      errorMsg.classList.add("active");
-    }
-
-    if (isValid) {
-      errorMsg.classList.remove("active");
-    }
+    toggleErrorMessage(errorMsg, !isValid && !isEmpty);
   }
 
-  // guard clause to
-  if (inputValue.trim() === "") {
-    errorMsg.classList.add("active");
-    isValid = false;
-  } else {
-    errorMsg.classList.remove("active");
-  }
+  toggleErrorMessage(errorMsg, isEmpty);
 
-  // need to make sure regEx exists first
   if (errorMsg2) {
-    if (!inputValue == "" && !isValid) {
-      errorMsg.classList.remove("active");
-      errorMsg2.classList.add("active");
-    }
-
-    if (errorMsg2.classList.contains("active") && inputValue == "") {
-      errorMsg.classList.add("active");
-      errorMsg2.classList.remove("active");
-    }
-
-    if (isValid && errorMsg2.classList.contains("active")) {
-      errorMsg2.classList.remove("active");
-    }
+    toggleErrorMessage(errorMsg2, !isEmpty && !isValid);
   }
 
-  if (inputValue == "") {
-    errorMsg.classList.add("active");
-  }
-
-  if (inputValue !== "") {
-    errorMsg.classList.remove("active");
-  }
+  return isValid;
 }
 
 function displaySkidInputs() {
@@ -182,9 +129,10 @@ function displaySkidInputs() {
     skidTypeWrapper.innerHTML = "";
     skidDimensions.innerHTML = "";
 
-    validateNumSkidsOnInput();
+    const isNumSkidsValid = validateNumSkidsOnInput();
+
     // prevents UI from displaying more than 20 rows
-    if (validateNumSkidsOnInput() === false) {
+    if (isNumSkidsValid === false) {
       return;
     }
 
@@ -275,6 +223,8 @@ function validateQuoteForm() {
   return isValid;
 }
 
+const { captcha, getCaptchaRes, getCsrfToken } = handleCaptchaAndCSRFToken();
+
 function submitQuoteForm() {
   const captchaRes = getCaptchaRes();
   const csrfToken = getCsrfToken();
@@ -288,8 +238,11 @@ function submitQuoteForm() {
   }
 
   // Add guard clause for captcha and csrfToken
-  if (!captcha || !captchaRes || !csrfToken || !isValid) {
+  if (!captcha || !captchaRes || !csrfToken) {
     console.error("Captcha or CSRF token is missing");
+    return;
+  } else if (!isValid) {
+    console.error("Invalid form submission");
     return;
   }
 
