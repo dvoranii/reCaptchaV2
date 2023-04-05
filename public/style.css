@@ -223,6 +223,10 @@ iframe {
 .carousel {
   background: #eee;
   height: 200px;
+  opacity: 0;
+  transform: translateY(-20px);
+  animation: fadeInSlideDown 1s ease-in-out forwards;
+  animation-fill-mode: forwards;
 }
 
 .carousel-cell {
@@ -231,12 +235,10 @@ iframe {
   margin-right: 10px;
   background-size: cover;
   border-radius: 5px;
-  /* counter-increment: gallery-cell; */
 }
 
 .cell-1 {
-  background: linear-gradient(rgba(0, 0, 0, 0.651), rgba(0, 0, 0, 0.5)),
-    url("./assets/boat-icon.png") no-repeat center center;
+  background: url("./assets/boat-icon.png") no-repeat center center;
   position: relative;
 }
 
@@ -273,13 +275,12 @@ iframe {
   color: white;
 }
 
-.flickity-button:focus {
-  outline: none;
-  box-shadow: 0 0 0 5px #19f;
+.flickity-button {
+  display: none;
 }
 
 .flickity-page-dots {
-  bottom: -22px;
+  /* bottom: -22px; */
 }
 /* dots are lines */
 .flickity-page-dots .dot {
@@ -287,4 +288,37 @@ iframe {
   width: 40px;
   margin: 0;
   border-radius: 0;
+}
+
+@keyframes fadeInSlideDown {
+  from {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0px);
+  }
+}
+
+@media (max-width: 768px) {
+  .carousel {
+    height: 150px;
+  }
+  .carousel-cell {
+    height: 150px;
+  }
+
+  .flickity-page-dots .dot {
+    height: 3px;
+    width: 30px;
+  }
+
+  .flickity-prev-next-button {
+    display: block;
+    width: 20px;
+    height: 20px;
+  }
 }

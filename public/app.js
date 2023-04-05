@@ -1,23 +1,21 @@
 "use strict";
 import renderNavigation from "./views/global-components/navigation/nav.js";
 import renderFooter from "./views/global-components/footer/footer.js";
-// import Flickity from "/flickity.js";
-// import Flickity from "https://cdn.skypack.dev/flickity";
 
 renderNavigation();
 renderFooter();
 
-// Home page flickity carousel
-
 document.addEventListener("DOMContentLoaded", function () {
   const flickityElem = document.querySelector(".carousel");
 
-  if (flickityElem) {
-    console.log("hello");
-    var flickity = new Flickity(flickityElem, {
-      cellAlign: "left",
-      contain: true,
-    });
-    console.log(flickity);
-  }
+  if (!flickityElem) return;
+  console.log("hello");
+  var flickity = new Flickity(flickityElem, {
+    cellAlign: "left",
+    contain: true,
+    autoPlay: 3000,
+    friction: 0.8, // Adjust this value to change the scroll speed
+    selectedAttraction: 0.03,
+    // wrapAround: true,
+  });
 });

@@ -18,6 +18,8 @@ function initBurgerMenu(burger, nav, navLinks) {
 }
 
 // might be better to make this a custom web component
+// might also be better to save this html in a separate file and then fetch it
+// to make it easier to update the html
 export default function renderNavigation() {
   let navContainer = document.querySelector("#navigation");
   let navHtml = `
