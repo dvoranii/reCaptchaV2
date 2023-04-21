@@ -4,6 +4,18 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap"
+      rel="stylesheet"
+    />
     <link
       rel="stylesheet"
       href="https://unpkg.com/flickity@2.2.2/dist/flickity.min.css"
@@ -12,23 +24,38 @@
     <link rel="stylesheet" href="/views/global-components/navigation/nav.css" />
     <link rel="stylesheet" href="/views/global-components/footer/footer.css" />
 
-    <title>Document</title>
+    <title>CGL &ndash;Home</title>
   </head>
   <body>
     <div id="navigation"></div>
 
-    <!-- <div class="home-container"> -->
-    <div class="carousel">
-      <div class="carousel-cell cell-1">
-        <button class="cell-button" onclick="window.location.href='/about'">
-          About Us
-        </button>
+    <div class="container-outer">
+      <div class="hero-content">
+        <div class="hero-inner">
+          <img src="./assets/CGL-logo.png" alt="" class="cgl-logo" />
+          <h3 class="hero-slogan">
+            <!-- Streamlined Logistics Solutions for Today's Global Market -->
+            Providing personal long lasting solutions for your supply chain
+            needs.
+          </h3>
+
+          <p class="paragraph-hero">
+            Discover the ease of managing your supply chain with CGL's
+            comprehensive logistics services. Let's navigate the global market
+            together.
+          </p>
+
+          <div class="btn-container">
+            <button class="cta-btn">Get Started</button>
+          </div>
+        </div>
       </div>
-      <div class="carousel-cell cell-2"></div>
-      <div class="carousel-cell cell-3"></div>
-      <div class="carousel-cell cell-4"></div>
-      <div class="carousel-cell cell-5"></div>
+
+      <div id="canvasContainer">
+        <canvas></canvas>
+      </div>
     </div>
+
     <!-- </div> -->
     <br />
     <br /><br />
@@ -93,6 +120,7 @@
       <div class="footer-container"></div>
     </footer>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://www.google.com/recaptcha/api.js" async></script>
     <script src="https://unpkg.com/flickity@2.2.2/dist/flickity.pkgd.min.js"></script>
     <script type="module" src="app.js"></script>
