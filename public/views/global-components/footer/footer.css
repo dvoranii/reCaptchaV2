@@ -1,14 +1,16 @@
 .footer-logo img {
-  width: 200px;
+  width: 250px;
   margin-bottom: 1em;
+  padding: 2.4rem;
 }
 
 .footer-nav {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 1em;
+  padding: 2.4rem;
   background: #333333;
+  list-style: none;
 }
 
 .footer-nav ul {

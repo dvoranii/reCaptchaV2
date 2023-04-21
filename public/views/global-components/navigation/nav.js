@@ -35,11 +35,20 @@ export default function renderNavigation() {
             <li>
               <a href="/">Home</a>
             </li>
-            <li>About</li>
-            <li>Services&nbsp;▾
-
+            <li>
+               <a href="/about" class="nav__link" data-link>About</a>
+            </li>
+            <li>
+            <a href="#" data-link class="transportation-link">Services&nbsp;▾</a>
             <ul class="services-submenu">
-              <li class="sporting-link">Sporting Goods</li>
+              <li class="sporting-link">
+              
+              <a href="/services/sporting-goods" data-link
+              >Hockey &<br />
+              &nbsp;Sporting Goods</a
+            >
+              
+              </li>
               <li class="transportation-submenu-wrapper">
                 <a
                     href="/services/transportation"
@@ -57,7 +66,7 @@ export default function renderNavigation() {
               </li>
             </ul>
             </li>
-            <li>Quote&nbsp;Request</li>
+            <li> <a href="/quote-request/" data-link>Request&nbsp;a&nbsp;Quote</a></li>
             <li class="contact-link">
               <a href="#" class="contact-link">Contact&nbsp;▾</a>
               <ul class="contact-submenu">

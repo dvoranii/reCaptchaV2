@@ -348,6 +348,7 @@ iframe {
   width: 80%;
   object-fit: scale-down;
   min-width: 250px;
+  max-width: 450px;
 }
 
 .cgl-logo-nav {
