@@ -1,32 +1,34 @@
 "use strict";
+import { html, render } from "https://cdn.skypack.dev/lit-html";
 
-function initBurgerMenu(burger, nav, navLinks) {
-  if (burger) {
-    burger.addEventListener("click", () => {
-      nav.classList.toggle("nav-active");
-      navLinks.forEach((link, index) => {
-        if (link.style.animation) {
-          link.style.animation = "";
-        } else {
-          link.style.animation = `navLinkFade 0.5s ease forwards ${index / 7}s`;
-        }
-      });
+// function initBurgerMenu(burger, nav, navLinks) {
+//   if (burger) {
+//     burger.addEventListener("click", () => {
+//       nav.classList.toggle("nav-active");
+//       navLinks.forEach((link, index) => {
+//         if (link.style.animation) {
+//           link.style.animation = "";
+//         } else {
+//           link.style.animation = `navLinkFade 0.5s ease forwards ${index / 7}s`;
+//         }
+//       });
 
-      burger.classList.toggle("toggle");
-    });
-  }
-}
+//       burger.classList.toggle("toggle");
+//     });
+//   }
+// }
 
 // might be better to make this a custom web component
 // might also be better to save this html in a separate file and then fetch it
 // to make it easier to update the html
+
 export default function renderNavigation() {
   let navContainer = document.querySelector("#navigation");
-  let navHtml = `
+  let navHtml = html`
         <nav>
         <div class="nav-logo-container">
           <a href="/">
-           <img src="./assets/CGL-logo.png" class="cgl-logo-nav" alt="" />
+           <img src="/assets/CGL-logo.png" class="cgl-logo-nav" alt="" />
           </a>
         </div>
 
@@ -36,19 +38,12 @@ export default function renderNavigation() {
               <a href="/">Home</a>
             </li>
             <li>
-               <a href="/about" class="nav__link" data-link>About</a>
+               <a href="/about" class="about-link" data-link>About</a>
             </li>
             <li>
             <a href="#" data-link class="transportation-link">Services&nbsp;▾</a>
             <ul class="services-submenu">
-              <li class="sporting-link">
               
-              <a href="/services/sporting-goods" data-link
-              >Hockey &<br />
-              &nbsp;Sporting Goods</a
-            >
-              
-              </li>
               <li class="transportation-submenu-wrapper">
                 <a
                     href="/services/transportation"
@@ -64,6 +59,14 @@ export default function renderNavigation() {
                   <li><a href="/services/transportation/warehouse">Warehouse</a></li>
                 </ul>
               </li>
+
+              <li class="sporting-link">
+              
+              <a href="/services/sporting-goods" data-link
+              >Sporting Goods</a
+               >
+              
+              </li>
             </ul>
             </li>
             <li> <a href="/quote-request/" data-link>Request&nbsp;a&nbsp;Quote</a></li>
@@ -76,23 +79,57 @@ export default function renderNavigation() {
             </li>
           </ul>
         </div>
+
+
         <div class="burger">
-        <div class="line1"></div>
-        <div class="line2"></div>
-        <div class="line3"></div>
-      </div>
+          <div class="line1"></div>
+          <div class="line2"></div>
+          <div class="line3"></div>
+       </div>
+
       </nav>
-      
-
-      
       `;
-  navContainer.innerHTML = navHtml;
 
-  const burger = document.querySelector(".burger");
-  const nav = document.querySelector(".nav-links");
-  const navLinks = document.querySelectorAll(".nav__link");
+  render(navHtml, navContainer);
 
-  if (burger) {
-    initBurgerMenu(burger, nav, navLinks);
-  }
+  // const servicesLink = document.querySelector(".transportation-link");
+  // const servicesSubmenu = document.querySelector(".services-submenu");
+  // const servicesSubmenuListItem = document.querySelector(
+  //   ".services-submenu > li"
+  // );
+  // const sportingLink = document.querySelector(".sporting-link");
+
+  // const quoteRequestListItem = document.querySelector(
+  //   ".nav-menu > li:nth-child(4)"
+  // );
+
+  // servicesLink.addEventListener("click", () => {
+  //   servicesSubmenu.classList.toggle("active");
+  //   servicesSubmenuListItem.classList.toggle("active");
+  //   sportingLink.classList.toggle("active");
+
+  //   if (!servicesSubmenu.classList.contains("active")) {
+  //     servicesSubmenu.style.display = "none";
+  //     quoteRequestListItem.style.marginTop = "0px";
+  //   }
+
+  //   if (servicesSubmenu.classList.contains("active")) {
+  //     servicesSubmenu.style.display = "block";
+  //     quoteRequestListItem.style.marginTop = "120px";
+  //   }
+  // });
+
+  // const burger = document.querySelector(".burger");
+  // const nav = document.querySelector(".nav-links");
+  // const navLinks = document.querySelectorAll(".nav__link");
+
+  // if (burger) {
+  //   initBurgerMenu(burger, nav, navLinks);
+  // }
+
+  // ! IMPORTANT - I NEED TO MAKE A COMPLETELY SEPARATE NAVIGATION BAR FOR MOBILE
+  // ! THERE ARE TOO MANY DIFFERENCES BETWEEN THE TWO VIEWS THAT IT ALMOST MAKES NO SENSE
+  // ! TO MUTATE THE ORIGINAL DESKTOP NAV BAR CAUSES TOO MUCH CONFUSION
 }
+
+// Need to re do the mobile responsiveness here -> burger menu

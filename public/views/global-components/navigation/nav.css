@@ -1,6 +1,6 @@
 /* NAV */
 
-.burger div {
+/* .burger div {
   width: 25px;
   height: 3px;
   background-color: white;
@@ -11,10 +11,29 @@
   display: none;
   padding: 10px;
   z-index: 99999;
+} */
+
+.burger {
+  margin-right: 40px;
+  display: none;
+}
+
+.burger div {
+  width: 25px;
+  height: 3px;
+  background-color: white;
+  margin: 5px;
 }
 
 .header-logo {
   padding: 20px;
+}
+
+.cgl-logo-nav {
+  width: 25%;
+  min-width: 150px;
+  margin-top: 12px;
+  margin-left: 40px;
 }
 
 .logo {
@@ -26,42 +45,6 @@
   height: fit-content;
   padding: 20px 10px;
 }
-
-/* nav {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  min-height: 8vh;
-  background-color: grey;
-  font-size: clamp(1.2rem, 1.4vw, 1.4rem);
-  text-transform: uppercase;
-  z-index: 999999;
-}
-
-.nav-active {
-  transform: translateX(0%);
-} */
-
-/* .nav-links {
-  display: flex;
-  list-style: none;
-  justify-content: space-around;
-  width: 30%;
-  z-index: 8;
-}
-
-.nav-links a {
-  color: rgba(255, 226, 226);
-  text-decoration: none;
-  letter-spacing: 0.5px;
-  transition: all 150ms ease;
-  padding: 5px;
-  font-size: clamp(10px, 12px, 1rem);
-} */
-/* 
-.nav-links a:hover {
-  color: rgb(10, 6, 255);
-} */
 
 nav {
   height: 12vh;
@@ -100,16 +83,10 @@ nav::before {
   font-size: clamp(1rem, 2vw, 1.446rem);
 }
 
-/* @media screen and (max-width: 1650px) {
-  .nav-menu {
-    font-size: 12px;
-  }
-} */
-
 .nav-menu > li {
   padding: 10px;
   color: white;
-  font-family: "Lato", sans-serif;
+  font-family: "Roboto";
   text-transform: uppercase;
   letter-spacing: 0.025rem;
   position: relative;
@@ -120,12 +97,14 @@ nav::before {
   color: #fff;
   text-decoration: none;
 }
-.nav-menu > li:hover:before {
-  width: 90%;
+.nav-menu > li:hover::before {
+  width: 80%;
   left: 10px;
 }
 
-.nav-menu > li:before {
+/* change length based on text length of menu item  */
+
+.nav-menu > li::before {
   content: "";
   position: absolute;
   bottom: 0;
@@ -138,7 +117,7 @@ nav::before {
 
 .contact-submenu,
 .services-submenu {
-  width: 90%;
+  width: 120%;
   list-style: none;
   opacity: 0;
   pointer-events: none;
@@ -152,12 +131,11 @@ nav::before {
   font-size: 12px;
   color: black;
   font-weight: bold;
-  /* border-bottom-left-radius: 10px; */
 }
 
 .contact-submenu > li > a {
   color: black;
-  font-size: 8px;
+  font-size: 11px;
 }
 
 .contact-link {
@@ -172,7 +150,7 @@ nav::before {
 
 .nav-menu > li:hover > .contact-submenu > li,
 .nav-menu > li:hover > .services-submenu > li {
-  animation: slideInFromLeft 250ms ease-in-out forwards;
+  animation: fadeInSlideLeftSmall 250ms ease-in-out forwards;
 }
 
 .nav-menu > li:hover > .contact-submenu > li:nth-child(1),
@@ -193,18 +171,32 @@ nav::before {
   pointer-events: all;
 }
 
+.services-submenu.active {
+  animation: slideDownFadeIn 250ms ease-in forwards;
+  height: 125px !important;
+  width: 80%;
+}
+
+.services-submenu > li.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: all;
+}
+
 @keyframes slideDownFadeIn {
   0% {
     opacity: 0;
     transform: translateY(-5px);
+    height: 0px;
   }
   100% {
     opacity: 1;
     transform: translateY(0px);
+    height: 155%;
   }
 }
 
-@keyframes slideInFromLeft {
+@keyframes fadeInSlideLeftSmall {
   0% {
     opacity: 0;
     transform: translateX(-10px);
@@ -215,13 +207,26 @@ nav::before {
   }
 }
 
-.line1,
+@keyframes fadeInSlideLeft {
+  from {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-5px);
+  }
+  to {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0px);
+  }
+}
+
+/* .line1,
 .line2,
 .line3 {
   transition: all 150ms ease;
-}
+} */
 
-.toggle .line1 {
+/* .toggle .line1 {
   transform: rotate(-45deg) translate(-5px, 6px);
 }
 .toggle .line2 {
@@ -229,32 +234,53 @@ nav::before {
 }
 .toggle .line3 {
   transform: rotate(45deg) translate(-5px, -6px);
-}
+} */
 
 /* .contact-submenu, */
 .transportation-submenu {
   position: absolute;
   list-style: none;
   opacity: 0;
-  background: black;
-  padding: 10px 0px 10px 10px;
+  left: 109%;
+  top: -10px;
+  background: #8fd6ab;
+  padding: 10px;
   pointer-events: none;
   z-index: 999;
 }
 
-/* .contact-submenu {
-  padding: 10px;
+/* Buffer for hover */
+
+.transportation-submenu::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  z-index: -1;
 }
 
-.contact-link:hover + .contact-submenu,
-.contact-submenu:hover {
-  animation: fadeInSlideDown 0.5s ease forwards;
+.transportation-submenu > li > a {
+  color: black;
+  font-size: 10px;
+}
+
+.transportation-submenu-wrapper > a,
+.sporting-link > a {
+  font-size: 11px;
+  color: black;
+}
+
+.transportation-submenu:hover {
+  visibility: visible;
+  opacity: 1;
   pointer-events: all;
-} */
+}
 
 .transportation-link:hover + .transportation-submenu,
 .transportation-submenu:hover {
-  animation: fadeInSlideDown 0.5s ease forwards;
+  animation: fadeInSlideLeft 0.5s ease forwards;
   pointer-events: all;
 }
 
@@ -281,44 +307,53 @@ nav::before {
 
 /* ANIMATIONS */
 /* do some dropdown menu animations */
-@keyframes fadeInSlideDown {
-  from {
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-4px);
-  }
-  to {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0px);
-  }
-}
-
-@keyframes fadeInSlideLeft {
-  from {
-    opacity: 0;
-    visibility: hidden;
-    transform: translateX(-5px);
-  }
-  to {
-    opacity: 1;
-    visibility: visible;
-    transform: translateX(0px);
-  }
-}
 
 /* MEDIA QUERIES  */
 
 @media screen and (max-width: 1024px) {
-  .nav-links {
-    width: 60%;
+  .nav-menu {
   }
 }
 
 @media screen and (max-width: 768px) {
-  .burger {
+  /* .burger {
     display: block;
     cursor: pointer;
+  } */
+
+  .nav-menu {
+    position: absolute;
+    flex-direction: column;
+    background-color: #0046bef8;
+    height: 100vh;
+    margin-top: 51px;
+    width: 200px;
+    margin-left: -90px;
+  }
+
+  .nav-menu a {
+    font-size: 14px;
+  }
+
+  .nav-menu > li {
+    margin-bottom: 3.2rem;
+    margin-left: 2.4rem;
+  }
+
+  .nav-menu > li:nth-child(1) {
+    padding-top: 3.2rem;
+  }
+
+  .services-submenu > li > a {
+    font-size: 12px;
+  }
+
+  .transportation-submenu {
+    position: static;
+  }
+
+  .burger {
+    display: block;
   }
 
   html,
@@ -370,10 +405,10 @@ nav::before {
     pointer-events: all;
   }
 
-  .transportation-submenu > li:nth-child(even) {
+  /* .transportation-submenu > li:nth-child(even) {
     color: red;
     margin-top: 1rem;
-  }
+  } */
 
   .contact-submenu > li:nth-child(even) {
     margin-top: 1rem;

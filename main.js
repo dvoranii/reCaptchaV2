@@ -9,8 +9,8 @@ const {
   addQuoteRequestFormData,
 } = require("./third_party_modules/firebase");
 const { addSIBContact } = require("./third_party_modules/sendinblue");
-const app = express();
 
+const app = express();
 app.use(cors());
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: false }));
