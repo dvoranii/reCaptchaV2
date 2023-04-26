@@ -2,52 +2,70 @@
 import renderNavigation from "./views/global-components/navigation/nav.js";
 import renderFooter from "./views/global-components/footer/footer.js";
 
-// import vertexShader from "./views/shaders/vertex.glsl";
-
 renderNavigation();
 renderFooter();
 
-const heroLogo = document.querySelector(".cgl-logo");
+// Home page code
+if (window.location.pathname === "/") {
+  const heroLogo = document.querySelector(".cgl-logo");
 
-window.addEventListener("DOMContentLoaded", () => {
-  heroLogo.classList.add("active");
-});
+  window.addEventListener("DOMContentLoaded", () => {
+    heroLogo.classList.add("active");
+  });
 
-// THREE JS Spinning Globe
-const canvasContainer = document.querySelector("#canvasContainer");
+  // THREE JS Spinning Globe
+  const vertexShaderResponse = await fetch("./views/shaders/vertexShader.glsl");
+  const fragmentShaderResponse = await fetch(
+    "./views/shaders/fragmentShader.glsl"
+  );
+  const vertexShader = await vertexShaderResponse.text();
+  const fragmentShader = await fragmentShaderResponse.text();
 
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(
-  17,
-  canvasContainer.offsetWidth / canvasContainer.offsetHeight,
-  0.1,
-  1000
-);
+  const canvasContainer = document.querySelector("#canvasContainer");
 
-const renderer = new THREE.WebGLRenderer({
-  antialias: true,
-  canvas: document.querySelector("canvas"),
-});
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(
+    17,
+    canvasContainer.offsetWidth / canvasContainer.offsetHeight,
+    0.1,
+    1000
+  );
 
-renderer.setSize(canvasContainer.offsetWidth, canvasContainer.offsetHeight);
-renderer.setPixelRatio(window.devicePixelRatio);
+  const renderer = new THREE.WebGLRenderer({
+    antialias: true,
+    canvas: document.querySelector("canvas"),
+  });
 
-// create a sphere
-const sphere = new THREE.Mesh(
-  new THREE.SphereGeometry(5, 50, 50),
-  new THREE.MeshBasicMaterial({
-    map: new THREE.TextureLoader().load("./three-img/earth-uv.jpg"),
-  })
-);
+  renderer.setSize(canvasContainer.offsetWidth, canvasContainer.offsetHeight);
+  renderer.setPixelRatio(window.devicePixelRatio);
 
-scene.add(sphere);
-camera.position.z = 50;
+  // create a sphere
+  const sphere = new THREE.Mesh(
+    new THREE.SphereGeometry(5, 50, 50),
+    new THREE.ShaderMaterial({
+      vertexShader,
+      fragmentShader,
+      uniforms: {
+        globeTexture: {
+          value: new THREE.TextureLoader().load("./three-img/earth-uv.jpg"),
+        },
+      },
+      // map: new THREE.TextureLoader().load("./three-img/earth-uv.jpg"),
+    })
+  );
 
-function animate() {
-  requestAnimationFrame(animate);
-  renderer.render(scene, camera);
+  scene.add(sphere);
+  camera.position.z = 50;
+
+  function animate() {
+    requestAnimationFrame(animate);
+    renderer.render(scene, camera);
+  }
+
+  animate();
 }
-animate();
+
+// flickity
 
 // document.addEventListener("DOMContentLoaded", function () {
 //   const flickityElem = document.querySelector(".carousel");
@@ -62,5 +80,3 @@ animate();
 //     // wrapAround: true,
 //   });
 // });
-
-// THREE JS

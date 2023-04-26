@@ -26,7 +26,5 @@ export default function renderFooter() {
     </div>
   `;
 
-  // footerContainer.innerHTML = footerHtml;
-
   render(footerHtml, footerContainer);
 }

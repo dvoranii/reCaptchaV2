@@ -272,7 +272,7 @@ function submitQuoteForm() {
   let inputs = document.querySelectorAll(".dimensions-input");
   let skidTypes = document.querySelectorAll(".skid-type");
 
-  // Add the skid dimensions to the object as a map
+  // Add the skid dimensions to the object as google firestore map
   inputs.forEach((input) => {
     skidTypes.forEach((type, i) => {
       if (input.dataset.count === type.dataset.count) {
