@@ -21,6 +21,16 @@ if (window.location.pathname === "/") {
   const vertexShader = await vertexShaderResponse.text();
   const fragmentShader = await fragmentShaderResponse.text();
 
+  const atmosphereVertexResponse = await fetch(
+    "./views/shaders/atmosphereVertex.glsl"
+  );
+  const atmosphereFragmentResponse = await fetch(
+    "./views/shaders/atmosphereFragment.glsl"
+  );
+
+  const atmosphereVertex = await atmosphereVertexResponse.text();
+  const atmosphereFragment = await atmosphereFragmentResponse.text();
+
   const canvasContainer = document.querySelector("#canvasContainer");
 
   const scene = new THREE.Scene();
@@ -50,19 +60,50 @@ if (window.location.pathname === "/") {
           value: new THREE.TextureLoader().load("./three-img/earth-uv.jpg"),
         },
       },
-      // map: new THREE.TextureLoader().load("./three-img/earth-uv.jpg"),
     })
   );
 
-  scene.add(sphere);
+  // atmosphere
+  const atmosphere = new THREE.Mesh(
+    new THREE.SphereGeometry(5, 50, 50),
+    new THREE.ShaderMaterial({
+      vertexShader: atmosphereVertex,
+      fragmentShader: atmosphereFragment,
+      blending: THREE.AdditiveBlending,
+      side: THREE.BackSide,
+    })
+  );
+
+  atmosphere.scale.set(1.25, 1.25, 1.25);
+  scene.add(atmosphere);
+
+  const group = new THREE.Group();
+  group.add(sphere);
+  scene.add(group);
+
   camera.position.z = 50;
+
+  const mouse = {
+    x: 0,
+    y: 0,
+  };
 
   function animate() {
     requestAnimationFrame(animate);
     renderer.render(scene, camera);
+    sphere.rotation.y += 0.005;
+    gsap.to(group.rotation, {
+      y: mouse.x * 0.5,
+    });
   }
 
   animate();
+
+  addEventListener("mousemove", () => {
+    mouse.x = (event.clientX / innerWidth) * 2 - 1;
+    mouse.y = -(event.clientY / innerHeight) * 2 + 1;
+    console.log(mouse);
+  });
 }
 
 // flickity

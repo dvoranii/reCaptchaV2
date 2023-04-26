@@ -75,7 +75,7 @@ function setSkidTemplate(position, i) {
 
 window.addEventListener("DOMContentLoaded", () => {
   setSkidTemplate("afterbegin", 0);
-  displaySkidInputs();
+  setSkidInputs();
 });
 
 if (myForm) {
@@ -124,7 +124,7 @@ function validateInput(inputValue, regEx = "", errorMsg, errorMsg2 = "") {
   return isValid;
 }
 
-function displaySkidInputs() {
+function setSkidInputs() {
   numSkids.addEventListener("input", () => {
     skidTypeWrapper.innerHTML = "";
     skidDimensions.innerHTML = "";
