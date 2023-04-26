@@ -81,6 +81,48 @@ if (window.location.pathname === "/") {
   group.add(sphere);
   scene.add(group);
 
+  const starGeometry = new THREE.BufferGeometry();
+
+  function createCircleTexture() {
+    const canvas = document.createElement("canvas");
+    canvas.width = 64;
+    canvas.height = 64;
+
+    const ctx = canvas.getContext("2d");
+    ctx.beginPath();
+    ctx.arc(32, 32, 30, 0, 2 * Math.PI, false);
+    ctx.fillStyle = "white";
+    ctx.fill();
+
+    return new THREE.CanvasTexture(canvas);
+  }
+
+  const starMaterial = new THREE.PointsMaterial({
+    color: 0xffffff,
+    size: 2,
+    sizeAttenuation: true,
+    map: createCircleTexture(),
+    transparent: true,
+    depthWrite: false,
+  });
+
+  const starVertices = [];
+
+  for (let i = 0; i < 50000; i++) {
+    const x = (Math.random() - 0.5) * 2000;
+    const y = (Math.random() - 0.5) * 2000;
+    const z = -Math.random() * 10000;
+    starVertices.push(x, y, z);
+  }
+
+  starGeometry.setAttribute(
+    "position",
+    new THREE.BufferAttribute(new Float32Array(starVertices), 3)
+  );
+
+  const stars = new THREE.Points(starGeometry, starMaterial);
+  scene.add(stars);
+
   camera.position.z = 50;
 
   const mouse = {
@@ -91,9 +133,11 @@ if (window.location.pathname === "/") {
   function animate() {
     requestAnimationFrame(animate);
     renderer.render(scene, camera);
-    sphere.rotation.y += 0.005;
+    sphere.rotation.y += 0.003;
     gsap.to(group.rotation, {
+      x: -mouse.y * 0.5,
       y: mouse.x * 0.5,
+      duration: 1,
     });
   }
 
