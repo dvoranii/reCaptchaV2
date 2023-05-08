@@ -1,18 +1,5 @@
 /* NAV */
 
-/* .burger div {
-  width: 25px;
-  height: 3px;
-  background-color: white;
-  margin: 5px;
-}
-
-.burger {
-  display: none;
-  padding: 10px;
-  z-index: 99999;
-} */
-
 .burger {
   margin-right: 40px;
   display: none;
@@ -25,15 +12,13 @@
   margin: 5px;
 }
 
-.header-logo {
+/* .header-logo {
   padding: 20px;
-}
+} */
 
 .cgl-logo-nav {
   width: 25%;
-  min-width: 150px;
-  margin-top: 12px;
-  margin-left: 40px;
+  margin-left: 60px;
 }
 
 .logo {
@@ -49,13 +34,26 @@
 nav {
   height: 12vh;
   padding: 10px;
-  background-color: grey;
+  background-image: linear-gradient(
+    to top,
+    #8ed5aa38 0%,
+    #c3e7d325 20%,
+    #fff 60%
+  );
   box-shadow: 0 4px 6px rgba(255, 255, 255, 0.05);
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-size: 14px;
   position: sticky;
+  z-index: 600;
+}
+
+.currentPage {
+  color: black !important;
+  font-family: "Roboto";
+  text-shadow: 2px 2px 8px #7ebd96;
+  position: relative;
 }
 
 nav::before {
@@ -84,9 +82,10 @@ nav::before {
 }
 
 .nav-menu > li {
-  padding: 10px;
-  color: white;
-  font-family: "Roboto";
+  padding: 0px 20px 10px 20px;
+  color: black;
+  font-weight: bold;
+  font-family: "Open Sans";
   text-transform: uppercase;
   letter-spacing: 0.025rem;
   position: relative;
@@ -94,30 +93,61 @@ nav::before {
 }
 
 .nav-menu a {
-  color: #fff;
+  color: #002c77;
   text-decoration: none;
-}
-.nav-menu > li:hover::before {
-  width: 80%;
-  left: 10px;
+  letter-spacing: 1px;
 }
 
-/* change length based on text length of menu item  */
+.nav-menu > li:hover::before {
+  width: 80%;
+  left: 12px;
+}
+
+.nav-menu > li:nth-child(1):hover::before {
+  width: 75%;
+}
+.nav-menu > li:nth-child(2):hover::before {
+  width: 80%;
+  left: 12px;
+}
+
+.nav-menu > li:nth-child(3)::before {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  background: #8ed5aa;
+  bottom: 0;
+  left: 20px;
+  transition: width 0.3s;
+}
+
+.nav-menu > li:nth-child(3):hover::before {
+  width: var(--underline-width, 137px);
+}
+
+.nav-menu > li:nth-child(4):hover::before {
+  width: 92%;
+  left: 12px;
+}
+.nav-menu > li:nth-child(5):hover::before {
+  width: 120px;
+  left: 20px;
+}
 
 .nav-menu > li::before {
   content: "";
   position: absolute;
   bottom: 0;
   left: 10px;
-  width: 0;
+  width: var(--before-width, 0);
   height: 2px;
-  background-color: #0047bd;
+  background-color: #8ed5aa;
   transition: width 0.3s, left 0.3s;
 }
 
 .contact-submenu,
 .services-submenu {
-  width: 120%;
   list-style: none;
   opacity: 0;
   pointer-events: none;
@@ -126,16 +156,29 @@ nav::before {
   padding: 0;
   margin-top: 10px;
   cursor: pointer;
-  background-color: #8fd6ab;
-  padding: 0px 10px 10px 10px;
+  background-color: #fff;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+  border-left: 1px solid black;
+  padding: 0px 8px 8px 8px;
   font-size: 12px;
   color: black;
   font-weight: bold;
 }
 
+.services-submenu {
+  height: 52px !important;
+  left: 20px;
+}
+.contact-submenu {
+  width: 120px;
+  height: 52px !important;
+  left: 20px;
+}
+
 .contact-submenu > li > a {
   color: black;
-  font-size: 11px;
+  font-size: 10px;
 }
 
 .contact-link {
@@ -144,7 +187,7 @@ nav::before {
 
 .contact-submenu > li,
 .services-submenu > li {
-  margin-top: 1rem;
+  margin-top: 0.5rem;
   opacity: 0;
 }
 
@@ -236,17 +279,45 @@ nav::before {
   transform: rotate(45deg) translate(-5px, -6px);
 } */
 
-/* .contact-submenu, */
 .transportation-submenu {
   position: absolute;
   list-style: none;
   opacity: 0;
-  left: 109%;
-  top: -10px;
-  background: #8fd6ab;
-  padding: 10px;
+  left: 107%;
+  top: -4px;
+  background: #fff;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+  border-left: 1px solid black;
+  padding: 4px 10px 10px 10px;
   pointer-events: none;
   z-index: 999;
+}
+
+.transportation-submenu > li {
+  opacity: 0;
+}
+
+.transportation-link:hover + .transportation-submenu > li,
+.transportation-submenu:hover > li {
+  animation: fadeInSlideLeftSmall 250ms ease-in-out forwards;
+}
+
+.transportation-link:hover + .transportation-submenu > li:nth-child(2),
+.transportation-submenu:hover > li:nth-child(2) {
+  animation-delay: 150ms;
+}
+.transportation-link:hover + .transportation-submenu > li:nth-child(3),
+.transportation-submenu:hover > li:nth-child(3) {
+  animation-delay: 230ms;
+}
+.transportation-link:hover + .transportation-submenu > li:nth-child(4),
+.transportation-submenu:hover > li:nth-child(4) {
+  animation-delay: 310ms;
+}
+.transportation-link:hover + .transportation-submenu > li:nth-child(5),
+.transportation-submenu:hover > li:nth-child(5) {
+  animation-delay: 390ms;
 }
 
 /* Buffer for hover */
@@ -280,7 +351,7 @@ nav::before {
 
 .transportation-link:hover + .transportation-submenu,
 .transportation-submenu:hover {
-  animation: fadeInSlideLeft 0.5s ease forwards;
+  animation: fadeInSlideDown 0.5s ease forwards;
   pointer-events: all;
 }
 

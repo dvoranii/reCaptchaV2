@@ -36,6 +36,7 @@ label,
 a,
 address {
   font-size: clamp(1.2rem, 1.4vw, 1.4rem);
+  color: black;
 }
 
 .container-body {
@@ -325,7 +326,9 @@ iframe {
 
 .container-outer {
   display: flex;
-  height: 50vh;
+  height: 60vh;
+  background-color: black;
+  position: relative;
 }
 
 .hero-content {
@@ -369,7 +372,7 @@ iframe {
 
 .btn-container {
   display: flex;
-  /* justify-content: center; */
+  justify-content: center;
 }
 
 .cta-btn {
@@ -410,6 +413,7 @@ div.globe-container {
   margin-bottom: 1.2rem;
   margin-top: 2.4rem;
   color: #fff;
+  letter-spacing: 0.75px;
 }
 
 @keyframes fadeInSlideLeft {
@@ -427,5 +431,163 @@ div.globe-container {
 @media screen and (max-width: 1200px) {
   .hero-inner {
     margin-left: 0px !important;
+  }
+}
+
+.home-content-outer {
+  background-color: black;
+  color: white;
+}
+
+.home-content-inner {
+  padding-top: 2rem;
+}
+
+.truck-element {
+  transform: translateX(var(--my-prop));
+  transition: transform 200ms linear;
+  will-change: transform;
+  position: relative;
+}
+
+.truck-bg-inner {
+  background: url("./assets/side-road-view.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  overflow-x: hidden;
+  /* filter: brightness(0.5); */
+}
+
+.truck-bg-outer {
+  /* background-image: url("./assets/clouds.webp"); */
+  background-repeat: no-repeat;
+  background-size: contain;
+  position: relative;
+}
+
+.high-beam-light {
+  position: absolute;
+  top: 48.2%;
+  right: -35%;
+  width: 43.4%;
+  height: 30%;
+  background-color: #fffffffa;
+  opacity: 0.5;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(255, 255, 255, 0) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  clip-path: polygon(0 57%, 100% 12%, 100% 91%, 0 57%);
+  box-shadow: 0 0 50px 20px #fff, 0 0 50px 20px #fff;
+  filter: brightness(1.8) sepia(0.6) saturate(1.5);
+}
+
+#cloudCanvas {
+  width: 100%;
+  height: 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+.truck-element > img {
+  width: 100%;
+}
+
+.wheel1,
+.wheel2,
+.wheel3,
+.wheel4,
+.wheel5 {
+  position: absolute;
+  height: 7%;
+  width: 6.3%;
+}
+
+.wheel1 {
+  bottom: 17.6%;
+  left: 18%;
+  transform: rotate(63deg);
+}
+
+.wheel2 {
+  bottom: 21.7%;
+  left: 24.3%;
+  transform: rotate(20deg);
+}
+
+.wheel3 {
+  bottom: 14.4%;
+  left: 32.8%;
+  transform: rotate(97deg);
+}
+.wheel4 {
+  bottom: 14.4%;
+  left: 67.8%;
+  transform: rotate(97deg);
+}
+.wheel5 {
+  bottom: 14.4%;
+  left: 90.1%;
+  transform: rotate(97deg);
+}
+
+.wheel1-wrapper,
+.wheel2-wrapper,
+.wheel3-wrapper,
+.wheel4-wrapper,
+.wheel5-wrapper {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 100%;
+  overflow: hidden;
+}
+
+.wheel1-wrapper > img,
+.wheel2-wrapper > img,
+.wheel3-wrapper > img,
+.wheel4-wrapper > img,
+.wheel5-wrapper > img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: rotate(var(--rotation));
+  transition: transform 0.1s linear;
+  will-change: transform;
+}
+
+.bg {
+  background-color: rgba(0, 0, 0, var(--bg-opacity));
+}
+
+.scroll-down {
+  position: absolute;
+  left: 50%;
+  bottom: 30px;
+  width: 15px;
+  height: 15px;
+  border-bottom: 2px solid white;
+  border-right: 2px solid white;
+  transform: translateX(-50%) rotate(45deg);
+  animation: fade_move_down 2s ease-in-out infinite;
+}
+
+@keyframes fade_move_down {
+  0% {
+    transform: translateY(-10px) rotate(45deg);
+    opacity: 0;
+  }
+  50% {
+    transform: translateY(0) rotate(45deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(10px) rotate(45deg);
+    opacity: 0;
   }
 }
