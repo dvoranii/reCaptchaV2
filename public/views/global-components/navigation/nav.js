@@ -122,7 +122,7 @@ export default function renderNavigation() {
     setUnderlineWidth(228)
   );
   transportationSubmenu.addEventListener("mouseleave", () =>
-    setUnderlineWidth(0)
+    setUnderlineWidth(137)
   );
 
   function updateNavOnCurrentPage() {
