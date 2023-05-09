@@ -52,7 +52,7 @@ nav {
 .currentPage {
   color: black !important;
   font-family: "Roboto";
-  text-shadow: 2px 2px 8px #7ebd96;
+  text-shadow: 1px 1px 2px #7ebd9681;
   position: relative;
 }
 
@@ -179,6 +179,7 @@ nav::before {
 .contact-submenu > li > a {
   color: black;
   font-size: 10px;
+  transition: all 150ms ease;
 }
 
 .contact-link {
@@ -333,14 +334,23 @@ nav::before {
 }
 
 .transportation-submenu > li > a {
-  color: black;
+  color: #00215a;
   font-size: 10px;
+  transition: all 150ms ease;
+}
+
+.transportation-submenu > li > a:hover,
+.contact-submenu > li > a:hover,
+.services-submenu > li > a:hover {
+  color: black !important;
+  text-shadow: 1px 1px 2px #7ebd9681;
 }
 
 .transportation-submenu-wrapper > a,
 .sporting-link > a {
   font-size: 11px;
-  color: black;
+  color: #00215a;
+  transition: all 150ms ease;
 }
 
 .transportation-submenu:hover {
