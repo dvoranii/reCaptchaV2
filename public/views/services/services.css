@@ -4,9 +4,13 @@
 }
 .service-freight-wrapper p {
   padding-left: 20px;
+  font-size: 18px;
+  font-family: "Roboto";
+  font-style: italic;
+  line-height: 1.5;
 }
 .service-freight-wrapper img {
-  width: 30vw;
+  width: 40vw;
 }
 
 .title-wrapper.sporting-title-wrapper p {
@@ -79,6 +83,11 @@ a,
   grid-template-columns: 1fr 1fr;
   grid-gap: 40px;
   place-items: center;
+}
+
+.section2 p {
+  font-size: 16px;
+  line-height: 1.5;
 }
 
 @media screen and (max-width: 768px) {
