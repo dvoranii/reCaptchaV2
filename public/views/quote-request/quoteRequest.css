@@ -1,5 +1,6 @@
 .quote-container {
   min-height: 95vh;
+  padding-top: 60px;
 }
 
 .quote-request-form {

@@ -13,7 +13,8 @@ export default function renderFooter() {
         <ul class="footer-nav">
           <li><a href="/">Home</a></li>
           <li><a href="/about">About</a></li>
-
+          <li><a href="/services/transportation">Transportation</a></li>
+          <li><a href="/services/sporting-goods">Sporting Goods</a></li>
           <li><a href="/quote-request">Request a Quote</a></li>
           <li><a href="/contact-on">Contact</a></li>
         </ul>

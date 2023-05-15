@@ -25,7 +25,7 @@ import { html, render } from "https://cdn.skypack.dev/lit-html";
 export default function renderNavigation() {
   let navContainer = document.querySelector("#navigation");
   let navHtml = html`
-    <nav>
+    <nav class="desktop-nav">
       <div class="nav-logo-container">
         <a href="/">
           <img
@@ -53,7 +53,7 @@ export default function renderNavigation() {
                   data-link
                   class="transportation-link"
                 >
-                  Transportation▾
+                  Transportation▾</a>
                   <ul class="transportation-submenu">
                     <li><a href="/services/transportation/air">Air</a></li>
                     <li><a href="/services/transportation/ocean">Ocean</a></li>
@@ -82,19 +82,109 @@ export default function renderNavigation() {
           </li>
         </ul>
       </div>
-
-      <div class="burger">
-        <div class="line1"></div>
-        <div class="line2"></div>
-        <div class="line3"></div>
-      </div>
     </nav>
   `;
 
-  render(navHtml, navContainer);
+  let mobileNavHtml = html`
+    <nav class="mobile-nav">
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about" class="about-link-mobile" data-link>About</a></li>
+        <li class="services-menu-mobile">
+          <a href="#" data-link class="services-link-mobile">Services&nbsp;▾</a>
+          <ul class="services-submenu-mobile">
+            <li>
+              <a href="#" id="transportation-link-mobile"
+                >Transportation&nbsp;▾</a
+              >
+              <ul class="transportation-submenu-mobile">
+                <li style="padding-top: 1.2rem;">
+                  <a href="/services/transportation">• Overview</a>
+                </li>
+                <li style="padding-top: 1.2rem;">
+                  <a href="/services/transportation/air">• Air</a>
+                </li>
+                <li style="padding-top: 0.8rem;">
+                  <a href="/services/transportation/ocean">• Ocean</a>
+                </li>
+                <li style="padding-top: 0.8rem;">
+                  <a href="/services/transportation/truck">• Truck</a>
+                </li>
+                <li style="padding-top: 0.8rem;">
+                  <a href="/services/transportation/warehouse">• Warehouse</a>
+                </li>
+              </ul>
+            </li>
+            <li class="sporting-goods-mobile">
+              <a href="/services/sporting-goods" data-link>Sporting Goods</a>
+            </li>
+          </ul>
+        </li>
 
-  // Need to use CSS to update hover state of a different element
-  // than the one I am currently hovering over
+        <li>
+          <a href="/quote-request/" data-link id="quote-mobile"
+            >Request&nbsp;a&nbsp;Quote</a
+          >
+        </li>
+        <li class="contact-menu-mobile">
+          <a href="#" class="contact-link-mobile">Contact&nbsp;▾</a>
+          <ul class="contact-submenu-mobile">
+            <li style="padding-top: 1.2rem;">
+              <a href="/contact-on" data-link>• Ontario Office</a>
+            </li>
+            <li style="padding-top: 0.8rem;">
+              <a href="/contact-qc" data-link>• Quebec Office</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+
+    <button class="nav-toggle">
+      <div class="line1">&nbsp;</div>
+      <div class="line2">&nbsp;</div>
+      <div class="line3">&nbsp;</div>
+    </button>
+  `;
+
+  let combinedHTML = html`${navHtml}${mobileNavHtml}`;
+  render(combinedHTML, navContainer);
+
+  let transportationLinkMobile = document.querySelector(
+    "#transportation-link-mobile"
+  );
+  let transportationSubmenuMobile = document.querySelector(
+    ".transportation-submenu-mobile"
+  );
+  let contactLinkMobile = document.querySelector(".contact-link-mobile");
+  let contactSubmenuMobile = document.querySelector(".contact-submenu-mobile");
+
+  const servicesLinkMobile = document.querySelector(".services-link-mobile");
+  const servicesSubmenu = document.querySelector(".services-submenu-mobile");
+
+  servicesLinkMobile.addEventListener("click", (event) => {
+    event.preventDefault();
+
+    const isTransportationExpanded =
+      transportationSubmenuMobile.classList.contains("active");
+
+    if (isTransportationExpanded) {
+      transportationSubmenuMobile.classList.remove("active");
+    }
+
+    servicesSubmenu.classList.toggle("services-active");
+  });
+
+  transportationLinkMobile.addEventListener("click", (e) => {
+    e.preventDefault();
+    transportationSubmenuMobile.classList.toggle("active");
+  });
+
+  contactLinkMobile.addEventListener("click", (e) => {
+    e.preventDefault();
+    contactSubmenuMobile.classList.toggle("active");
+  });
+
   const servicesLink = document.querySelector(".nav-menu > li:nth-child(3)");
   const transportationLink = document.querySelector(".transportation-link");
   const transportationSubmenu = document.querySelector(
@@ -112,14 +202,14 @@ export default function renderNavigation() {
   servicesLink.addEventListener("mouseleave", () => setUnderlineWidth(0));
 
   transportationLink.addEventListener("mouseenter", () =>
-    setUnderlineWidth(228)
+    setUnderlineWidth(236)
   );
   transportationLink.addEventListener("mouseleave", () =>
     setUnderlineWidth(137)
   );
 
   transportationSubmenu.addEventListener("mouseenter", () =>
-    setUnderlineWidth(228)
+    setUnderlineWidth(236)
   );
   transportationSubmenu.addEventListener("mouseleave", () =>
     setUnderlineWidth(137)
@@ -143,15 +233,49 @@ export default function renderNavigation() {
 
   document.addEventListener("DOMContentLoaded", function () {
     updateNavOnCurrentPage();
+
+    let navToggle = document.querySelector(".nav-toggle");
+    let burgerLines = document.querySelectorAll(".nav-toggle div");
+    const isHomePage = window.location.pathname === "/";
+    const isToggledOn = navToggle.classList.contains("toggle-on");
+
+    if (isHomePage) {
+      burgerLines.forEach((line) => {
+        line.style.backgroundColor = "#eeeeee";
+      });
+    }
+
+    navToggle.addEventListener("click", function () {
+      document.querySelector(".mobile-nav").classList.toggle("show");
+
+      navToggle.classList.toggle("toggle-on");
+
+      const isToggledOn = navToggle.classList.contains("toggle-on");
+
+      // Look into this margin issue
+      if (isToggledOn) {
+        burgerLines.forEach((line) => {
+          line.style.margin = "6px 0px";
+        });
+      } else {
+        burgerLines.forEach((line) => {
+          line.style.margin = "4px 0px";
+        });
+      }
+
+      if (isHomePage && isToggledOn) {
+        burgerLines.forEach((line) => {
+          line.style.backgroundColor = "#333333";
+        });
+      }
+
+      if (isHomePage && !isToggledOn) {
+        burgerLines.forEach((line) => {
+          line.style.backgroundColor = "#eeeeee";
+        });
+      }
+    });
   });
-
-  // const burger = document.querySelector(".burger");
-  // const nav = document.querySelector(".nav-links");
-  // const navLinks = document.querySelectorAll(".nav__link");
-
-  // if (burger) {
-  //   initBurgerMenu(burger, nav, navLinks);
-  // }
 
   // ! IMPORTANT - I NEED TO MAKE A COMPLETELY SEPARATE NAVIGATION BAR FOR MOBILE
   // ! THERE ARE TOO MANY DIFFERENCES BETWEEN THE TWO VIEWS THAT IT ALMOST MAKES NO SENSE
