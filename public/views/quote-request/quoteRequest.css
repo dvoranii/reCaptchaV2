@@ -16,6 +16,7 @@ label {
   letter-spacing: 0.5px;
 }
 
+/* SUBMIT BTN */
 .submit-btn-container button {
   background-image: linear-gradient(
     to right,
@@ -39,10 +40,22 @@ label {
   border-radius: 2px;
   background-size: 300% 100%;
   transition: all 0.4s ease-in-out;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.521);
 }
 
-button:after,
-button:before {
+.submit-btn-container button:hover {
+  z-index: 8;
+  transform: scale(1.05);
+  box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.26);
+}
+
+.submit-btn-container button:active {
+  transform: scale(1);
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.521);
+}
+
+.submit-btn-container button:after,
+.submit-btn-container button:before {
   content: " ";
   width: 10px;
   height: 10px;
@@ -51,7 +64,7 @@ button:before {
   transition: all 0.4s;
 }
 
-button:after {
+.submit-btn-container button:after {
   top: 2px;
   left: 2px;
   border-top: 2px solid #ffffff;
@@ -66,10 +79,11 @@ button:after {
 
 .submit-btn-container button:hover:before,
 .submit-btn-container button:hover:after {
-  width: 97%;
-  height: 90%;
+  width: 95%;
+  height: 89%;
 }
-.submit-btn-container button:hover {
+.submit-btn-container button:hover,
+.clear-btn-container button:hover {
   background-position: 100% 0;
   transition: all 0.4s ease-in-out;
 }
@@ -77,6 +91,77 @@ button:after {
 .submit-btn-container button:focus {
   outline: none;
 }
+
+/* ------------ */
+
+/* CLEAR BTN */
+
+.clear-btn-container button {
+  background-image: linear-gradient(
+    to right,
+    #ff4f4f,
+    #ff2727,
+    #ff8282,
+    #ff1111
+  );
+  position: relative;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: "Open Sans", sans-serif;
+  color: #fff;
+  cursor: pointer;
+  letter-spacing: 1px;
+  margin-top: 1.2rem;
+  margin-bottom: 2.4rem;
+  padding: 8px 16px;
+  text-align: center;
+  border: none;
+  border-radius: 2px;
+  background-size: 300% 100%;
+  transition: all 0.25s ease-in-out;
+  z-index: 3;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.63);
+}
+
+.clear-btn-container button:hover {
+  color: black;
+  z-index: 8;
+  transform: scale(1.05);
+  box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.432);
+}
+
+.clear-btn-container button:active {
+  transform: scale(1);
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.63);
+}
+
+.clear-btn-container button:after,
+.clear-btn-container button:before {
+  content: " ";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background-color: #ffffff98;
+  transition: all 0.4s;
+  z-index: 2;
+}
+
+.clear-btn-container button:after {
+  transform: translate(-50%, -50%) rotate(22.5deg);
+}
+
+.clear-btn-container button:before {
+  transform: translate(-50%, -50%) rotate(-22.5deg);
+}
+
+.clear-btn-container button:hover:after,
+.clear-btn-container button:hover:before {
+  width: 108%;
+  z-index: -1;
+}
+/* --------------------------------------- */
 
 .checkbox:hover,
 select:hover,

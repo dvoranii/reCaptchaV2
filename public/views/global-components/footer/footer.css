@@ -4,10 +4,15 @@
   padding: 2.4rem;
 }
 
+.footer-nav-container {
+  display: flex;
+  align-items: flex-end;
+}
+
 .footer-nav {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: left;
   padding: 2.4rem;
   background: #333333;
   list-style: none;
@@ -20,17 +25,19 @@
 
 .footer-nav li {
   margin-right: 1em;
+  margin-top: 0.4rem;
 }
 
 .footer-nav a {
   color: #ffffff;
-  text-decoration: none;
-  border-bottom: 2px solid #ccceee;
   transition: all 250ms ease;
+  font-size: clamp(12px, 1vw, 14px);
+  border-bottom: 2px solid #ccceee00;
 }
 
 .footer-nav a:hover {
   color: #ccceee;
+  border-bottom: 2px solid #ccceee;
 }
 
 .legal {
@@ -49,5 +56,13 @@
   .footer-nav {
     flex-direction: column;
     gap: 0.4rem;
+  }
+
+  .footer-nav > li {
+    text-decoration: underline;
+  }
+
+  .divider {
+    display: none;
   }
 }

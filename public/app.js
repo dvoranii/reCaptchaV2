@@ -217,7 +217,7 @@ if (window.location.pathname === "/") {
   });
   createBox({
     lat: 43.65107,
-    long: 79.347015,
+    long: -79.347015,
     country: "Toronto, Canada",
     flag: "./assets/canada-flag.png",
   });
