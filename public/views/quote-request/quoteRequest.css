@@ -1,5 +1,10 @@
+input {
+  padding: 8px;
+  border-radius: 4px;
+}
+
 .quote-container {
-  min-height: 95vh;
+  min-height: 100vh;
   padding-top: 60px;
 }
 
@@ -12,7 +17,6 @@
 .shipping-info-textarea {
   width: 100%;
   margin-top: 1.2rem;
-  border-radius: 0px;
   border: 1px solid grey;
 }
 ::placeholder {
@@ -117,9 +121,6 @@
 
 .dimension-wrapper {
   width: 95% !important;
-}
-
-.dimensions-input {
 }
 
 .additional-info {

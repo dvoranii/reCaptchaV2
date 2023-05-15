@@ -335,12 +335,12 @@ nav::before {
 }
 
 .services-submenu {
-  height: 52px !important;
+  height: 58px !important;
   left: 20px;
 }
 .contact-submenu {
   width: 120px;
-  height: 52px !important;
+  height: 58px !important;
   left: 20px;
 }
 
@@ -400,7 +400,7 @@ nav::before {
   list-style: none;
   opacity: 0;
   left: 107%;
-  top: -4px;
+  top: -8px;
   background: #fff;
   border-right: 1px solid black;
   border-bottom: 1px solid black;
@@ -414,10 +414,15 @@ nav::before {
   opacity: 0;
 }
 
+.transportation-link:hover + .transportation-submenu > li:first-child,
+.transportation-submenu:hover > li:first-child {
+  padding-top: 4px;
+}
+
 .transportation-link:hover + .transportation-submenu > li,
 .transportation-submenu:hover > li {
   animation: fadeInSlideLeftSmall 250ms ease-in-out forwards;
-  padding-top: 8px;
+  padding-top: 12px;
 }
 
 .transportation-link:hover + .transportation-submenu > li:nth-child(2),
