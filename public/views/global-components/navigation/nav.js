@@ -1,27 +1,6 @@
 "use strict";
 import { html, render } from "https://cdn.skypack.dev/lit-html";
 
-// function initBurgerMenu(burger, nav, navLinks) {
-//   if (burger) {
-//     burger.addEventListener("click", () => {
-//       nav.classList.toggle("nav-active");
-//       navLinks.forEach((link, index) => {
-//         if (link.style.animation) {
-//           link.style.animation = "";
-//         } else {
-//           link.style.animation = `navLinkFade 0.5s ease forwards ${index / 7}s`;
-//         }
-//       });
-
-//       burger.classList.toggle("toggle");
-//     });
-//   }
-// }
-
-// might be better to make this a custom web component
-// might also be better to save this html in a separate file and then fetch it
-// to make it easier to update the html
-
 export default function renderNavigation() {
   let navContainer = document.querySelector("#navigation");
   let navHtml = html`
