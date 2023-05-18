@@ -231,10 +231,23 @@ export default function renderNavigation() {
     });
   }
 
+  const mobileNav = document.querySelector(".mobile-nav");
+  let navToggle = document.querySelector(".nav-toggle");
+
+  // if the mobile nav is toggled on, and I resize the window it will
+  // close the mobile nav and reset the burger menu button
+  window.addEventListener("resize", () => {
+    if (window.innerWidth >= 820) {
+      mobileNav.classList.remove("show");
+      if (navToggle) {
+        navToggle.classList.remove("toggle-on");
+      }
+    }
+  });
+
   document.addEventListener("DOMContentLoaded", function () {
     updateNavOnCurrentPage();
 
-    let navToggle = document.querySelector(".nav-toggle");
     let burgerLines = document.querySelectorAll(".nav-toggle div");
     const isHomePage = window.location.pathname === "/";
     const isToggledOn = navToggle.classList.contains("toggle-on");
@@ -276,10 +289,6 @@ export default function renderNavigation() {
       }
     });
   });
-
-  // ! IMPORTANT - I NEED TO MAKE A COMPLETELY SEPARATE NAVIGATION BAR FOR MOBILE
-  // ! THERE ARE TOO MANY DIFFERENCES BETWEEN THE TWO VIEWS THAT IT ALMOST MAKES NO SENSE
-  // ! TO MUTATE THE ORIGINAL DESKTOP NAV BAR CAUSES TOO MUCH CONFUSION
 }
 
 // Need to re do the mobile responsiveness here -> burger menu

@@ -50,3 +50,5 @@ async function addSIBContact(reqName, reqEmail) {
 }
 
 module.exports = { addSIBContact };
+
+// Need to also send the user who submitted the form an email

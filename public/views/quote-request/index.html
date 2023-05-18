@@ -81,9 +81,8 @@
 
             <!-- -----------SHIPMENT DETAILS ------------------- -->
             <div class="shipment-details-outer-wrapper">
-              <label class="shipment-details-label">Shipment Details</label>
               <div class="shipment-details">
-                
+                <label class="shipment-details-label">Shipment Details</label>
   
                 <div class="shipment-details-inner">
                   <div class="num-skids-container">
@@ -173,45 +172,43 @@
     
                 </div>
 
-                
-              <div class="skid-type">
-                <div class="skid-type-wrapper"></div>
-              </div>
-
-              <div class="skid-dims-container">
-                <div class="skid-dimensions"></div>
-              </div>
+              
                 
               </div>
-              <!-- ------------SHIPMENT DETAILS PART 2------------------ -->
-      
 
-
+              <div class="skids">
+                <div class="skid-type">
+                  <div class="skid-type-wrapper"></div>
+                </div>
+  
+                <div class="skid-dims-container">
+                  <div class="skid-dimensions"></div>
+                </div>
+              </div>
             </div>
-
-
-            
-    <!-- -----------SHIPMENT DETAILS END--------------------------------------------------------------- -->
-            
-    
+           
     
         <div class="additional-info">
               <textarea name="" id="" cols="30" rows="10" placeholder="Additional information or Special instructions" name="additionalInfo"></textarea>
             </div>
     
-            <div class="submit-btn-container">
-              <button type="submit" class="submit">SUBMIT</button>
+            <div class="form-end">
+              <div class="btns-container">
+                <div class="submit-btn-container">
+                  <button type="submit" class="submit">SUBMIT</button>
+                </div>
+                <div class="clear-btn-container">
+                  <button type="reset" class="clear-btn">CLEAR</button>
+                </div>
+              </div>
+  
+              <div
+              class="g-recaptcha"
+              data-sitekey="6LdGhAokAAAAANFdqnRx05SiwfKA8fd6CCc9gmHX"
+            ></div>
+  
+            <div class="error-captcha">&nbsp;</div>
             </div>
-            <div class="clear-btn-container">
-              <button type="reset" class="clear-btn">CLEAR</button>
-            </div>
-
-            <div
-            class="g-recaptcha"
-            data-sitekey="6LdGhAokAAAAANFdqnRx05SiwfKA8fd6CCc9gmHX"
-          ></div>
-
-          <div class="error-captcha">&nbsp;</div>
           </form>
        </div>
 
@@ -221,8 +218,6 @@
 
        <script src="https://www.google.com/recaptcha/api.js" async></script>
        <script type="module" src="/app.js"></script>
-
-       <!-- might be able to avoid this by importing it into app.js and then adding a guard clause -->
        <script type="module" src="/views/quote-request/quoteRequest.js"></script>
 </body>
 </html>

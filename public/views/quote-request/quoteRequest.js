@@ -20,8 +20,8 @@ const fullName = document.getElementById("fullName");
 const pickupInfo = document.getElementById("pickupInfo");
 const shippingInfo = document.getElementById("shippingInfo");
 const numSkids = document.querySelector(".number-skids");
-const skidDimensions = document.querySelector(".skid-dimensions");
-const skidTypeWrapper = document.querySelector(".skid-type-wrapper");
+const skidDimensions = document.querySelector(".skids .skid-dimensions");
+const skidTypeWrapper = document.querySelector(".skids .skid-type-wrapper");
 const additionalInfo = document.querySelector(".additional-info textarea");
 
 // Error messages
