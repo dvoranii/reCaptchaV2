@@ -89,11 +89,13 @@ export default function renderNavigation() {
     <nav class="mobile-nav">
       <ul>
         <li><a href="/">Home</a></li>
-        <li><a href="/about" class="about-link-mobile" data-link>About</a></li>
-        <li class="services-menu-mobile">
+        <li class="about-list-item">
+          <a href="/about" class="about-link-mobile" data-link>About</a>
+        </li>
+        <li class="services-list-item">
           <a href="#" data-link class="services-link-mobile">Services&nbsp;▾</a>
           <ul class="services-submenu-mobile">
-            <li>
+            <li class="transportation-list-item">
               <a href="#" id="transportation-link-mobile"
                 >Transportation&nbsp;▾</a
               >
@@ -115,13 +117,18 @@ export default function renderNavigation() {
                 </li>
               </ul>
             </li>
-            <li class="sporting-goods-mobile">
-              <a href="/services/sporting-goods" data-link>Sporting Goods</a>
+            <li class="sporting-list-item">
+              <a
+                class="sporting-goods-mobile"
+                href="/services/sporting-goods"
+                data-link
+                >Sporting Goods</a
+              >
             </li>
           </ul>
         </li>
 
-        <li>
+        <li class="quote-request-list-item">
           <a href="/quote-request/" data-link id="quote-mobile"
             >Request&nbsp;a&nbsp;Quote</a
           >
@@ -150,14 +157,58 @@ export default function renderNavigation() {
   let combinedHTML = html`${navHtml}${mobileNavHtml}`;
   render(combinedHTML, navContainer);
 
-  let transportationLinkMobile = document.querySelector(
+  const transportationLinkMobile = document.querySelector(
     "#transportation-link-mobile"
   );
-  let transportationSubmenuMobile = document.querySelector(
+
+  const transportationSubmenuMobile = document.querySelector(
     ".transportation-submenu-mobile"
   );
+
+  const quoteListItem = document.querySelector(".quote-request-list-item");
+  const aboutListItem = document.querySelector(".about-list-item");
+  const transportationListItem = document.querySelector(
+    ".transportation-list-item"
+  );
+  const sportingListItem = document.querySelector(".sporting-list-item");
+  const servicesListItem = document.querySelector(".services-list-item");
+
+  transportationLinkMobile.addEventListener("click", () => {
+    setTimeout(() => {
+      console.log(sportingListItem);
+      const isTransportationExpanded =
+        transportationSubmenuMobile.classList.contains("active");
+      if (isTransportationExpanded) {
+        quoteListItem.style.marginTop = "2.4rem";
+        aboutListItem.style.marginTop = "2.4rem";
+        transportationListItem.style.marginTop = "2.4rem";
+        sportingListItem.style.marginTop = "2.4rem";
+        servicesListItem.style.marginTop = "2.4rem";
+      }
+      if (!isTransportationExpanded) {
+        quoteListItem.style.marginTop = "0";
+        aboutListItem.style.marginTop = "0";
+        servicesListItem.style.marginTop = "0";
+      }
+    }, 0);
+  });
+
   let contactLinkMobile = document.querySelector(".contact-link-mobile");
   let contactSubmenuMobile = document.querySelector(".contact-submenu-mobile");
+  const contactMenuListItem = document.querySelector(".contact-menu-mobile");
+
+  contactLinkMobile.addEventListener("click", () => {
+    setTimeout(() => {
+      const isContactExpanded =
+        contactSubmenuMobile.classList.contains("active");
+      if (isContactExpanded) {
+        contactMenuListItem.style.marginTop = "1.2rem";
+      }
+      if (!isTransportationExpanded) {
+        contactMenuListItem.style.marginTop = "0";
+      }
+    }, 0);
+  });
 
   const servicesLinkMobile = document.querySelector(".services-link-mobile");
   const servicesSubmenu = document.querySelector(".services-submenu-mobile");
