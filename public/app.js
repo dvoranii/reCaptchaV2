@@ -54,12 +54,10 @@ if (window.location.pathname === "/") {
   let group = new THREE.Group();
 
   function createSphere(radius) {
-    // Remove the old sphere from the group, if it exists
     if (sphere) {
       group.remove(sphere);
     }
 
-    // Remove the old atmosphere from the scene, if it exists
     if (atmosphere) {
       scene.remove(atmosphere);
     }
@@ -164,10 +162,8 @@ if (window.location.pathname === "/") {
 
     let radius;
     if (window.innerWidth <= 820) {
-      // small screens
       radius = 3.5;
     } else {
-      // large screens
       radius = 5;
     }
 
@@ -192,9 +188,9 @@ if (window.location.pathname === "/") {
 
     gsap.fromTo(
       box.scale,
-      { z: 0 }, // start scale
+      { z: 0 },
       {
-        z: 1.6, // end scale
+        z: 1.6,
         duration: 2,
         yoyo: true,
         delay: Math.random(),
@@ -207,8 +203,6 @@ if (window.location.pathname === "/") {
     box.flag = flag;
   }
 
-  // Going to add a tooltip on hover
-  // City and country name with flag
   createBox({
     lat: 19.4326,
     long: -99.1332,
@@ -350,15 +344,11 @@ if (window.location.pathname === "/") {
 
     let radius;
     if (window.innerWidth <= 820) {
-      // small screens
       radius = 3.5;
     } else {
-      // large screens
       radius = 5;
     }
 
-    // Update the position of each box based on the new radius
-    // might refactor this to look like the handleResizeAndCreateSphere() function
     boxes.forEach(({ box, lat, long }) => {
       const latitude = (lat / 180) * Math.PI;
       const longitude = (long / 180) * Math.PI;
@@ -390,18 +380,24 @@ if (window.location.pathname === "/") {
   anim3.start();
 }
 
-// flickity
+// flickity on warehouse page
+// check window.location.href
 
-// document.addEventListener("DOMContentLoaded", function () {
-//   const flickityElem = document.querySelector(".carousel");
+document.addEventListener("DOMContentLoaded", function () {
+  const flickityElem = document.querySelector(".carousel");
 
-//   if (!flickityElem) return;
-//   var flickity = new Flickity(flickityElem, {
-//     cellAlign: "left",
-//     contain: true,
-//     autoPlay: 3000,
-//     friction: 0.8, // Adjust this value to change the scroll speed
-//     selectedAttraction: 0.03,
-//     // wrapAround: true,
-//   });
-// });
+  if (!flickityElem) return;
+  var flickity = new Flickity(flickityElem, {
+    cellAlign: "left",
+    contain: true,
+    autoPlay: 4000,
+    friction: 0.8, // Adjust this value to change the scroll speed
+    selectedAttraction: 0.03,
+  });
+
+  // flickity.on("change", function (index) {
+  //   if (index === flickity.cells.length - 1) {
+  //     flickity.pause();
+  //   }
+  // });
+});

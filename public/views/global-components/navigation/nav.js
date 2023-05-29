@@ -232,17 +232,17 @@ export default function renderNavigation() {
   servicesLink.addEventListener("mouseleave", () => setUnderlineWidth(0));
 
   transportationLink.addEventListener("mouseenter", () =>
-    setUnderlineWidth(236)
+    setUnderlineWidth(234)
   );
   transportationLink.addEventListener("mouseleave", () =>
-    setUnderlineWidth(137)
+    setUnderlineWidth(138)
   );
 
   transportationSubmenu.addEventListener("mouseenter", () =>
-    setUnderlineWidth(236)
+    setUnderlineWidth(234)
   );
   transportationSubmenu.addEventListener("mouseleave", () =>
-    setUnderlineWidth(137)
+    setUnderlineWidth(138)
   );
 
   function updateNavOnCurrentPage() {

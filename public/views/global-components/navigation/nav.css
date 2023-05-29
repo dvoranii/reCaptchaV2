@@ -290,11 +290,9 @@ nav::before {
   height: 2px;
 }
 
-.nav-menu > li:nth-child(1):hover::before {
-  width: 75%;
-}
+.nav-menu > li:nth-child(1):hover::before,
 .nav-menu > li:nth-child(2):hover::before {
-  width: 80%;
+  width: 75%;
 }
 
 .nav-menu > li:nth-child(3):hover::before {
