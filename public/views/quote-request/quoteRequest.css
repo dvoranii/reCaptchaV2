@@ -168,6 +168,7 @@ button:hover {
 .quote-request-form {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  padding-top: 2.4rem;
 }
 
 .quote-request-form input,
@@ -418,7 +419,57 @@ button:hover {
   width: 100%;
 }
 
+.quote-intro > p {
+  /* font-style: italic; */
+  line-height: 1.25;
+}
+
+.quote-request-title {
+  padding-bottom: 0.8rem;
+  padding-top: 2.4rem;
+  background-image: linear-gradient(to right, #8fd6ab, #0047be);
+  background-repeat: no-repeat;
+  background-size: 100% 3px;
+  background-position: bottom;
+  margin-bottom: 2.4rem;
+  /* margin-right: -20px; */
+}
+
+.title-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 2.4rem;
+  gap: 1.2rem;
+}
+
+/* .quote-container > .title-wrapper > h1 {
+  padding-left: 10px;
+} */
+
+.quote-intro {
+  border-bottom: 1px solid grey;
+  width: 100%;
+}
+
+.quote-icon {
+  width: 40px;
+}
+
+@media screen and (max-width: 768px) {
+  .title-wrapper {
+    padding-bottom: 0;
+  }
+  .quote-request-title {
+    margin-bottom: 1.2rem;
+  }
+}
+
 @media screen and (max-width: 422px) {
+  .quote-intro {
+    margin: 0px 20px;
+    width: 90%;
+  }
   .container {
     padding: 50px 10px 20px 0px;
   }

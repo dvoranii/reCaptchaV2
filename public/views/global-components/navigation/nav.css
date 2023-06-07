@@ -3,6 +3,7 @@
 .cgl-logo-nav {
   width: 25%;
   margin-left: 60px;
+  min-width: 45px;
 }
 
 .logo {
@@ -242,7 +243,7 @@ nav::before {
   padding: 0px 20px 10px 20px;
   color: black;
   font-weight: bold;
-  font-family: "Roboto";
+  font-family: "Nunito Sans", sans-serif;
   text-transform: uppercase;
   letter-spacing: 0.025rem;
   position: relative;
@@ -254,6 +255,8 @@ nav::before {
   text-decoration: none;
   letter-spacing: 1px;
   font-size: 14px;
+  font-weight: bold;
+  font-family: "Nunito Sans", sans-serif;
 }
 
 .nav-menu > li:hover::before {
@@ -274,7 +277,6 @@ nav::before {
   content: "";
   position: absolute;
   width: 0;
-  background: #8ed5aa;
   bottom: 0;
   left: 20px;
   transition: width 0.3s;
@@ -300,7 +302,7 @@ nav::before {
 }
 
 .nav-menu > li:nth-child(4):hover::before {
-  width: 92%;
+  width: 89%;
 }
 .nav-menu > li:nth-child(5):hover::before {
   width: 120px;
@@ -313,7 +315,7 @@ nav::before {
   left: 10px;
   width: var(--before-width, 0);
   height: 2px;
-  background-color: #8ed5aa;
+  background-image: linear-gradient(to right, #8fd6ab, #0047be);
   transition: width 0.3s, left 0.3s;
 }
 
@@ -349,7 +351,7 @@ nav::before {
 
 .contact-submenu > li > a {
   color: #002c77;
-  font-size: 11px;
+  font-size: 10px;
   transition: all 150ms ease;
 }
 
@@ -384,6 +386,11 @@ nav::before {
   animation-delay: 50ms;
   cursor: pointer;
   pointer-events: all;
+  width: 145px;
+}
+
+.nav-menu > li:hover > .contact-submenu {
+  width: 120px;
 }
 
 .services-submenu.active {
@@ -402,7 +409,7 @@ nav::before {
   position: absolute;
   list-style: none;
   opacity: 0;
-  left: 107%;
+  left: 106%;
   top: -8px;
   background: #fff;
   border-right: 1px solid black;
@@ -487,6 +494,7 @@ nav::before {
 .transportation-submenu:hover {
   animation: fadeInSlideDown 0.5s ease forwards;
   pointer-events: all;
+  width: 105.5px;
 }
 
 .transportation-submenu-wrapper {

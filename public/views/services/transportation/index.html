@@ -5,9 +5,31 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
-    href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap"
-    rel="stylesheet"
-  />
+      href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Merriweather+Sans&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@800&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="/style.css" />
     <link rel="stylesheet" href="/views/global-components/navigation/nav.css" />
     <link rel="stylesheet" href="/views/global-components/footer/footer.css" />
@@ -15,57 +37,143 @@
     <title>CGL® &ndash; Transportation</title>
   </head>
   <body>
-
     <div id="navigation"></div>
 
     <div class="container transportation-container">
-      <div class="title-wrapper">
-        <h1>Transportation Services</h1>
+      <div class="transportation-title-wrapper">
+        <h1 class="warehouse-title">Transportation Services</h1>
+        <p>
+          &mdash; Welcome to Canadian Global Logistics - Your Trusted
+          Transportation Partner &mdash;
+        </p>
+        <br />
+        <p>
+          At Canadian Global Logistics, we pride ourselves on providing reliable
+          and efficient transportation solutions to meet your diverse logistical
+          needs. With our comprehensive range of services and strategic
+          expertise, we are your go-to partner for seamless transportation
+          across various modes.
+        </p>
       </div>
 
       <div class="transportation-grid">
         <div class="air grid-cell">
-            <div class="title-wrapper">
-                <img src="/assets/plane-icon.webp" />
-                <h2>Air Freight</h2>
-              </div>
+          <div class="title-wrapper">
+            <img class="plane-icon" src="/assets/plane-icon.png" />
+            <h2>Air Freight</h2>
+          </div>
+          <img class="transportation-img" src="/assets/plane.jpg" />
+          <div class="card-text-wrapper">
+            <p class="transportation-card-text">
+              Strategically positioned near international airports, we are
+              uniquely equipped to handle your air cargo requirements with speed
+              and precision. Our proximity ensures reduced transit times,
+              ensuring your time-sensitive shipments arrive on schedule. Trust
+              us to manage your air freight needs with the utmost agility,
+              delivering exceptional service every step of the way.<br /><br />
+              <a href="/services/transportation/air" class="read-more-link"
+                >Read More</a
+              >
+            </p>
+          </div>
+
           <a href="/services/transportation/air"
-            ><img src="/assets/plane.jpg"
-          /></a>
+            ><div class="overlay">
+              <p>See More</p>
+            </div></a
+          >
         </div>
         <div class="ocean grid-cell">
-            <div class="title-wrapper">
-                <img src="/assets/boat-icon.png" />
-                <h2>Ocean Freight</h2>
-              </div>
-        
-          <a href="/services/transportation/ocean"><img src="/assets/ocean.webp"
-            /></a>
-            
+          <div class="title-wrapper">
+            <img
+              class="transportation-img ocean-img"
+              src="/assets/boat-icon.png"
+            />
+            <h2 class="ocean-title">Ocean Freight</h2>
+          </div>
+          <img src="/assets/ocean.webp" />
+          <div class="card-text-wrapper">
+            <p class="transportation-card-text">
+              When it comes to international trade, ocean transportation plays a
+              pivotal role. With our expertise in managing global shipping, we
+              offer comprehensive ocean freight solutions tailored to your
+              specific needs. From full container loads (FCL) to
+              less-than-container loads (LCL), our experienced team will
+              navigate the complexities of maritime logistics to ensure your
+              cargo reaches its destination efficiently and securely.<br /><br />
+              <a href="/services/transportation/ocean" class="read-more-link"
+                >Read More</a
+              >
+            </p>
+          </div>
+
+          <a href="/services/transportation/ocean"
+            ><div class="overlay">
+              <p>See More</p>
+            </div></a
+          >
         </div>
         <div class="truck grid-cell">
-            <div class="title-wrapper">
-                <img src="/assets/truck-icon.png" />
-                <h2>Truck Freight</h2>
-              </div>
-          <a href="/services/transportation/truck"><img src="/assets/truck.webp" /></a></a>
-          
+          <div class="title-wrapper">
+            <img
+              class="transportation-img truck-icon"
+              src="/assets/truck-icon.png"
+            />
+            <h2 class="truck-title">Truck Freight</h2>
+          </div>
+          <img class="" src="/assets/truck.webp" />
+          <div class="card-text-wrapper">
+            <p class="transportation-card-text">
+              Road transportation is the backbone of domestic and cross-border
+              logistics. Count on Canadian Global Logistics to provide reliable
+              trucking services that ensure timely and cost-effective delivery
+              of your goods. Our extensive network of trusted carriers and
+              dedicated fleet enables us to handle diverse cargo requirements,
+              guaranteeing smooth and hassle-free transportation solutions.<br /><br />
+              <a href="/services/transportation/truck" class="read-more-link"
+                >Read More</a
+              >
+            </p>
+          </div>
+          <a href="/services/transportation/truck"
+            ><div class="overlay">
+              <p>See More</p>
+            </div></a
+          >
         </div>
         <div class="warehouse grid-cell">
-            <div class="title-wrapper">
-                <img src="/assets/open-box.png" />
-                <h2>Warehouse</h2>
-              </div>
-        
-          <a href="/services/transportation/warehouse"> <img src="/assets/warehouse.webp" /></a>
-         
+          <div class="title-wrapper">
+            <img id="box-icon" src="/assets/open-box.png" />
+            <h2 class="warehouse-title">Warehouse</h2>
+          </div>
+
+          <img class="transportation-img" src="/assets/warehouse.webp" />
+          <div class="card-text-wrapper">
+            <p class="transportation-card-text">
+              Efficient warehousing and distribution are crucial elements of any
+              successful supply chain. With our state-of-the-art warehouse
+              facilities, we offer secure storage, inventory management, and
+              order fulfillment services. Our experienced team utilizes advanced
+              technology to streamline your warehouse operations, optimizing
+              efficiency and reducing costs.<br /><br />
+              <a
+                href="/services/transportation/warehouse"
+                class="read-more-link"
+                >Read More</a
+              >
+            </p>
+          </div>
+          <a href="/services/transportation/warehouse">
+            <div class="overlay">
+              <p>See More</p>
+            </div></a
+          >
         </div>
       </div>
-      
     </div>
     <footer>
       <div class="footer-container"></div>
-     </footer>
+    </footer>
 
     <script type="module" src="/app.js"></script>
   </body>

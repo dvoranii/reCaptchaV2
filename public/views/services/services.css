@@ -1,7 +1,9 @@
 .service-freight-wrapper {
   display: flex;
   align-items: center;
+  padding-top: 1.2rem;
 }
+
 .service-freight-wrapper p {
   padding-left: 20px;
   font-size: clamp(14px, 1.2vw, 1.8rem);
@@ -14,37 +16,75 @@
 }
 
 .title-wrapper.sporting-title-wrapper p {
-  font-size: clamp(1.2rem, 2vw, 1.8rem);
+  font-size: clamp(1.2rem, 2vw, 2rem);
   padding-left: 1rem;
+  letter-spacing: 0.5px;
 }
 
 .title-wrapper h1 {
   margin-bottom: -16px;
+  padding-left: 1.2rem;
 }
 
 /* titles */
 .title-wrapper {
   display: flex;
   align-items: center;
-  padding: 2.4rem 0 2.4rem 0;
+  padding-top: 2.4rem;
+  padding-bottom: 1.2rem;
 }
 
+.title-wrapper.ocean-title-wrapper {
+  padding-top: 0;
+  padding-bottom: 0;
+}
 .title-wrapper.sporting-title-wrapper {
   margin-bottom: 3.2rem;
   padding: 2.4rem 0 2.4rem 0;
-  background-color: rgb(112, 112, 112);
+  background: linear-gradient(
+    to bottom,
+    rgb(184, 184, 184),
+    rgba(184, 184, 184, 0)
+  );
   justify-content: center;
 }
 
+.sporting-intro {
+  font-family: "Lato";
+  letter-spacing: 0.25px;
+  text-align: center;
+}
+
 .title-wrapper img {
-  width: 70px;
+  width: 120px;
   height: auto;
+  margin: 20px;
+  /* margin-bottom: -17px; */
+}
+
+.title-wrapper img.truck-icon-1 {
+  margin: 20px 10px 0px 0px;
+  width: 60px;
+}
+
+.title-wrapper img.box-icon-2 {
+  margin: 0;
+  width: 55px;
 }
 
 .warehouse-wrapper {
   display: flex;
   justify-content: center;
   background-color: grey;
+}
+
+.warehouse-container > ul,
+.warehouse-container > address {
+  font-family: "Montserrat";
+}
+
+.warehouse-container > a {
+  font-weight: bold;
 }
 .warehouse-wrapper img {
   max-width: 80%;
@@ -60,10 +100,19 @@ a,
 .warehouse-list {
   font-size: clamp(1.2rem, 1.4vw, 1.6rem);
 }
+
 .sporting-goods-grid {
   display: grid;
   grid-template-columns: 1fr 2fr;
   grid-template-rows: repeat(4, 1fr);
+  place-items: center;
+}
+
+.sporting-subtitle {
+  font-family: "Open Sans";
+  letter-spacing: 0.25px;
+  font-size: 2.4rem;
+  padding-top: 2.4rem !important;
 }
 
 .sporting-goods-grid img {
@@ -73,6 +122,25 @@ a,
 
 .air-service-cell img {
   grid-column: 1;
+}
+
+.air-service-description,
+.ocean-service-description,
+.truck-service-description,
+.status-check-description {
+  font-family: "Montserrat";
+  display: flex;
+  align-items: center;
+}
+
+h1.air-freight-title,
+h1.warehouse-title {
+  padding-left: 1.2rem;
+}
+
+h1.truck-freight-title,
+h1.ocean-freight-title {
+  padding-left: 0;
 }
 
 .air-service-cell p {
@@ -97,15 +165,38 @@ a,
   max-width: 80vw;
 }
 
+.grid-cell {
+  width: 100%;
+  max-width: 600px;
+  height: 100%;
+}
+
 .grid-cell img {
-  max-width: 30vw;
+  max-width: 100%;
+}
+
+.grid-cell {
+  box-shadow: 4px 4px 10px grey;
+  transition: all 500ms ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.grid-cell:hover {
+  transform: scale(1.025);
+  /* filter: brightness(0.8); */
+  cursor: pointer;
+  box-shadow: 4px 4px 15px rgba(128, 128, 128, 0.575);
 }
 
 .transportation-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-gap: 40px;
+  row-gap: 40px;
   place-items: center;
+  padding-top: 6.8rem;
+  padding-bottom: 40px;
+  column-gap: 2.4rem;
 }
 
 .section2 p {
@@ -125,7 +216,6 @@ a,
 .ocean-freight-2-wrapper {
   background: linear-gradient(rgba(0, 0, 0, 0.404), rgba(0, 0, 0, 0.397)),
     url("/assets/ocean-freight-2.jpg");
-  /* background: url("/assets/ocean-freight-2.jpg"); */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -133,7 +223,6 @@ a,
   height: 350px;
   overflow-y: hidden;
   margin-top: 2.4rem;
-  /* max-height: 350px; */
 }
 
 .container {
@@ -141,7 +230,7 @@ a,
 }
 
 .container.hockey-container {
-  padding: 20px 20px 20px 20px;
+  padding: 36px 20px 20px 20px;
 }
 
 .copy-container {
@@ -150,7 +239,6 @@ a,
   height: 100%;
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
   justify-content: center;
 }
 
@@ -175,7 +263,10 @@ a,
 }
 
 img.plane-icon {
-  width: 60px;
+  width: 25px;
+  margin-right: 0;
+  margin-bottom: 18px;
+  opacity: 0.8;
 }
 
 /* WAREHOUSE */
@@ -191,6 +282,7 @@ img.plane-icon {
   animation: fadeInSlideDown 1s ease-in-out forwards;
   animation-fill-mode: forwards;
   margin-bottom: 3.2rem;
+  padding-top: 1.2rem;
 }
 
 .flickity-viewport {
@@ -227,7 +319,6 @@ img.plane-icon {
   background-size: cover;
 }
 .cell-4 {
-  /* linear-gradient(rgba(0, 0, 0, 0.651), rgba(0, 0, 0, 0.5)), */
   background: url("/assets/warehouse.webp") no-repeat center bottom;
   background-size: cover;
 }
@@ -249,19 +340,186 @@ img.plane-icon {
 .transportation-container {
   padding-bottom: 7.6rem;
 }
-/* @media (max-width: 768px) {
-  .carousel {
-    height: 150px;
-  }
-  .carousel-cell {
-    height: 150px;
+
+.transportation-title-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding-top: 2.4rem;
+}
+
+.transportation-title-wrapper > h1 {
+  padding-bottom: 0.8rem;
+  padding-top: 2.4rem;
+  background-image: linear-gradient(to right, #8fd6ab, #0047be);
+  background-repeat: no-repeat;
+  background-size: 98% 3px;
+  background-position: bottom;
+  margin-bottom: 2.4rem;
+}
+
+.transportation-title-wrapper > p {
+  text-align: center;
+  font-family: "Montserrat";
+  font-weight: 400;
+}
+
+.air.grid-cell,
+.ocean.grid-cell,
+.truck.grid-cell,
+.warehouse.grid-cell {
+  border: 2px solid rgba(128, 128, 128, 0.63);
+  padding: 20px;
+}
+
+.grid-cell > .title-wrapper {
+  justify-content: center;
+}
+
+.grid-cell > p {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-size: clamp(14px, 1.2vw, 16px);
+  padding: 10px;
+  padding-top: 2.4rem;
+}
+
+/* Titles and Icons */
+
+.transportation-img {
+}
+
+.title-wrapper > h2 {
+  padding-left: 10px;
+}
+
+.card-text-wrapper {
+  width: 100%;
+  position: relative;
+}
+
+.card-text-wrapper::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("/assets/steel-background.jpg");
+  background-size: cover;
+  opacity: 0.3; /* Adjust the opacity value as desired */
+  z-index: -1;
+}
+
+.card-text-wrapper > .transportation-card-text {
+  padding: 20px;
+  padding-top: 2.4rem;
+  font-family: "Montserrat";
+}
+
+.read-more-link {
+  font-weight: bold;
+}
+
+.grid-cell > .title-wrapper > h2 {
+  font-family: "Lato";
+  letter-spacing: 1px;
+  font-size: 2.4rem;
+  color: #333;
+}
+
+.warehouse-title {
+  margin-bottom: -12px;
+}
+
+.grid-cell > .title-wrapper > img.ocean-img {
+  width: 55px;
+  margin-right: 10px;
+  opacity: 0.8;
+}
+
+.ocean-img {
+  width: 5vw;
+}
+
+.grid-cell > .title-wrapper > h2.ocean-title {
+  margin-bottom: -18px;
+  padding-left: 0px;
+}
+
+.grid-cell > .title-wrapper > h2.truck-title {
+  margin-bottom: -12px;
+  padding-left: 0px;
+  margin-left: -10px;
+}
+
+.grid-cell > .title-wrapper > img.truck-icon {
+  width: 55px;
+  opacity: 0.8;
+}
+
+#box-icon {
+  width: 45px;
+  margin-right: 0px;
+  opacity: 0.8;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.5s;
+  cursor: pointer;
+}
+
+.overlay > p {
+  color: white !important;
+  text-shadow: 2px 2px 10px white;
+}
+
+.grid-cell:hover .overlay {
+  opacity: 1;
+}
+
+.overlay > p {
+  font-size: 1.8rem;
+  border-bottom: 1px solid white;
+}
+
+@media screen and (max-width: 686px) {
+  /* .title-wrapper > img {
+    display: none;
+  } */
+
+  .air.grid-cell > .title-wrapper {
+    padding-bottom: 0;
   }
 
-  .flickity-page-dots .dot {
-    height: 3px;
-    width: 30px;
+  .transportation-grid {
+    grid-template-columns: 1fr;
   }
-} */
+
+  .title-wrapper {
+    height: 80px;
+    padding-top: 0;
+  }
+}
+
+@media screen and (min-width: 1958px) {
+  .container {
+    max-width: 80%;
+  }
+}
+
 @media (max-width: 1012px) {
   .carousel {
     height: 50vw;
@@ -280,11 +538,6 @@ img.plane-icon {
     background: url("/assets/warehouse.webp") no-repeat center top;
     background-size: 100%;
   }
-
-  .title-wrapper {
-    padding-left: 4vw;
-  }
-
   .copy-container p {
     font-size: 14px;
   }

@@ -11,7 +11,26 @@ body {
   overflow-x: hidden;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 62.5%;
-  /* background-color: black; */
+}
+
+body {
+  position: relative;
+}
+
+body::before {
+  content: "";
+  background-image: url("/assets/paper-background.jpg");
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  opacity: 0.25;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;
 }
 .container {
   max-width: 1400px;
@@ -20,15 +39,14 @@ body {
 }
 
 h1 {
-  font-size: clamp(1.8rem, 1.4vw, 3.6rem);
-  padding-left: 1.2rem;
-  font-family: "Roboto";
+  font-size: clamp(1.8rem, 1.8vw, 3.6rem);
+  font-family: "Lato", sans-serif;
   font-weight: 500;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
 }
 
 h2 {
-  font-size: clamp(1.6rem, 2.4vw, 3.2rem);
+  font-size: clamp(1.6rem, 2.4vw, 3.6rem);
 }
 
 h3 {
@@ -41,6 +59,8 @@ a,
 address {
   font-size: clamp(1.4rem, 1.4vw, 1.6rem);
   color: black;
+  font-family: "Lato";
+  line-height: 1.5;
 }
 
 .container-body {
@@ -137,7 +157,7 @@ footer {
 }
 .hero-content p {
   color: white;
-  font-family: "Open Sans", sans-serif;
+  font-family: "Montserrat";
   font-size: clamp(1.4rem, 1.4vw, 1.8rem);
   font-style: italic;
 }
@@ -219,6 +239,7 @@ footer {
     #3f86ed
   );
   box-shadow: 0 4px 15px 0 rgba(65, 132, 234, 0.75);
+  font-family: "Nunito Sans";
 }
 
 .cta-btn:active {
@@ -238,7 +259,7 @@ div.globe-container {
 }
 
 .hero-slogan {
-  font-family: "Open Sans";
+  font-family: "Merriweather Sans";
   margin-bottom: 1.2rem;
   margin-top: 2.4rem;
   color: #fff;
@@ -296,12 +317,153 @@ div.globe-container {
   padding: 5px;
 }
 
+.status-reports-cell img {
+  width: 60% !important;
+}
+
+/* ABOUT */
+
 .about-container {
   padding-top: 60px;
 }
 
-.status-reports-cell img {
-  width: 60% !important;
+.about-container > .title-wrapper > h1 {
+  padding-left: 10px;
+}
+
+.about-text-wrapper {
+  padding-top: 2.4rem;
+}
+
+.about-container > .title-wrapper {
+  display: flex;
+  align-items: center;
+  padding-bottom: 1.2rem;
+}
+
+.about-icon {
+  width: 50px;
+}
+
+/* CARDS */
+
+.card-container {
+  display: flex;
+  justify-content: space-around;
+  padding: 6.2rem 2rem 2.4rem 2rem;
+}
+
+.card {
+  box-shadow: 2px 2px var(--shadowBlur, 0px)
+    rgba(0, 0, 0, var(--shadowOpacity, 0));
+  background-color: white;
+  border-radius: 5px;
+  width: 30%;
+  padding: 40px;
+  text-align: center;
+  position: relative;
+  transform: translateY(var(--Yposition));
+}
+
+.card h4 {
+  color: black;
+  font-family: "Merriweather Sans";
+  font-size: 2.4rem;
+  padding-bottom: 1.2rem;
+}
+
+.card img {
+  width: 90px;
+  margin-bottom: 15px;
+  filter: brightness(var(--imgBrightness));
+  transform: scale(var(--imgSize));
+}
+
+.card p {
+  font-size: 1.8rem;
+  font-family: "Montserrat";
+}
+
+.process-title,
+.intro-title {
+  color: black;
+  font-family: "Lato";
+  padding-top: 6.8rem;
+}
+
+.process-title {
+}
+
+.intro-wrapper {
+  padding-bottom: 2.4rem;
+  /* margin-bottom: 2.4rem; */
+}
+
+.logistics-deal-img {
+  width: 100%;
+  padding-top: 2.4rem;
+}
+
+.logo-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  background: rgba(0, 0, 0, var(--bgOpacity));
+}
+
+.logistics-deal-logo {
+  opacity: 0;
+  transform: translateY(20%);
+  transition: all 1s ease;
+  width: 30vw;
+  position: absolute;
+}
+
+.logistics-deal-logo.logo-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.logistics-deal-img-container {
+  width: 100%;
+  height: 450px;
+  background: url("/assets/logistics-deal-logo.jpg");
+  background-attachment: fixed;
+  background-position: -200px;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.process-intro,
+.intro-paragraph {
+  font-size: clamp(1.8rem, 1.4vw, 1.6rem);
+  padding-top: 1.8rem;
+  line-height: 1.25;
+}
+
+.scroll-img {
+  height: 60px;
+  margin-left: -40vw;
+  opacity: 0.5;
+  transform: translateX(var(--translateX));
+  margin-top: 20px;
+}
+
+.scroll-img-2 {
+  margin-left: 70vw;
+  opacity: 0.5;
+  transform: translateX(var(--translateX));
+  margin-top: 80px;
+}
+
+.scroll-grid-container {
+  display: flex;
+  padding-top: 6.8rem;
+  /* border-top: 2px solid rgba(128, 128, 128, 0.445);
+  margin-top: 2.4rem; */
 }
 
 /* ANIMATIONS */

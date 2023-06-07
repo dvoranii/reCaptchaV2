@@ -228,21 +228,21 @@ export default function renderNavigation() {
     );
   }
 
-  servicesLink.addEventListener("mouseenter", () => setUnderlineWidth(137));
+  servicesLink.addEventListener("mouseenter", () => setUnderlineWidth(145));
   servicesLink.addEventListener("mouseleave", () => setUnderlineWidth(0));
 
   transportationLink.addEventListener("mouseenter", () =>
-    setUnderlineWidth(234)
+    setUnderlineWidth(249)
   );
   transportationLink.addEventListener("mouseleave", () =>
-    setUnderlineWidth(138)
+    setUnderlineWidth(145)
   );
 
   transportationSubmenu.addEventListener("mouseenter", () =>
-    setUnderlineWidth(234)
+    setUnderlineWidth(249)
   );
   transportationSubmenu.addEventListener("mouseleave", () =>
-    setUnderlineWidth(138)
+    setUnderlineWidth(145)
   );
 
   function updateNavOnCurrentPage() {

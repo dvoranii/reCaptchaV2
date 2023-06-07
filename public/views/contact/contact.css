@@ -1,14 +1,26 @@
 /* contact */
+
+h1.ontario-title,
+h1.quebec-title {
+  /* padding-left: 1.2rem; */
+  padding-bottom: 0.8rem;
+  padding-top: 2.4rem;
+  background-image: linear-gradient(to right, #8fd6ab, #0047be);
+  background-repeat: no-repeat;
+  background-size: 100% 3px;
+  background-position: bottom;
+  margin-bottom: 2.4rem;
+}
 .container.contact-container {
   max-width: 1200px;
 }
 .contact-wrapper {
   display: flex;
   margin-top: 2.4rem;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   width: 100%;
   margin: 0 auto;
-  margin-top: 3.2rem;
+  margin-top: 1.2rem;
 }
 
 .contact-info {
@@ -20,10 +32,14 @@
   justify-content: center;
   width: 40%;
   margin: 0 auto;
+  background-color: #f2f2f2c5;
 }
 
+.g-recaptcha {
+  margin-top: 20px;
+}
 .map-container {
-  border-right: 1px solid black;
+  border-right: 2px solid #333;
   /* width: 60%; */
   width: clamp(400px, 40vw, 807px);
 }
@@ -45,8 +61,14 @@
   position: relative;
   display: inline-block;
   padding-bottom: 2px;
+  font-family: "Lato", sans-serif;
+  letter-spacing: 0.5px;
 }
 
+address {
+  font-family: "Lato";
+  font-size: 14px !important;
+}
 .office-wrapper h3 span::after,
 .cargo-wrapper h3 span::after {
   content: "";
@@ -58,9 +80,12 @@
   bottom: 0; /* Adjust position as needed */
 }
 
-.title-wrapper {
+.title-wrapper.contact-title-wrapper {
   display: flex;
   align-items: center;
+  justify-content: left;
+  padding-bottom: 0;
+  gap: 0.8rem;
 }
 
 .button-container {
@@ -99,6 +124,7 @@ iframe {
   padding-top: 2em;
   display: flex;
   justify-content: center;
+  margin-top: 2.4rem;
 }
 
 .form {
@@ -116,8 +142,50 @@ iframe {
 
 .form-label,
 .form-submit {
-  font-size: clamp(1.8rem, 2vw, 2.4rem);
+  font-size: clamp(1.4rem, 1.2vw, 1.8rem);
   font-weight: bold;
+  font-family: "Roboto";
+  letter-spacing: 0.4px;
+  text-transform: none;
+  color: #333;
+}
+
+/* .submit {
+  background: red;
+} */
+
+.contact-submit {
+  display: flex;
+  justify-content: center;
+}
+
+.contact-title {
+  font-family: "Merriweather Sans";
+  letter-spacing: 1px;
+  margin-bottom: 2.4rem;
+  padding-bottom: 2.4rem;
+  padding-top: 1.2rem;
+  width: 100%;
+  text-align: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.308);
+  font-size: clamp(18px, 1.8vw, 2.4rem);
+  font-weight: bold;
+  color: #333;
+}
+
+.contact-textarea {
+  width: 100%;
+  border: 2px solid rgba(128, 128, 128, 0.527);
+  border-radius: 2px;
+}
+
+.message-wrapper {
+  width: 100%;
+  padding-top: 1.2rem;
+}
+
+.message-wrapper > label {
+  padding-bottom: 1.2rem;
 }
 
 .name-input,
@@ -146,6 +214,19 @@ iframe {
 
 .globe-icon {
   width: 50px;
+  padding-right: 10px;
+}
+
+.form-wrapper-inner {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.name-wrapper,
+.email-wrapper {
+  width: 50%;
 }
 
 @media screen and (max-width: 1712px) {
@@ -166,17 +247,31 @@ iframe {
   }
 }
 
+@media screen and (max-width: 1024px) {
+  .title-wrapper {
+    margin-left: 70px;
+  }
+
+  .contact-wrapper {
+    margin-top: 0;
+  }
+}
+
 @media screen and (max-width: 878px) {
   .contact-wrapper,
   .form-container {
     width: 90vw;
+  }
+
+  .title-wrapper {
+    margin-left: 0;
   }
 }
 
 @media screen and (max-width: 768px) {
   .contact-wrapper {
     flex-direction: column;
-    border: 1px solid black;
+    border: 1px solid #222222;
     padding-inline-start: 10px 40px;
   }
 
@@ -191,7 +286,7 @@ iframe {
   .map-container {
     display: flex;
     justify-content: center;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid #333333;
     border-right: 0;
     width: 100% !important;
     height: 300px;
@@ -214,7 +309,7 @@ iframe {
   .office-wrapper {
     margin-top: 0;
     padding: 20px;
-    border-left: 1px solid black;
+    border-left: 1px solid #222222;
   }
 
   .cargo-wrapper {

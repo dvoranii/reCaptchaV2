@@ -378,26 +378,147 @@ if (window.location.pathname === "/") {
   });
 
   anim3.start();
+
+  // rectangle grid
+  const gridPattern1 = document.querySelector(".scroll-img");
+  const gridPattern2 = document.querySelector(".scroll-img-2");
+
+  const scrollImgInstance1 = basicScroll.create({
+    elem: gridPattern1,
+    from: "top-bottom",
+    to: "bottom-top",
+    direct: true,
+    props: {
+      "--translateX": {
+        from: "0vw",
+        to: "10vw",
+      },
+    },
+  });
+
+  scrollImgInstance1.start();
+
+  const scrollImgInstance2 = basicScroll.create({
+    elem: gridPattern2,
+    from: "top-bottom",
+    to: "bottom-top",
+    direct: true,
+    props: {
+      "--translateX": {
+        from: "-20vw",
+        to: "-10vw",
+      },
+    },
+  });
+
+  scrollImgInstance2.start();
+
+  document.querySelectorAll(".card").forEach((card, i) => {
+    basicScroll
+      .create({
+        elem: card,
+        from: "top-bottom",
+        to: "bottom-center",
+        direct: true,
+        props: {
+          "--shadowOpacity": {
+            from: "0.1",
+            to: "0.6",
+          },
+          "--shadowBlur": {
+            from: "5px",
+            to: "25px",
+          },
+
+          "--imgOpacity": {
+            from: "0",
+            to: "1",
+          },
+
+          "--Yposition": {
+            from: "0px",
+            to: "-40px",
+          },
+        },
+      })
+      .start();
+  });
+
+  document.querySelectorAll(".card img").forEach((cardImg, i) => {
+    basicScroll
+      .create({
+        elem: cardImg,
+        from: "top-bottom",
+        to: "bottom-center",
+        direct: true,
+        props: {
+          "--imgBrightness": {
+            from: "1",
+            to: "1.1",
+          },
+
+          "--imgSize": {
+            from: "1",
+            to: "1.25",
+          },
+        },
+      })
+      .start();
+  });
+
+  const logoWrapper = document.querySelector(".logo-wrapper");
+  scrollImgInstance1.start();
+  const bgDarken = basicScroll.create({
+    elem: logoWrapper,
+    from: "top-bottom",
+    to: "top-center",
+    direct: true,
+    props: {
+      "--bgOpacity": {
+        from: "0",
+        to: "0.45",
+      },
+    },
+  });
+
+  bgDarken.start();
+
+  const cglLogo = document.querySelector(".logistics-deal-logo");
+
+  let observer = new IntersectionObserver(
+    (entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.intersectionRatio > 0.5) {
+          entry.target.classList.add("logo-visible");
+        } else {
+          entry.target.classList.remove("logo-visible");
+        }
+      });
+    },
+    {
+      root: null,
+      rootMargin: "-150px",
+      threshold: 0.5,
+    }
+  );
+
+  observer.observe(cglLogo);
 }
 
 // flickity on warehouse page
 // check window.location.href
 
-document.addEventListener("DOMContentLoaded", function () {
-  const flickityElem = document.querySelector(".carousel");
+if (window.location.pathname === "/services/transportation/warehouse") {
+  document.addEventListener("DOMContentLoaded", function () {
+    const flickityElem = document.querySelector(".carousel");
 
-  if (!flickityElem) return;
-  var flickity = new Flickity(flickityElem, {
-    cellAlign: "left",
-    contain: true,
-    autoPlay: 4000,
-    friction: 0.8, // Adjust this value to change the scroll speed
-    selectedAttraction: 0.03,
+    if (!flickityElem) return;
+    var flickity = new Flickity(flickityElem, {
+      cellAlign: "left",
+      contain: true,
+      autoPlay: 4000,
+      friction: 0.8,
+      selectedAttraction: 0.03,
+    });
   });
-
-  // flickity.on("change", function (index) {
-  //   if (index === flickity.cells.length - 1) {
-  //     flickity.pause();
-  //   }
-  // });
-});
+}

@@ -42,17 +42,21 @@
 
 .legal {
   text-align: center;
-  background: #666666;
+  background: #8a8a8a;
   padding: 20px 0px;
+  font-style: italic;
 }
 
+/* .legal > p {
+  color: black;
+} */
 .logo-nav-container {
   display: flex;
   justify-content: space-between;
   padding: 0px 20px;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 822px) {
   .footer-nav {
     flex-direction: column;
     gap: 0.4rem;
@@ -64,5 +68,11 @@
 
   .divider {
     display: none;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .footer-nav {
+    padding: 0 2.4rem 2.4rem 0;
   }
 }

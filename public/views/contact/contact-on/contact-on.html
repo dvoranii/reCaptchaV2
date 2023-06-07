@@ -8,6 +8,28 @@
       href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap"
       rel="stylesheet"
     />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Merriweather+Sans&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="/views/quote-request/quoteRequest.css" />
     <link rel="stylesheet" href="/views/contact/contact.css" />
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="/views/global-components/navigation/nav.css" />
@@ -17,9 +39,9 @@
   <body>
     <div id="navigation"></div>
     <div class="container contact-container">
-      <div class="title-wrapper">
+      <div class="title-wrapper contact-title-wrapper">
         <img class="globe-icon" src="/assets/globe-icon-img.png" />
-        <h1>ONTARIO</h1>
+        <h1 class="ontario-title">Ontario</h1>
       </div>
       <div class="contact-wrapper">
         <div class="map-container">
@@ -39,7 +61,7 @@
               65 Superior Blvd, Unit #2<br />
               Mississauga, Ontario<br />
               L5T 2X9<br /><br />
-              E-MAIL:
+              <b>E-MAIL:</b>
               <a
                 href="mailto:opsyyz@CanadianGlobalLogistics.ca
           "
@@ -55,8 +77,8 @@
               46 Tiffany Lane,<br />
               Georgetown, Ontario<br />
               L7G 0H1<br /><br />
-              OFFICE: <a href="tel:6472373811">647-237-3811</a><br />
-              E-MAIL:
+              <b>OFFICE:</b> <a href="tel:6472373811">647-237-3811</a><br />
+              <b>E-MAIL:</b>
               <a
                 href="mailto:Cindy@CanadianGlobalLogistics.ca
           "
@@ -68,22 +90,43 @@
       </div>
       <div class="form-container">
         <form class="form" id="demo-form" method="">
-          <label for="name" class="form-label">Name:</label>
-          <input type="text" id="name" name="name" class="name-input" />
-          <p class="contact-name--error">Please enter name</p>
-          <label for="email" class="form-label">Email:</label>
-          <input id="email" name="email" class="email-input" />
-          <p class="contact-email--error-1">Please enter email</p>
-          <p class="contact-email--error-2">
-            Please enter a valid email (i.e 123@abc.com)
-          </p>
+          <h2 class="contact-title">
+            &mdash; Contact CGL<sup style="font-size: 12px">®</sup> &mdash;
+          </h2>
+          <div class="form-wrapper-inner">
+            <div class="name-wrapper">
+              <label for="name" class="form-label">Name:</label>
+              <input type="text" id="name" name="name" class="name-input" />
+              <p class="contact-name--error">Please enter name</p>
+            </div>
+            <div class="email-wrapper">
+              <label for="email" class="form-label">Email:</label>
+              <input id="email" name="email" class="email-input" />
+              <p class="contact-email--error-1">Please enter email</p>
+              <p class="contact-email--error-2">
+                Please enter a valid email (i.e 123@abc.com)
+              </p>
+            </div>
+          </div>
+          <div class="message-wrapper">
+            <label class="form-label">Message:</label><br /><br />
+            <textarea
+              class="contact-textarea"
+              name=""
+              id=""
+              cols="30"
+              rows="10"
+            ></textarea>
+          </div>
           <div
             class="g-recaptcha"
             data-sitekey="6LdGhAokAAAAANFdqnRx05SiwfKA8fd6CCc9gmHX"
           ></div>
           <br />
           <input type="hidden" id="csrf-token" name="_csrf" />
-          <button class="submit">Submit</button>
+          <div class="submit-btn-container contact-submit">
+            <button type="submit" class="submit">SUBMIT</button>
+          </div>
           <div class="error-captcha">&nbsp;</div>
         </form>
       </div>
