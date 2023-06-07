@@ -11,6 +11,16 @@ if (window.location.pathname === "/") {
 
   window.addEventListener("DOMContentLoaded", () => {
     heroLogo.classList.add("active");
+    let cards = document.querySelectorAll(".card");
+
+    cards.forEach((card) => {
+      VanillaTilt.init(card, {
+        max: 10,
+        speed: 300,
+        "glare-prerender": true,
+        reverse: true,
+      });
+    });
   });
 
   // THREE JS Spinning Globe
@@ -433,11 +443,6 @@ if (window.location.pathname === "/") {
           "--imgOpacity": {
             from: "0",
             to: "1",
-          },
-
-          "--Yposition": {
-            from: "0px",
-            to: "-40px",
           },
         },
       })

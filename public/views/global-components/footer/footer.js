@@ -38,8 +38,8 @@ export default function renderFooter() {
 
     <div class="legal">
       <p>
-        Copyright &copy; 2021 Canadian Global Logistics Inc. All Rights
-        Reserved.
+        Copyright &copy; 2021 &mdash; Canadian Global Logistics Inc.<sup>®</sup>
+        &mdash; All Rights Reserved.
       </p>
       <p>Located in Ontario, Canada</p>
     </div>
