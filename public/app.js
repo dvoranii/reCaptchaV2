@@ -17,8 +17,10 @@ if (window.location.pathname === "/") {
       VanillaTilt.init(card, {
         max: 10,
         speed: 300,
-        "glare-prerender": true,
+        glare: true,
+        "max-glare": 0.8,
         reverse: true,
+        reset: true,
       });
     });
   });

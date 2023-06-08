@@ -40,13 +40,14 @@ body::before {
 
 h1 {
   font-size: clamp(1.8rem, 1.8vw, 3.6rem);
-  font-family: "Lato", sans-serif;
+  font-family: "Merriweather Sans", sans-serif;
   font-weight: 500;
   /* text-transform: uppercase; */
 }
 
 h2 {
-  font-size: clamp(1.6rem, 2.4vw, 3.6rem);
+  font-size: clamp(2.4rem, 4.4vw, 3.6rem);
+  color: #222222;
 }
 
 h3 {
@@ -55,14 +56,18 @@ h3 {
 
 p,
 label,
-a,
 address {
   font-size: clamp(1.4rem, 1.4vw, 1.6rem);
   color: black;
-  font-family: "Lato";
+  font-family: "Montserrat";
   line-height: 1.5;
 }
 
+a {
+  font-size: clamp(1.4rem, 1.4vw, 1.6rem);
+  color: #333;
+  font-family: "Nunito Sans";
+}
 .container-body {
   min-height: 70vh;
 }
@@ -263,7 +268,8 @@ div.globe-container {
   margin-bottom: 1.2rem;
   margin-top: 2.4rem;
   color: #fff;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
+  /* text-align: center; */
 }
 
 .home-content-outer {
@@ -370,6 +376,7 @@ div.globe-container {
   font-family: "Merriweather Sans";
   font-size: 2.4rem;
   padding-bottom: 1.2rem;
+  letter-spacing: 0.5px;
 }
 
 .card img {
@@ -385,13 +392,85 @@ div.globe-container {
 }
 
 .process-title,
+.intro-title,
+.hockey-title {
+  font-family: "Merriweather Sans";
+  padding-top: 6.8rem;
+  padding-bottom: 3.2rem;
+  letter-spacing: 0.75px;
+}
+
 .intro-title {
   color: black;
-  font-family: "Lato";
-  padding-top: 6.8rem;
+}
+
+.hockey-wrapper {
+  display: flex;
+}
+
+.hockey-text-wrapper {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.hockey-text-wrapper > p {
+  font-family: "Montserrat";
+  font-size: clamp(1.4rem, 1.8vw, 1.6rem);
+  padding-bottom: 1.2rem;
+}
+
+.hockey-list {
+  color: #222222;
+  font-size: clamp(1.4rem, 1.8vw, 1.6rem);
+  margin-left: 40px;
+  font-family: "Montserrat";
+  line-height: 1.5;
+}
+
+.hockey-link {
+  margin-left: 40px;
+  margin-top: 1.2rem;
+  font-size: 1.8rem;
+  text-decoration: none;
+  width: fit-content;
+  background: #0047be;
+  padding: 8px 16px;
+  transition: all 250ms ease;
+  border-radius: 20px;
+  font-weight: bold;
+  font-family: "Nunito Sans";
+  letter-spacing: 0.5px;
+  color: white;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.322);
+}
+
+.hockey-link:hover {
+  transform: scale(1.025);
+  cursor: pointer;
+  box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.205);
+}
+
+.hockey-link:active {
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.322);
+  transform: scale(1);
+}
+
+/* .hockey-title {
+  
+} */
+
+.intro-title {
+  text-align: center;
+  font-size: 3.6rem;
 }
 
 .process-title {
+}
+
+.process-text-after {
+  padding-top: 2.4rem;
 }
 
 .intro-wrapper {
@@ -440,8 +519,13 @@ div.globe-container {
 .process-intro,
 .intro-paragraph {
   font-size: clamp(1.8rem, 1.4vw, 1.6rem);
-  padding-top: 1.8rem;
-  line-height: 1.25;
+  /* padding-top: 1.8rem; */
+  line-height: 1.5;
+}
+
+.intro-paragraph.last {
+  text-align: center;
+  padding-top: 2.4rem;
 }
 
 .scroll-img {
@@ -464,6 +548,15 @@ div.globe-container {
   padding-top: 6.8rem;
   /* border-top: 2px solid rgba(128, 128, 128, 0.445);
   margin-top: 2.4rem; */
+}
+
+.hockey-img-wrapper {
+  width: 100%;
+  min-width: 350px;
+}
+
+.hockey-img-wrapper > img {
+  width: 100%;
 }
 
 /* ANIMATIONS */

@@ -98,7 +98,6 @@ app.post("/submit-contact", sanitizeInputMiddleware, async (req, res) => {
 
 app.post("/submit-quote", sanitizeInputMiddleware, async (req, res) => {
   const formData = req.body.formData;
-
   const {
     fullName,
     companyName,

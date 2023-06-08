@@ -33,6 +33,7 @@
   transition: all 250ms ease;
   font-size: clamp(12px, 1vw, 14px);
   border-bottom: 2px solid #ccceee00;
+  letter-spacing: 0.5px;
 }
 
 .footer-nav a:hover {
@@ -45,6 +46,10 @@
   background: #8a8a8a;
   padding: 20px 0px;
   font-style: italic;
+}
+
+.legal > p {
+  font-family: "Arial";
 }
 
 /* .legal > p {
