@@ -23,6 +23,16 @@ if (window.location.pathname === "/") {
         reset: true,
       });
     });
+
+    const flickityElem = document.querySelector(".home-carousel");
+
+    if (!flickityElem) return;
+    var flickity = new Flickity(flickityElem, {
+      cellAlign: "left",
+      autoPlay: false,
+      friction: 0.8,
+      selectedAttraction: 0.03,
+    });
   });
 
   // THREE JS Spinning Globe
@@ -395,6 +405,9 @@ if (window.location.pathname === "/") {
   const gridPattern1 = document.querySelector(".scroll-img");
   const gridPattern2 = document.querySelector(".scroll-img-2");
 
+  const gridPattern3 = document.querySelector(".scroll-img_last");
+  const gridPattern4 = document.querySelector(".scroll-img-2_last");
+
   const scrollImgInstance1 = basicScroll.create({
     elem: gridPattern1,
     from: "top-bottom",
@@ -403,7 +416,7 @@ if (window.location.pathname === "/") {
     props: {
       "--translateX": {
         from: "0vw",
-        to: "10vw",
+        to: "20vw",
       },
     },
   });
@@ -418,12 +431,44 @@ if (window.location.pathname === "/") {
     props: {
       "--translateX": {
         from: "-20vw",
-        to: "-10vw",
+        to: "0vw",
       },
     },
   });
 
   scrollImgInstance2.start();
+
+  // =========================
+
+  const scrollImgInstance3 = basicScroll.create({
+    elem: gridPattern3,
+    from: "top-bottom",
+    to: "bottom-top",
+    direct: true,
+    props: {
+      "--translateX": {
+        from: "0vw",
+        to: "20vw",
+      },
+    },
+  });
+
+  scrollImgInstance3.start();
+
+  const scrollImgInstance4 = basicScroll.create({
+    elem: gridPattern4,
+    from: "top-bottom",
+    to: "bottom-top",
+    direct: true,
+    props: {
+      "--translateX": {
+        from: "-20vw",
+        to: "0vw",
+      },
+    },
+  });
+
+  scrollImgInstance4.start();
 
   document.querySelectorAll(".card").forEach((card, i) => {
     basicScroll
