@@ -403,6 +403,7 @@ div.globe-container {
 
 .intro-title {
   color: black;
+  text-align: center;
 }
 
 .hockey-wrapper {
@@ -456,15 +457,6 @@ div.globe-container {
 .hockey-link:active {
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.322);
   transform: scale(1);
-}
-
-/* .hockey-title {
-  
-} */
-
-.intro-title {
-  text-align: center;
-  font-size: 3.6rem;
 }
 
 .process-title {
@@ -589,6 +581,11 @@ div.globe-container {
 
 .home-carousel-cell > a {
   text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
 }
 
 .cell-button {

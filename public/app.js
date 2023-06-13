@@ -75,8 +75,11 @@ if (window.location.pathname === "/") {
   let atmosphere = null;
   let group = new THREE.Group();
 
+  let initialSphereRotation = new THREE.Euler();
+
   function createSphere(radius) {
     if (sphere) {
+      initialSphereRotation.copy(sphere.rotation);
       group.remove(sphere);
     }
 
@@ -97,6 +100,8 @@ if (window.location.pathname === "/") {
       })
     );
 
+    sphere.rotation.copy(initialSphereRotation);
+
     atmosphere = new THREE.Mesh(
       new THREE.SphereGeometry(radius, 50, 50),
       new THREE.ShaderMaterial({
@@ -115,6 +120,7 @@ if (window.location.pathname === "/") {
   }
 
   function handleResizeAndCreateSphere() {
+    console.log("Called");
     let radius;
     if (window.innerWidth <= 820) {
       radius = 3.5;
@@ -172,6 +178,7 @@ if (window.location.pathname === "/") {
   camera.position.z = 50;
 
   let boxes = [];
+
   function createBox({ lat, long, country, flag }) {
     const box = new THREE.Mesh(
       new THREE.BoxGeometry(0.15, 0.15, 0.6),
@@ -372,6 +379,7 @@ if (window.location.pathname === "/") {
     }
 
     boxes.forEach(({ box, lat, long }) => {
+      // let { x, y, z } = box.relativePos;
       const latitude = (lat / 180) * Math.PI;
       const longitude = (long / 180) * Math.PI;
 
@@ -379,11 +387,17 @@ if (window.location.pathname === "/") {
       const y = radius * Math.sin(latitude);
       const z = radius * Math.cos(latitude) * Math.cos(longitude);
 
+      // x *= radius;
+      // y *= radius;
+      // z *= radius;
+
       box.position.x = x;
       box.position.y = y;
       box.position.z = z;
     });
   });
+
+  // =========================================
 
   const anim3 = basicScroll.create({
     elem: document.querySelector(".bg"),
