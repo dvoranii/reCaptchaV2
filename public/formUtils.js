@@ -1,38 +1,37 @@
-export function generateCSRFToken() {
-  const csrfToken =
-    Math.random().toString(36).substring(2, 15) +
-    Math.random().toString(36).substring(2, 15);
-  sessionStorage.setItem("csrfToken", csrfToken);
-  return csrfToken;
-}
-
-export function getCSRFToken() {
-  return sessionStorage.getItem("csrfToken");
-}
-
-export function handleCaptchaAndCSRFToken() {
+export function handleCaptcha() {
   const captcha = document.querySelector(".g-recaptcha");
   let captchaRes;
-  let csrfToken;
 
   window.onload = function () {
     if (captcha) {
       captchaRes = document.querySelector("#g-recaptcha-response");
-      csrfToken = generateCSRFToken();
-      let csrfTokenEl = document.getElementById("csrf-token");
-      if (csrfTokenEl) {
-        csrfTokenEl.value = csrfToken;
-      }
     }
   };
 
   return {
     captcha,
     getCaptchaRes: () => captchaRes,
-    getCsrfToken: () => csrfToken,
   };
 }
 
 export function sanitizeInput(input) {
   return input.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+export function fetchAndSetCsrfToken(inputElementId) {
+  fetch("/csrf-token")
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      const csrfInput = document.getElementById(inputElementId);
+      if (csrfInput) {
+        csrfInput.value = data.csrfToken;
+      }
+    });
+}
+
+export function getCsrfToken(inputElementId) {
+  const csrfTokenInput = document.getElementById(inputElementId);
+  return csrfTokenInput ? csrfTokenInput.value : null;
 }

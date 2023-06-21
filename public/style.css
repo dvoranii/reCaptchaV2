@@ -468,7 +468,6 @@ div.globe-container {
 
 .intro-wrapper {
   padding-bottom: 2.4rem;
-  /* margin-bottom: 2.4rem; */
 }
 
 .logistics-deal-img {
@@ -631,9 +630,9 @@ div.globe-container {
 
 .cell-3 {
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url("/assets/handle-with-care.jpg") no-repeat center top;
+    url("/assets/delivery.png") no-repeat center top;
   background-size: 100%;
-  background-position: bottom;
+  background-position: center;
   position: relative;
   width: 100%;
   display: flex;

@@ -120,7 +120,6 @@ if (window.location.pathname === "/") {
   }
 
   function handleResizeAndCreateSphere() {
-    console.log("Called");
     let radius;
     if (window.innerWidth <= 820) {
       radius = 3.5;

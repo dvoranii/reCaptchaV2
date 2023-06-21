@@ -1,4 +1,9 @@
-import { handleCaptchaAndCSRFToken, sanitizeInput } from "../../formUtils.js";
+import {
+  handleCaptcha,
+  sanitizeInput,
+  fetchAndSetCsrfToken,
+  getCsrfToken,
+} from "../../formUtils.js";
 
 const fullName = document.querySelector(".name-input");
 const email = document.querySelector(".email-input");
@@ -9,6 +14,10 @@ let errorCap = document.querySelector(".error-captcha");
 let errorName = document.querySelector(".contact-name--error");
 let errorEmailEmpty = document.querySelector(".contact-email--error-1");
 let errorEmailInvalid = document.querySelector(".contact-email--error-2");
+
+window.addEventListener("DOMContentLoaded", () => {
+  fetchAndSetCsrfToken("csrf-token");
+});
 
 if (myForm) {
   myForm.addEventListener("submit", (e) => {
@@ -47,18 +56,19 @@ function validateContactForm(name, email, emailRegex) {
   return isValid;
 }
 
-const { getCaptchaRes, getCsrfToken } = handleCaptchaAndCSRFToken();
+const { getCaptchaRes } = handleCaptcha();
 
 function sendContactFormData() {
   let nameValue = sanitizeInput(fullName.value);
   let emailValue = sanitizeInput(email.value);
 
   const captchaRes = getCaptchaRes();
-  const csrfToken = getCsrfToken();
+
+  const csrfToken = getCsrfToken("csrf-token");
 
   let isFormValid = validateContactForm(nameValue, emailValue, emailRegEx);
 
-  if (!isFormValid || !captchaRes || !csrfToken) {
+  if (!isFormValid || !captchaRes) {
     console.error("Invalid form data");
     return;
   }
@@ -81,7 +91,6 @@ function sendContactFormData() {
   })
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
       if (data.success == true) {
         // window.location.href = "/success";
         console.log("success");

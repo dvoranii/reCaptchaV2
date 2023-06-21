@@ -2,7 +2,12 @@
 // TODO: Connect this to firebase
 // TODO: Add sendinblue email campaign
 
-import { handleCaptchaAndCSRFToken, sanitizeInput } from "../../formUtils.js";
+import {
+  handleCaptcha,
+  sanitizeInput,
+  fetchAndSetCsrfToken,
+  getCsrfToken,
+} from "../../formUtils.js";
 
 const myForm = document.querySelector(".quote-request-form");
 const numPieces = document.querySelector(".number-pieces");
@@ -46,6 +51,8 @@ let errorUnit = document.querySelector(".error-unit");
 let errorOption = document.querySelector(".error-option");
 let errorSkidType;
 
+let errorCap = document.querySelector(".error-captcha");
+
 // let submitBtn = document.querySelector(".submit");
 
 // need to explain why I'm doing this (state management)
@@ -55,7 +62,6 @@ function setSkidTemplate(position, i) {
   errorSkidType = document.querySelectorAll(".error-skid-type");
 
   let templateSkidDimensions = `<div class="dimensions-container">
-
                                           <div class="dimension-wrapper">
                                           <input type="text" placeholder="Length" class="dimensions-input length" data-count="${i}" name='length'>
                                           </div>
@@ -74,6 +80,7 @@ function setSkidTemplate(position, i) {
 }
 
 window.addEventListener("DOMContentLoaded", () => {
+  fetchAndSetCsrfToken("csrf-token");
   setSkidTemplate("afterbegin", 0);
   setSkidInputs();
 });
@@ -145,27 +152,26 @@ function setSkidInputs() {
 function sendQuoteFormData(formData, captchaRes, csrfToken) {
   fetch("/submit-quote", {
     method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "X-CSRF-Token": csrfToken,
+    },
     body: JSON.stringify({
       formData,
       captchaRes: captchaRes.value,
-      csrfToken: csrfToken.value,
+      _csrf: csrfToken,
     }),
-    headers: {
-      "Content-Type": "application/json",
-    },
   })
     .then((res) => res.json())
     .then((data) => {
       console.log(data);
-
-      if (data.message === "Quote request saved successfully") {
+      if (data.success == true) {
         // window.location.href = "/success";
         console.log("success");
-      } else {
-        console.error(
-          "Error while submitting the quote request:",
-          data.message
-        );
+      }
+      if (data.success == false) {
+        errorCap.innerHTML = `${data.msg}`;
+        errorCap.classList.add("active");
       }
     })
     .catch((err) => console.log(err));
@@ -223,11 +229,11 @@ function validateQuoteForm() {
   return isValid;
 }
 
-const { captcha, getCaptchaRes, getCsrfToken } = handleCaptchaAndCSRFToken();
+const { captcha, getCaptchaRes } = handleCaptcha();
 
 function submitQuoteForm() {
   const captchaRes = getCaptchaRes();
-  const csrfToken = getCsrfToken();
+  const csrfToken = getCsrfToken("csrf-token");
   const isValid = validateQuoteForm();
 
   let errorMessages = document.querySelectorAll(".active");
@@ -238,7 +244,7 @@ function submitQuoteForm() {
   }
 
   // Add guard clause for captcha and csrfToken
-  if (!captcha || !captchaRes || !csrfToken) {
+  if (!captcha || !captchaRes) {
     console.error("Captcha or CSRF token is missing");
     return;
   } else if (!isValid) {
