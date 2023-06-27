@@ -29,11 +29,11 @@
       rel="stylesheet"
     />
 
-    <link rel="stylesheet" href="/views/quote-request/quoteRequest.css" />
-    <link rel="stylesheet" href="/views/contact/contact.css" />
+    <link rel="stylesheet" href="/quote-request/quoteRequest.css" />
+    <link rel="stylesheet" href="/contact/contact.css" />
     <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="/views/global-components/navigation/nav.css" />
-    <link rel="stylesheet" href="/views/global-components/footer/footer.css" />
+    <link rel="stylesheet" href="/global-components/navigation/nav.css" />
+    <link rel="stylesheet" href="/global-components/footer/footer.css" />
     <title>CGL® &ndash; Contact (ON)</title>
   </head>
   <body>
@@ -121,6 +121,7 @@
           <div
             class="g-recaptcha"
             data-sitekey="6LdGhAokAAAAANFdqnRx05SiwfKA8fd6CCc9gmHX"
+            id="captcha-element"
           ></div>
           <br />
           <input type="hidden" id="csrf-token" name="_csrf" />
@@ -139,6 +140,6 @@
 
     <script src="https://www.google.com/recaptcha/api.js" async></script>
     <script type="module" src="app.js"></script>
-    <script type="module" src="/views/contact/contact.js"></script>
+    <script type="module" src="/contact/contact.js"></script>
   </body>
 </html>

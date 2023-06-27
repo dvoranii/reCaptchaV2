@@ -3,7 +3,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const routes = require("./routes");
+// const routes = require("./routes");
 const {
   addFirebaseContact,
   addQuoteRequestFormData,
@@ -19,7 +19,7 @@ app.use(cors());
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use("/", routes);
+// app.use("/", routes);
 
 app.use(cookieParser());
 app.use(csurf({ cookie: true }));
@@ -32,7 +32,6 @@ app.post("/submit-contact", async (req, res) => {
   let reqCap = req.body.captcha;
   let reqName = req.body.name;
   let reqEmail = req.body.email;
-  let csrfToken = req.body._csrf;
 
   if (reqCap === undefined || reqCap == "" || reqCap === null) {
     return res.json({
@@ -133,13 +132,11 @@ app.post("/submit-quote", async (req, res) => {
         hsCodes,
         additionalInfo
       );
-      res
-        .status(200)
-        .json({
-          success: true,
-          message: "Quote request saved successfully",
-          docId,
-        });
+      res.status(200).json({
+        success: true,
+        message: "Quote request saved successfully",
+        docId,
+      });
     } catch (error) {
       console.error("Error adding quote request data:", error);
       res

@@ -56,7 +56,7 @@ function validateContactForm(name, email, emailRegex) {
   return isValid;
 }
 
-const { getCaptchaRes } = handleCaptcha();
+const { captcha, getCaptchaRes } = handleCaptcha();
 
 function sendContactFormData() {
   let nameValue = sanitizeInput(fullName.value);

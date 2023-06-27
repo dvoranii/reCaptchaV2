@@ -7,7 +7,7 @@ import {
   sanitizeInput,
   fetchAndSetCsrfToken,
   getCsrfToken,
-} from "../../formUtils.js";
+} from "../formUtils.js";
 
 const myForm = document.querySelector(".quote-request-form");
 const numPieces = document.querySelector(".number-pieces");
@@ -54,6 +54,8 @@ let errorSkidType;
 let errorCap = document.querySelector(".error-captcha");
 
 // let submitBtn = document.querySelector(".submit");
+
+const { captcha, getCaptchaRes } = handleCaptcha();
 
 // need to explain why I'm doing this (state management)
 function setSkidTemplate(position, i) {
@@ -229,10 +231,14 @@ function validateQuoteForm() {
   return isValid;
 }
 
-const { captcha, getCaptchaRes } = handleCaptcha();
+// if (errorCap.classList.contains("active")) {
+//   console.log(errorCap.classList.remove("active"));
+// }
 
 function submitQuoteForm() {
   const captchaRes = getCaptchaRes();
+
+  // might move this directly to sendQuoteFormData
   const csrfToken = getCsrfToken("csrf-token");
   const isValid = validateQuoteForm();
 
@@ -243,9 +249,11 @@ function submitQuoteForm() {
     return;
   }
 
+  errorCap.classList.remove("active");
+
   // Add guard clause for captcha and csrfToken
   if (!captcha || !captchaRes) {
-    console.error("Captcha or CSRF token is missing");
+    console.error("Captcha is missing");
     return;
   } else if (!isValid) {
     console.error("Invalid form submission");

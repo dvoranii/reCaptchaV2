@@ -1,6 +1,6 @@
 "use strict";
-import renderNavigation from "./views/global-components/navigation/nav.js";
-import renderFooter from "./views/global-components/footer/footer.js";
+import renderNavigation from "./global-components/navigation/nav.js";
+import renderFooter from "./global-components/footer/footer.js";
 
 renderNavigation();
 renderFooter();
@@ -36,18 +36,16 @@ if (window.location.pathname === "/") {
   });
 
   // THREE JS Spinning Globe
-  const vertexShaderResponse = await fetch("./views/shaders/vertexShader.glsl");
-  const fragmentShaderResponse = await fetch(
-    "./views/shaders/fragmentShader.glsl"
-  );
+  const vertexShaderResponse = await fetch("./shaders/vertexShader.glsl");
+  const fragmentShaderResponse = await fetch("./shaders/fragmentShader.glsl");
   const vertexShader = await vertexShaderResponse.text();
   const fragmentShader = await fragmentShaderResponse.text();
 
   const atmosphereVertexResponse = await fetch(
-    "./views/shaders/atmosphereVertex.glsl"
+    "./shaders/atmosphereVertex.glsl"
   );
   const atmosphereFragmentResponse = await fetch(
-    "./views/shaders/atmosphereFragment.glsl"
+    "./shaders/atmosphereFragment.glsl"
   );
 
   const atmosphereVertex = await atmosphereVertexResponse.text();
@@ -237,6 +235,7 @@ if (window.location.pathname === "/") {
     country: "Mexico City,<br> Mexico",
     flag: "./assets/mexico-flag.png",
   });
+
   createBox({
     lat: 43.65107,
     long: -79.347015,
@@ -573,7 +572,7 @@ if (window.location.pathname === "/") {
 // flickity on warehouse page
 // check window.location.href
 
-if (window.location.pathname === "/services/transportation/warehouse") {
+if (window.location.pathname === "/services/transportation/warehouse/") {
   document.addEventListener("DOMContentLoaded", function () {
     const flickityElem = document.querySelector(".carousel");
 

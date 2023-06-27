@@ -508,13 +508,6 @@ div.globe-container {
   background-repeat: no-repeat;
 }
 
-.process-intro,
-.intro-paragraph {
-  font-size: clamp(1.8rem, 1.4vw, 1.6rem);
-  /* padding-top: 1.8rem; */
-  line-height: 1.5;
-}
-
 .intro-paragraph.last {
   text-align: center;
   padding-top: 2.4rem;

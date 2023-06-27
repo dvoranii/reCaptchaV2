@@ -1,3 +1,5 @@
+// pass in error-message element into handleCaptcha()
+// toggle class 'active'
 export function handleCaptcha() {
   const captcha = document.querySelector(".g-recaptcha");
   let captchaRes;
