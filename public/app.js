@@ -569,9 +569,6 @@ if (window.location.pathname === "/") {
   observer.observe(cglLogo);
 }
 
-// flickity on warehouse page
-// check window.location.href
-
 if (window.location.pathname === "/services/transportation/warehouse/") {
   document.addEventListener("DOMContentLoaded", function () {
     const flickityElem = document.querySelector(".carousel");

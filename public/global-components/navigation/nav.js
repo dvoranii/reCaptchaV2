@@ -55,8 +55,8 @@ export default function renderNavigation() {
           <li class="contact-link">
             <a href="#" class="contact-link">Contact&nbsp;▾</a>
             <ul class="contact-submenu">
-              <li><a href="/contact-on" data-link>Ontario Office</a></li>
-              <li><a href="/contact-qc" data-link>Quebec Office</a></li>
+              <li><a href="/contact/contact-on" data-link>Ontario Office</a></li>
+              <li><a href="/contact/contact-qc" data-link>Quebec Office</a></li>
             </ul>
           </li>
         </ul>
@@ -116,10 +116,10 @@ export default function renderNavigation() {
           <a href="#" class="contact-link-mobile">Contact&nbsp;▾</a>
           <ul class="contact-submenu-mobile">
             <li style="padding-top: 1.2rem;">
-              <a href="/contact-on" data-link>• Ontario Office</a>
+              <a href="/contact/contact-on" data-link>• Ontario Office</a>
             </li>
             <li style="padding-top: 0.8rem;">
-              <a href="/contact-qc" data-link>• Quebec Office</a>
+              <a href="/contact/contact-qc" data-link>• Quebec Office</a>
             </li>
           </ul>
         </li>
