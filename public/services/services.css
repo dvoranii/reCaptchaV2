@@ -67,6 +67,17 @@
   /* margin-bottom: -17px; */
 }
 
+.air > .title-wrapper,
+.ocean > .title-wrapper,
+.truck > .title-wrapper,
+.warehouse > .title-wrapper {
+  margin-left: -30px;
+}
+
+.title-wrapper img.boat-icon {
+  width: clamp(60px, 7vw, 80px);
+}
+
 .title-wrapper img.truck-icon-1 {
   margin: 20px 10px 0px 0px;
   width: 60px;
@@ -582,7 +593,7 @@ img.plane-icon {
   }
 
   .container {
-    padding: 0px 20px 0px 20px;
+    padding: 0px 20px 20px 20px;
   }
 }
 

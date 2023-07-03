@@ -53,7 +53,7 @@ let errorSkidType;
 
 let errorCap = document.querySelector(".error-captcha");
 
-// let submitBtn = document.querySelector(".submit");
+let submitBtn = document.querySelector(".submit");
 
 const { captcha, getCaptchaRes } = handleCaptcha();
 
@@ -86,6 +86,10 @@ window.addEventListener("DOMContentLoaded", () => {
   setSkidTemplate("afterbegin", 0);
   setSkidInputs();
 });
+
+window.reCaptchaVerified = function () {
+  errorCap.classList.remove("active");
+};
 
 if (myForm) {
   myForm.addEventListener("submit", (e) => {
@@ -231,10 +235,6 @@ function validateQuoteForm() {
   return isValid;
 }
 
-// if (errorCap.classList.contains("active")) {
-//   console.log(errorCap.classList.remove("active"));
-// }
-
 function submitQuoteForm() {
   const captchaRes = getCaptchaRes();
 
@@ -260,7 +260,6 @@ function submitQuoteForm() {
     return;
   }
 
-  // Create an object to hold the form data
   let formData = {};
 
   // Add the basic form fields to the object

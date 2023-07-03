@@ -73,6 +73,9 @@ function sendContactFormData() {
     return;
   }
 
+  errorCap.innerHTML = "";
+  errorCap.classList.remove("active");
+
   // pass the csrf
   let formValues = JSON.stringify({
     name: nameValue,

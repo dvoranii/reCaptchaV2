@@ -39,25 +39,24 @@ body::before {
 }
 
 h1 {
-  font-size: clamp(1.8rem, 1.8vw, 3.6rem);
+  font-size: clamp(1.8rem, 3vw, 3.6rem);
   font-family: "Merriweather Sans", sans-serif;
   font-weight: 500;
-  /* text-transform: uppercase; */
 }
 
 h2 {
-  font-size: clamp(2.4rem, 4.4vw, 3.6rem);
+  font-size: clamp(2.4rem, 3vw, 3.6rem);
   color: #222222;
 }
 
 h3 {
-  font-size: clamp(2rem, 2vw, 2.8rem);
+  font-size: clamp(2rem, 2.4vw, 2.8rem);
 }
 
 p,
 label,
 address {
-  font-size: clamp(1.4rem, 1.4vw, 1.6rem);
+  font-size: clamp(1.4rem, 3vw, 1.8rem);
   color: black;
   font-family: "Montserrat";
   line-height: 1.5;
@@ -71,6 +70,8 @@ a {
 .container-body {
   min-height: 70vh;
 }
+
+/* HOME */
 
 .home-container {
   display: flex;
@@ -368,7 +369,6 @@ div.globe-container {
   padding: 40px;
   text-align: center;
   position: relative;
-  /* transform: translateY(var(--Yposition)); */
 }
 
 .card h4 {
@@ -419,13 +419,13 @@ div.globe-container {
 
 .hockey-text-wrapper > p {
   font-family: "Montserrat";
-  font-size: clamp(1.4rem, 1.8vw, 1.6rem);
+  font-size: clamp(1.4rem, 3vw, 1.6rem);
   padding-bottom: 1.2rem;
 }
 
 .hockey-list {
   color: #222222;
-  font-size: clamp(1.4rem, 1.8vw, 1.6rem);
+  font-size: clamp(1.4rem, 3vw, 1.6rem);
   margin-left: 40px;
   font-family: "Montserrat";
   line-height: 1.5;
@@ -457,9 +457,6 @@ div.globe-container {
 .hockey-link:active {
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.322);
   transform: scale(1);
-}
-
-.process-title {
 }
 
 .process-text-after {
@@ -538,7 +535,7 @@ div.globe-container {
 
 .hockey-img-wrapper {
   width: 100%;
-  min-width: 350px;
+  min-width: 300px;
 }
 
 .hockey-img-wrapper > img {
@@ -648,6 +645,14 @@ div.globe-container {
   border-radius: 0;
 }
 
+.deal-banner-wrapper {
+  width: 100%;
+}
+
+.deal-banner {
+  width: 100%;
+}
+
 /* ANIMATIONS */
 
 @keyframes fadeInSlideLeft {
@@ -696,20 +701,29 @@ div.globe-container {
   .hero-inner {
     margin-left: 0px !important;
   }
-}
 
-@media (min-width: 820px) {
-  .home-container {
-    padding-top: 80px;
-    height: 50vh;
+  .logistics-deal-logo.logo-visible {
+    width: 50vw;
+  }
+
+  .scroll-img_last,
+  .scroll-img {
+    margin-left: -70vw;
   }
 }
 
 @media screen and (max-width: 820px) {
-  .container-outer {
-    flex-direction: column;
-    align-items: center;
-    padding-top: 50px;
+  .scroll-img_last,
+  .scroll-img {
+    margin-left: -80vw;
+  }
+  .home-container {
+    padding-top: 80px;
+    height: 20vh;
+  }
+
+  .logistics-deal-img-container {
+    height: 300px;
   }
 
   .cgl-logo {
@@ -747,6 +761,9 @@ div.globe-container {
 
   .container-outer {
     height: 92vh;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 50px;
   }
 
   .nav-toggle {
@@ -764,6 +781,43 @@ div.globe-container {
 
   .service-freight-wrapper p {
     width: 95%;
+  }
+
+  .card-container {
+    display: grid;
+    grid-template-rows: 3fr;
+  }
+
+  .card {
+    width: 80%;
+    margin: 20px;
+    justify-self: center;
+    align-self: center;
+  }
+
+  .card img {
+    width: 130px;
+  }
+
+  .process-title {
+    padding-top: 4.6rem;
+  }
+
+  .hockey-wrapper {
+    display: grid;
+  }
+
+  .hockey-img-wrapper {
+    display: grid;
+    justify-self: center;
+    overflow: hidden;
+    height: 600px;
+  }
+
+  .hockey-img-wrapper > img {
+    width: 85%;
+    justify-self: center;
+    align-self: center;
   }
 }
 
@@ -788,6 +842,47 @@ div.globe-container {
 
   .scroll-down {
     bottom: 6%;
+  }
+
+  .hockey-img-wrapper {
+    height: 500px;
+  }
+  .hockey-img-wrapper > img {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .logistics-deal-img-container {
+    background: none;
+    height: 200px;
+  }
+  .logo-wrapper {
+    background: white;
+  }
+
+  .process-title,
+  .services-title {
+    padding-top: 3.2rem;
+  }
+
+  .hockey-title {
+    padding-top: 4.8rem;
+  }
+
+  .logistics-deal-logo {
+    opacity: 1;
+    min-width: 290px;
+    transform: translateY(0);
+  }
+
+  .card {
+    width: 95%;
+    padding: 20px;
+  }
+
+  .card-container {
+    padding-top: 1.8rem;
   }
 }
 
@@ -816,12 +911,16 @@ div.globe-container {
   .hero-content p {
     font-size: 1.2rem;
   }
-}
+  .hockey-title {
+    padding-top: 3.2rem;
+    padding-bottom: 1.8rem;
+  }
 
-.deal-banner-wrapper {
-  width: 100%;
-}
+  .hockey-img-wrapper {
+    height: 450px;
+  }
 
-.deal-banner {
-  width: 100%;
+  .hockey-text-wrapper {
+    padding: 0;
+  }
 }
