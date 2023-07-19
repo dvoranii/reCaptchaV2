@@ -52,6 +52,7 @@
     rgba(184, 184, 184, 0)
   );
   justify-content: center;
+  margin-top: 2.4rem;
 }
 
 .sporting-intro {
@@ -66,6 +67,19 @@
   margin: 20px;
   /* margin-bottom: -17px; */
 }
+
+.air,
+.truck {
+  justify-self: right;
+}
+.ocean,
+.warehouse {
+  justify-self: left;
+}
+/* 
+.ocean.grid-cell {
+  padding-top: 0 !important;
+} */
 
 .air > .title-wrapper,
 .ocean > .title-wrapper,
@@ -122,6 +136,8 @@ a,
   grid-template-columns: 1fr 2fr;
   grid-template-rows: repeat(4, 1fr);
   place-items: center;
+  row-gap: 9.6rem;
+  column-gap: 2.4rem;
 }
 
 .sporting-subtitle {
@@ -132,7 +148,7 @@ a,
 }
 
 .sporting-goods-grid img {
-  max-width: 400px;
+  /* max-width: 400px; */
   width: 100%;
 }
 
@@ -212,7 +228,7 @@ h1.ocean-freight-title {
   place-items: center;
   padding-top: 6.8rem;
   padding-bottom: 40px;
-  column-gap: 2.4rem;
+  column-gap: 4.8rem;
 }
 
 .section2 p {
@@ -255,11 +271,11 @@ h1.ocean-freight-title {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding-bottom: 3.6rem;
 }
 
-.hockey-title-wrapper > p {
+.hockey-text-wrapper {
   text-align: center;
+  padding: 4.8rem 0 4.8rem 0;
 }
 
 .hockey-and-sporting-title {
@@ -271,6 +287,11 @@ h1.ocean-freight-title {
   background-position: bottom;
   margin-bottom: 2.4rem;
   width: fit-content;
+  text-align: center;
+}
+
+.hockey-title-wrapper {
+  width: 100%;
 }
 
 .copy-container {
@@ -419,6 +440,10 @@ img.plane-icon {
   padding: 20px;
 }
 
+.ocean.grid-cell {
+  padding-top: 0px !important;
+}
+
 .grid-cell > .title-wrapper {
   justify-content: center;
 }
@@ -541,11 +566,44 @@ img.plane-icon {
   border-bottom: 1px solid white;
 }
 
-@media screen and (max-width: 686px) {
-  /* .title-wrapper > img {
-    display: none;
-  } */
+.hockey-video {
+  width: 100%;
+}
 
+.hockey-video-wrapper {
+  position: relative;
+}
+
+/* will be a three part animation, ending with CGL logo and CTA*/
+/* Background will fade to black */
+
+.test-p {
+  position: absolute;
+  top: 30%;
+  left: 20px;
+  color: #ffffff;
+  width: 30%;
+  opacity: 0;
+  transition: opacity 5s ease-in-out;
+}
+
+.test-p.animate-text {
+  opacity: 1;
+  animation: swipe-text 1.5s ease forwards;
+}
+
+@keyframes swipe-text {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+}
+
+@media screen and (max-width: 686px) {
   .air.grid-cell > .title-wrapper {
     padding-bottom: 0;
   }

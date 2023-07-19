@@ -19,6 +19,10 @@ window.addEventListener("DOMContentLoaded", () => {
   fetchAndSetCsrfToken("csrf-token");
 });
 
+window.reCaptchaVerified = function () {
+  errorCap.classList.remove("active");
+};
+
 if (myForm) {
   myForm.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -30,7 +34,7 @@ let emailRegEx = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 function validateContactForm(name, email, emailRegex) {
   let isValid = true;
-  // Check if name is empty
+
   if (name.trim() === "") {
     errorName.classList.add("active");
     isValid = false;
@@ -38,14 +42,13 @@ function validateContactForm(name, email, emailRegex) {
     errorName.classList.remove("active");
   }
 
-  // Check if email is empty
   if (email.trim() === "") {
     errorEmailEmpty.classList.add("active");
     errorEmailInvalid.classList.remove("active");
     isValid = false;
   } else {
     errorEmailEmpty.classList.remove("active");
-    // Check if email matches the regex
+
     if (emailRegex.test(email.trim())) {
       errorEmailInvalid.classList.remove("active");
     } else {
