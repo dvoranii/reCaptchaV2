@@ -570,21 +570,119 @@ img.plane-icon {
   width: 100%;
 }
 
-.hockey-video-wrapper {
-  position: relative;
-}
-
 /* will be a three part animation, ending with CGL logo and CTA*/
 /* Background will fade to black */
+
+.hockey-video-wrapper {
+  position: relative;
+  display: flex;
+}
+
+.background-div {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.background-div-1 {
+  background: linear-gradient(
+    to right,
+    transparent 50%,
+    rgba(0, 0, 0, 0.7) 100%
+  );
+}
+
+.background-div-2 {
+  background: linear-gradient(
+    to left,
+    transparent 50%,
+    rgba(0, 0, 0, 0.7) 100%
+  );
+}
+
+.background-div-1.animate-after {
+  animation: fade-in-out 4.5s ease;
+}
+.background-div-2.animate-after {
+  animation: fade-in 2.5s ease forwards;
+}
+
+.fade-in-only {
+  animation: fade-in 1.5s ease forwards;
+}
+
+.background-div-3 {
+  background: rgba(0, 0, 0, 0.75);
+}
+
+.hockey-vid-logo {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 750px;
+  opacity: 0;
+}
+
+.fade-in-logo {
+  animation: fade-in-logo 2s ease forwards;
+}
+
+@keyframes fade-in-logo {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -70%);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in-out {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
 
 .test-p {
   position: absolute;
   top: 30%;
-  left: 20px;
   color: #ffffff;
   width: 30%;
   opacity: 0;
-  transition: opacity 5s ease-in-out;
+  left: 5%;
+}
+
+.test-p-2 {
+  position: absolute;
+  top: 30%;
+  color: #ffffff;
+  width: 30%;
+  opacity: 0;
+  right: 5%;
 }
 
 .test-p.animate-text {
@@ -592,14 +690,61 @@ img.plane-icon {
   animation: swipe-text 1.5s ease forwards;
 }
 
+.test-p-2.animate-text {
+  opacity: 1;
+  animation: swipe-text-right 1.5s ease forwards, fade-out-text 1.5s 3s forwards;
+}
+
+.test-p.fade-out {
+  animation-name: fade-out-text;
+  animation-duration: 1s;
+  animation-delay: 2s;
+  animation-fill-mode: forwards;
+}
+
+.test-p-2.fade-out {
+  animation-name: fade-out-text;
+  animation-duration: 1s;
+  animation-delay: 1.5s;
+  animation-fill-mode: forwards;
+}
+
 @keyframes swipe-text {
   0% {
-    transform: translateX(100%);
+    transform: translateX(70%);
+    opacity: 0;
+  }
+  15% {
+    transform: translateX(47.5%);
     opacity: 0;
   }
   100% {
     transform: translateX(0%);
     opacity: 1;
+  }
+}
+
+@keyframes swipe-text-right {
+  0% {
+    transform: translateX(-70%);
+    opacity: 0;
+  }
+  15% {
+    transform: translateX(-47.5%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(-10%);
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out-text {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
   }
 }
 
