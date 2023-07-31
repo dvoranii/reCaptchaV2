@@ -17,31 +17,32 @@ let options = {
 
 let observer = new IntersectionObserver(handleIntersect, options);
 
+function wait(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+async function animateElements() {
+  testP.classList.add("animate-text");
+
+  await wait(1500);
+  testP.classList.add("fade-out");
+
+  await wait(2500);
+  testP2.classList.add("animate-text");
+  backgroundDiv2.classList.add("animate-after");
+
+  await wait(3750);
+  backgroundDiv3.classList.add("fade-in-only");
+
+  await wait(500);
+  logo.classList.add("fade-in-logo");
+}
+
 function handleIntersect(entries, observer) {
   entries.forEach((entry) => {
     if (entry.isIntersecting) {
       video.play();
-
-      testP.classList.add("animate-text");
-
-      setTimeout(() => {
-        testP.classList.add("fade-out");
-        setTimeout(() => {
-          testP2.classList.add("animate-text");
-          backgroundDiv1.classList.add("animate-after");
-          backgroundDiv2.classList.add("animate-after");
-
-          // Add fade-in animation to backgroundDiv3 after 4.5 seconds
-          setTimeout(() => {
-            backgroundDiv3.classList.add("fade-in-only");
-            setTimeout(() => {
-              logo.classList.add("fade-in-logo");
-            }, 500);
-          }, 3750);
-        }, 2500);
-      }, 1500);
-
-      backgroundDiv1.classList.add("animate-after");
+      animateElements();
     } else {
       video.pause();
       video.currentTime = 0;

@@ -8,7 +8,7 @@ const {
   addFirebaseContact,
   addQuoteRequestFormData,
 } = require("./third_party_modules/firebase");
-const { addSIBContact } = require("./third_party_modules/sendinblue");
+const { addSGContact } = require("./third_party_modules/sendGrid");
 
 const app = express();
 
@@ -53,7 +53,7 @@ app.post("/submit-contact", async (req, res) => {
     }
 
     try {
-      addSIBContact(reqName, reqEmail);
+      addSGContact(reqName, reqEmail);
       addFirebaseContact(reqEmail, reqName);
 
       return res.json({ success: true, msg: "Captcha passed!" });
