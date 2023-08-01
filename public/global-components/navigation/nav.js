@@ -294,6 +294,7 @@ export default function renderNavigation() {
     const clickEvent = isMobile ? "touchstart" : "click";
 
     navToggle.addEventListener(clickEvent, function () {
+      console.log(clickEvent);
       document.querySelector(".mobile-nav").classList.toggle("show");
 
       navToggle.classList.toggle("toggle-on");
