@@ -569,7 +569,7 @@ if (window.location.pathname === "/") {
   observer.observe(cglLogo);
 }
 
-console.log("Script running");
+console.log(window.location.pathname);
 
 if (window.location.pathname === "/services/transportation/warehouse/") {
   console.log("Path Matched!!!");
