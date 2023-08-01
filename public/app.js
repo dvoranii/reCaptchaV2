@@ -570,6 +570,7 @@ if (window.location.pathname === "/") {
 }
 
 if (window.location.pathname === "/services/transportation/warehouse/") {
+  console.log("Path Matched!!!");
   document.addEventListener("DOMContentLoaded", function () {
     const flickityElem = document.querySelector(".carousel");
 
