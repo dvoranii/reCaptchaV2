@@ -569,9 +569,6 @@ if (window.location.pathname === "/") {
   observer.observe(cglLogo);
 }
 
-console.log(window.location.pathname === "/services/transportation/warehouse");
-console.log(window.location.pathname === "/services/transportation/warehouse/");
-
 if (window.location.pathname === "/services/transportation/warehouse") {
   console.log("Path Matched!!!");
   document.addEventListener("DOMContentLoaded", function () {

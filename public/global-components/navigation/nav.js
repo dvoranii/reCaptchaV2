@@ -288,7 +288,12 @@ export default function renderNavigation() {
       });
     }
 
-    navToggle.addEventListener("click", function () {
+    const isMobile = window.matchMedia(
+      "only screen and (max-width: 820px)"
+    ).matches;
+    const clickEvent = isMobile ? "touchstart" : "click";
+
+    navToggle.addEventListener(clickEvent, function () {
       document.querySelector(".mobile-nav").classList.toggle("show");
 
       navToggle.classList.toggle("toggle-on");
