@@ -280,7 +280,9 @@ export default function renderNavigation() {
 
     let burgerLines = document.querySelectorAll(".nav-toggle div");
     const isHomePage = window.location.pathname === "/";
-    const isToggledOn = navToggle.classList.contains("toggle-on");
+
+    navToggle.addEventListener("click", navToggleHandler);
+    navToggle.addEventListener("touchstart", navToggleHandler);
 
     if (isHomePage) {
       burgerLines.forEach((line) => {
@@ -288,20 +290,14 @@ export default function renderNavigation() {
       });
     }
 
-    const isMobile = window.matchMedia(
-      "only screen and (max-width: 820px)"
-    ).matches;
-    const clickEvent = isMobile ? "touchstart" : "click";
-
-    navToggle.addEventListener(clickEvent, function () {
-      console.log(clickEvent);
+    function navToggleHandler(event) {
+      event.preventDefault();
       document.querySelector(".mobile-nav").classList.toggle("show");
 
       navToggle.classList.toggle("toggle-on");
 
       const isToggledOn = navToggle.classList.contains("toggle-on");
 
-      // Look into this margin issue
       if (isToggledOn) {
         burgerLines.forEach((line) => {
           line.style.margin = "6px 0px";
@@ -323,7 +319,7 @@ export default function renderNavigation() {
           line.style.backgroundColor = "#eeeeee";
         });
       }
-    });
+    }
   });
 }
 

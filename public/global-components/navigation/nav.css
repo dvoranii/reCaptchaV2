@@ -85,7 +85,7 @@ nav {
   background: transparent;
   border: none;
   cursor: pointer;
-  z-index: 101;
+  z-index: 99999999999999;
 }
 
 .nav-toggle div {
@@ -340,7 +340,7 @@ nav::before {
 }
 
 .services-submenu {
-  height: 58px !important;
+  height: 64px !important;
   left: 20px;
 }
 .contact-submenu {
