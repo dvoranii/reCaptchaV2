@@ -577,6 +577,9 @@ if (window.location.pathname === "/") {
   observer.observe(cglLogo);
 }
 
+// vercel environment: /services/transportation/warehouse
+// dev env includes trailing /
+
 if (window.location.pathname === "/services/transportation/warehouse") {
   document.addEventListener("DOMContentLoaded", function () {
     const flickityElem = document.querySelector(".carousel");
