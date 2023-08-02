@@ -557,24 +557,24 @@ if (window.location.pathname === "/") {
 
   const cglLogo = document.querySelector(".logistics-deal-logo");
 
-  let observer = new IntersectionObserver(
-    (entries, observer) => {
-      entries.forEach((entry) => {
-        if (entry.intersectionRatio > 0.5) {
-          entry.target.classList.add("logo-visible");
-        } else {
-          entry.target.classList.remove("logo-visible");
-        }
-      });
-    },
-    {
-      root: null,
-      rootMargin: "-150px",
-      threshold: 0.5,
-    }
-  );
+  // let observer = new IntersectionObserver(
+  //   (entries, observer) => {
+  //     entries.forEach((entry) => {
+  //       if (entry.intersectionRatio > 0.5) {
+  //         entry.target.classList.add("logo-visible");
+  //       } else {
+  //         entry.target.classList.remove("logo-visible");
+  //       }
+  //     });
+  //   },
+  //   {
+  //     root: null,
+  //     rootMargin: "-150px",
+  //     threshold: 0.5,
+  //   }
+  // );
 
-  observer.observe(cglLogo);
+  // observer.observe(cglLogo);
 }
 
 // vercel environment: /services/transportation/warehouse
