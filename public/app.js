@@ -5,6 +5,8 @@ import renderFooter from "./global-components/footer/footer.js";
 renderNavigation();
 renderFooter();
 
+//   window.matchMedia("(min-width: 481px)").matches || window.innerWidth > 480
+
 // Home page code
 if (window.location.pathname === "/") {
   const heroLogo = document.querySelector(".cgl-logo");
@@ -32,6 +34,7 @@ if (window.location.pathname === "/") {
       autoPlay: false,
       friction: 0.8,
       selectedAttraction: 0.03,
+      lazyLoad: true,
     });
   });
 
@@ -574,7 +577,7 @@ if (window.location.pathname === "/") {
   observer.observe(cglLogo);
 }
 
-if (window.location.pathname === "/services/transportation/warehouse") {
+if (window.location.pathname === "/services/transportation/warehouse/") {
   document.addEventListener("DOMContentLoaded", function () {
     const flickityElem = document.querySelector(".carousel");
 
@@ -585,6 +588,7 @@ if (window.location.pathname === "/services/transportation/warehouse") {
       autoPlay: 4000,
       friction: 0.8,
       selectedAttraction: 0.03,
+      lazyLoad: true,
     });
   });
 }

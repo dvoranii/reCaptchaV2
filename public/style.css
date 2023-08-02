@@ -584,58 +584,10 @@ div.globe-container {
   transform: translate(-50%, -50%);
 }
 
-.cell-1 {
-  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url("/assets/crates.jpg") no-repeat center center;
-  /* filter: saturate(0); */
-  background-size: cover;
-  position: relative;
+.cell-1 img,
+.cell-2 img,
+.cell-3 img {
   width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.home-carousel_span-1,
-.home-carousel_span-2,
-.home-carousel_span-3 {
-  z-index: 99999;
-  font-size: 60px;
-  color: #efefef;
-  letter-spacing: 0.5px;
-  font-family: "Merriweather Sans";
-  text-shadow: 2px 2px 8px rgba(0, 80, 253, 0.603);
-}
-
-.cell-2 {
-  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url("/assets/hockey-home-carousel.jpg") no-repeat center 70%;
-  background-size: cover;
-  position: relative;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.cell-3 {
-  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url("/assets/delivery.png") no-repeat center top;
-  background-size: 100%;
-  background-position: center;
-  position: relative;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.home-cell:before {
-  display: block;
-  text-align: center;
-  line-height: 200px;
-  font-size: 80px;
-  color: white;
 }
 
 .flickity-page-dots .dot {
