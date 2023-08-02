@@ -884,11 +884,6 @@ div.globe-container {
   .card-container {
     padding-top: 1.8rem;
   }
-
-  /* test */
-  #canvasContainer {
-    display: none !important;
-  }
 }
 
 @media screen and (max-width: 390px) {

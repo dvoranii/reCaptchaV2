@@ -395,157 +395,162 @@ if (window.location.pathname === "/") {
     });
   });
 
-  // =========================================
-
-  const anim3 = basicScroll.create({
-    elem: document.querySelector(".bg"),
-    from: "viewport-top",
-    to: "top-top",
-    direct: true,
-    duration: 1000,
-    props: {
-      "--bg-opacity": {
-        from: "1",
-        to: "0.01",
-      },
-    },
-  });
-
-  anim3.start();
-
-  // rectangle grid
-  const gridPattern1 = document.querySelector(".scroll-img");
-  const gridPattern2 = document.querySelector(".scroll-img-2");
-
-  const gridPattern3 = document.querySelector(".scroll-img_last");
-  const gridPattern4 = document.querySelector(".scroll-img-2_last");
-
-  const scrollImgInstance1 = basicScroll.create({
-    elem: gridPattern1,
-    from: "top-bottom",
-    to: "bottom-top",
-    direct: true,
-    props: {
-      "--translateX": {
-        from: "0vw",
-        to: "20vw",
-      },
-    },
-  });
-
-  scrollImgInstance1.start();
-
-  const scrollImgInstance2 = basicScroll.create({
-    elem: gridPattern2,
-    from: "top-bottom",
-    to: "bottom-top",
-    direct: true,
-    props: {
-      "--translateX": {
-        from: "-20vw",
-        to: "0vw",
-      },
-    },
-  });
-
-  scrollImgInstance2.start();
-
-  // =========================
-
-  const scrollImgInstance3 = basicScroll.create({
-    elem: gridPattern3,
-    from: "top-bottom",
-    to: "bottom-top",
-    direct: true,
-    props: {
-      "--translateX": {
-        from: "0vw",
-        to: "20vw",
-      },
-    },
-  });
-
-  scrollImgInstance3.start();
-
-  const scrollImgInstance4 = basicScroll.create({
-    elem: gridPattern4,
-    from: "top-bottom",
-    to: "bottom-top",
-    direct: true,
-    props: {
-      "--translateX": {
-        from: "-20vw",
-        to: "0vw",
-      },
-    },
-  });
-
-  scrollImgInstance4.start();
-
-  document.querySelectorAll(".card").forEach((card, i) => {
-    basicScroll
-      .create({
-        elem: card,
-        from: "top-bottom",
-        to: "bottom-center",
-        direct: true,
-        props: {
-          "--shadowOpacity": {
-            from: "0.1",
-            to: "0.6",
-          },
-          "--shadowBlur": {
-            from: "5px",
-            to: "25px",
-          },
-
-          "--imgOpacity": {
-            from: "0",
-            to: "1",
-          },
+  // Only use basic scroll on tablet and desktop
+  // will test if it works on tablet
+  if (
+    window.matchMedia("(min-width: 481px)").matches ||
+    window.innerWidth > 480
+  ) {
+    const anim3 = basicScroll.create({
+      elem: document.querySelector(".bg"),
+      from: "viewport-top",
+      to: "top-top",
+      direct: true,
+      duration: 1000,
+      props: {
+        "--bg-opacity": {
+          from: "1",
+          to: "0.01",
         },
-      })
-      .start();
-  });
-
-  document.querySelectorAll(".card img").forEach((cardImg, i) => {
-    basicScroll
-      .create({
-        elem: cardImg,
-        from: "top-bottom",
-        to: "bottom-center",
-        direct: true,
-        props: {
-          "--imgBrightness": {
-            from: "1",
-            to: "1.1",
-          },
-
-          "--imgSize": {
-            from: "1",
-            to: "1.25",
-          },
-        },
-      })
-      .start();
-  });
-
-  const logoWrapper = document.querySelector(".logo-wrapper");
-  scrollImgInstance1.start();
-  const bgDarken = basicScroll.create({
-    elem: logoWrapper,
-    from: "top-bottom",
-    to: "top-center",
-    direct: true,
-    props: {
-      "--bgOpacity": {
-        from: "0",
-        to: "0.45",
       },
-    },
-  });
+    });
 
-  bgDarken.start();
+    anim3.start();
+
+    // rectangle grid
+    const gridPattern1 = document.querySelector(".scroll-img");
+    const gridPattern2 = document.querySelector(".scroll-img-2");
+
+    const gridPattern3 = document.querySelector(".scroll-img_last");
+    const gridPattern4 = document.querySelector(".scroll-img-2_last");
+
+    const scrollImgInstance1 = basicScroll.create({
+      elem: gridPattern1,
+      from: "top-bottom",
+      to: "bottom-top",
+      direct: true,
+      props: {
+        "--translateX": {
+          from: "0vw",
+          to: "20vw",
+        },
+      },
+    });
+
+    scrollImgInstance1.start();
+
+    const scrollImgInstance2 = basicScroll.create({
+      elem: gridPattern2,
+      from: "top-bottom",
+      to: "bottom-top",
+      direct: true,
+      props: {
+        "--translateX": {
+          from: "-20vw",
+          to: "0vw",
+        },
+      },
+    });
+
+    scrollImgInstance2.start();
+
+    // =========================
+
+    const scrollImgInstance3 = basicScroll.create({
+      elem: gridPattern3,
+      from: "top-bottom",
+      to: "bottom-top",
+      direct: true,
+      props: {
+        "--translateX": {
+          from: "0vw",
+          to: "20vw",
+        },
+      },
+    });
+
+    scrollImgInstance3.start();
+
+    const scrollImgInstance4 = basicScroll.create({
+      elem: gridPattern4,
+      from: "top-bottom",
+      to: "bottom-top",
+      direct: true,
+      props: {
+        "--translateX": {
+          from: "-20vw",
+          to: "0vw",
+        },
+      },
+    });
+
+    scrollImgInstance4.start();
+
+    document.querySelectorAll(".card").forEach((card, i) => {
+      basicScroll
+        .create({
+          elem: card,
+          from: "top-bottom",
+          to: "bottom-center",
+          direct: true,
+          props: {
+            "--shadowOpacity": {
+              from: "0.1",
+              to: "0.6",
+            },
+            "--shadowBlur": {
+              from: "5px",
+              to: "25px",
+            },
+
+            "--imgOpacity": {
+              from: "0",
+              to: "1",
+            },
+          },
+        })
+        .start();
+    });
+
+    document.querySelectorAll(".card img").forEach((cardImg, i) => {
+      basicScroll
+        .create({
+          elem: cardImg,
+          from: "top-bottom",
+          to: "bottom-center",
+          direct: true,
+          props: {
+            "--imgBrightness": {
+              from: "1",
+              to: "1.1",
+            },
+
+            "--imgSize": {
+              from: "1",
+              to: "1.25",
+            },
+          },
+        })
+        .start();
+    });
+
+    const logoWrapper = document.querySelector(".logo-wrapper");
+    scrollImgInstance1.start();
+    const bgDarken = basicScroll.create({
+      elem: logoWrapper,
+      from: "top-bottom",
+      to: "top-center",
+      direct: true,
+      props: {
+        "--bgOpacity": {
+          from: "0",
+          to: "0.45",
+        },
+      },
+    });
+
+    bgDarken.start();
+  }
 
   const cglLogo = document.querySelector(".logistics-deal-logo");
 
