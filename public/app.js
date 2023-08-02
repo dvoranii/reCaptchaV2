@@ -577,7 +577,7 @@ if (window.location.pathname === "/") {
   observer.observe(cglLogo);
 }
 
-if (window.location.pathname === "/services/transportation/warehouse/") {
+if (window.location.pathname === "/services/transportation/warehouse") {
   document.addEventListener("DOMContentLoaded", function () {
     const flickityElem = document.querySelector(".carousel");
 
