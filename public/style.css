@@ -17,7 +17,7 @@ body {
   position: relative;
 }
 
-/* body::before {
+body::before {
   content: "";
   background-image: url("/assets/paper-background.jpg");
   -webkit-background-size: cover;
@@ -31,7 +31,7 @@ body {
   right: 0;
   position: absolute;
   z-index: -1;
-} */
+}
 .container {
   max-width: 1400px;
   margin: 0 auto;
@@ -785,7 +785,8 @@ div.globe-container {
 
 @media screen and (max-width: 540px) {
   #canvasContainer {
-    margin-top: -55px !important;
+    /* margin-top: -55px !important; */
+    display: none;
   }
   .btn-container.btn-mobile {
     top: -80px !important;
