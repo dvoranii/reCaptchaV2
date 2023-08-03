@@ -400,187 +400,117 @@ if (window.location.pathname === "/") {
 
   // Only use basic scroll on tablet and desktop
   // will test if it works on tablet
+  function createScrollAnimation(element, from, to, props) {
+    const instance = basicScroll.create({
+      elem: element,
+      from: from,
+      to: to,
+      direct: true,
+      props: props,
+    });
+
+    instance.start();
+    return instance;
+  }
+
+  function animateElements(selector, from, to, props) {
+    document.querySelectorAll(selector).forEach((element) => {
+      createScrollAnimation(element, from, to, props);
+    });
+  }
+
   if (
     window.matchMedia("(min-width: 481px)").matches ||
     window.innerWidth > 480
   ) {
-    const anim3 = basicScroll.create({
-      elem: document.querySelector(".bg"),
-      from: "viewport-top",
-      to: "top-top",
-      direct: true,
-      duration: 1000,
-      props: {
+    createScrollAnimation(
+      document.querySelector(".bg"),
+      "viewport-top",
+      "top-top",
+      {
         "--bg-opacity": {
           from: "1",
           to: "0.01",
         },
-      },
-    });
+      }
+    );
 
-    anim3.start();
-
-    // rectangle grid
-    const gridPattern1 = document.querySelector(".scroll-img");
-    const gridPattern2 = document.querySelector(".scroll-img-2");
-
-    const gridPattern3 = document.querySelector(".scroll-img_last");
-    const gridPattern4 = document.querySelector(".scroll-img-2_last");
-
-    const scrollImgInstance1 = basicScroll.create({
-      elem: gridPattern1,
-      from: "top-bottom",
-      to: "bottom-top",
-      direct: true,
-      props: {
-        "--translateX": {
-          from: "0vw",
-          to: "20vw",
-        },
-      },
-    });
-
-    scrollImgInstance1.start();
-
-    const scrollImgInstance2 = basicScroll.create({
-      elem: gridPattern2,
-      from: "top-bottom",
-      to: "bottom-top",
-      direct: true,
-      props: {
-        "--translateX": {
-          from: "-20vw",
-          to: "0vw",
-        },
-      },
-    });
-
-    scrollImgInstance2.start();
-
-    // =========================
-
-    const scrollImgInstance3 = basicScroll.create({
-      elem: gridPattern3,
-      from: "top-bottom",
-      to: "bottom-top",
-      direct: true,
-      props: {
-        "--translateX": {
-          from: "0vw",
-          to: "20vw",
-        },
-      },
-    });
-
-    scrollImgInstance3.start();
-
-    const scrollImgInstance4 = basicScroll.create({
-      elem: gridPattern4,
-      from: "top-bottom",
-      to: "bottom-top",
-      direct: true,
-      props: {
-        "--translateX": {
-          from: "-20vw",
-          to: "0vw",
-        },
-      },
-    });
-
-    scrollImgInstance4.start();
-
-    document.querySelectorAll(".card").forEach((card, i) => {
-      basicScroll
-        .create({
-          elem: card,
-          from: "top-bottom",
-          to: "bottom-center",
-          direct: true,
-          props: {
-            "--shadowOpacity": {
-              from: "0.1",
-              to: "0.6",
-            },
-            "--shadowBlur": {
-              from: "5px",
-              to: "25px",
-            },
-
-            "--imgOpacity": {
-              from: "0",
-              to: "1",
-            },
+    ["", "-2", "_last", "-2_last"].forEach((suffix, index) => {
+      createScrollAnimation(
+        document.querySelector(`.scroll-img${suffix}`),
+        "top-bottom",
+        "bottom-top",
+        {
+          "--translateX": {
+            from: index % 2 === 0 ? "0vw" : "-20vw",
+            to: index % 2 === 0 ? "20vw" : "0vw",
           },
-        })
-        .start();
+        }
+      );
     });
 
-    document.querySelectorAll(".card img").forEach((cardImg, i) => {
-      basicScroll
-        .create({
-          elem: cardImg,
-          from: "top-bottom",
-          to: "bottom-center",
-          direct: true,
-          props: {
-            "--imgBrightness": {
-              from: "1",
-              to: "1.1",
-            },
-
-            "--imgSize": {
-              from: "1",
-              to: "1.25",
-            },
-          },
-        })
-        .start();
+    animateElements(".card", "top-bottom", "bottom-center", {
+      "--shadowOpacity": {
+        from: "0.1",
+        to: "0.6",
+      },
+      "--shadowBlur": {
+        from: "5px",
+        to: "25px",
+      },
+      "--imgOpacity": {
+        from: "0",
+        to: "1",
+      },
     });
 
-    const logoWrapper = document.querySelector(".logo-wrapper");
-    scrollImgInstance1.start();
-    const bgDarken = basicScroll.create({
-      elem: logoWrapper,
-      from: "top-bottom",
-      to: "top-center",
-      direct: true,
-      props: {
+    animateElements(".card img", "top-bottom", "bottom-center", {
+      "--imgBrightness": {
+        from: "1",
+        to: "1.1",
+      },
+      "--imgSize": {
+        from: "1",
+        to: "1.25",
+      },
+    });
+
+    createScrollAnimation(
+      document.querySelector(".logo-wrapper"),
+      "top-bottom",
+      "top-center",
+      {
         "--bgOpacity": {
           from: "0",
           to: "0.45",
         },
-      },
-    });
-
-    bgDarken.start();
+      }
+    );
   }
 
   const cglLogo = document.querySelector(".logistics-deal-logo");
 
-  // let observer = new IntersectionObserver(
-  //   (entries, observer) => {
-  //     entries.forEach((entry) => {
-  //       if (entry.intersectionRatio > 0.5) {
-  //         entry.target.classList.add("logo-visible");
-  //       } else {
-  //         entry.target.classList.remove("logo-visible");
-  //       }
-  //     });
-  //   },
-  //   {
-  //     root: null,
-  //     rootMargin: "-150px",
-  //     threshold: 0.5,
-  //   }
-  // );
+  let observer = new IntersectionObserver(
+    (entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.intersectionRatio > 0.5) {
+          entry.target.classList.add("logo-visible");
+        } else {
+          entry.target.classList.remove("logo-visible");
+        }
+      });
+    },
+    {
+      root: null,
+      rootMargin: "-150px",
+      threshold: 0.5,
+    }
+  );
 
-  // observer.observe(cglLogo);
+  observer.observe(cglLogo);
 }
 
-// vercel environment: /services/transportation/warehouse
-// dev env includes trailing /
-
-if (window.location.pathname === "/services/transportation/warehouse") {
+if (window.location.pathname === "/services/transportation/warehouse/") {
   document.addEventListener("DOMContentLoaded", function () {
     const flickityElem = document.querySelector(".carousel");
 

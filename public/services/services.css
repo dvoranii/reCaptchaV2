@@ -76,16 +76,16 @@
 .warehouse {
   justify-self: left;
 }
-/* 
-.ocean.grid-cell {
-  padding-top: 0 !important;
-} */
 
 .air > .title-wrapper,
 .ocean > .title-wrapper,
 .truck > .title-wrapper,
 .warehouse > .title-wrapper {
   margin-left: -30px;
+}
+
+.container.warehouse-container p:last-child {
+  height: 100vh;
 }
 
 .title-wrapper img.boat-icon {
@@ -348,7 +348,6 @@ img.plane-icon {
   animation: fadeInSlideDown 1s ease-in-out forwards;
   animation-fill-mode: forwards;
   margin-bottom: 3.2rem;
-  padding-top: 1.2rem;
 }
 
 .flickity-viewport {
