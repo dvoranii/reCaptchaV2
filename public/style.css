@@ -13,9 +13,9 @@ body {
   font-size: 62.5%;
 }
 
-body {
+/* body {
   position: relative;
-}
+} */
 
 body::before {
   content: "";
@@ -512,34 +512,25 @@ div.globe-container {
 
 .scroll-img,
 .scroll-img_last {
-  position: absolute;
   height: 60px;
-  left: 100%;
+  margin-left: -40vw;
   opacity: 0.5;
-  transform: translateX(var(--translateX, 0));
+  transform: translateX(var(--translateX, calc(-100vw - 60px)));
   margin-top: 20px;
 }
 
 .scroll-img-2,
 .scroll-img-2_last {
-  position: absolute;
-  height: 60px;
-  right: 100%;
+  margin-left: 70vw;
   opacity: 0.5;
-  transform: translateX(var(--translateX, 0));
+  transform: translateX(var(--translateX, calc(100vw + 60px)));
   margin-top: 80px;
 }
 
 .scroll-grid-container,
 .scroll-grid-container-2 {
-  position: relative;
   display: flex;
   padding-top: 6.8rem;
-}
-
-.scroll-img-placeholder {
-  height: 60px;
-  margin-top: 20px;
 }
 
 .hockey-img-wrapper {
